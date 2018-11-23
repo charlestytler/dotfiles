@@ -331,7 +331,7 @@ alias dump="mv ~/.grab/* ."
 
 
 ######## Prequisites for some functions ##############
-for prereq in fzf fd rg; do
+for prereq in fzf fd rg xclip; do
     if [ -z `which $prereq` ]; then
         echo "Warning: $prereq not installed"
     fi

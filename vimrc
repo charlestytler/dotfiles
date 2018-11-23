@@ -16,26 +16,16 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" ATG Plugins
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" atg-phab requires maktaba to be installed.
-" Vundle doesn't manage dependencies, so you've got to do this manually!
-" Plugin 'google/maktaba'
-" `open-browser.vim` isn't *strictly* required.
-" But, it enables the browser functionality, so you almost certainly want it!
+Plugin 'google/maktaba'
 Plugin 'tyru/open-browser.vim'
-
-" Plugin 'google/vim-glaive'
-" Plugin 'google/vim-codefmt'
-
+Plugin 'google/vim-glaive'
+Plugin 'google/vim-codefmt'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Yggdroot/indentLine'
 Plugin 'Valloric/YouCompleteMe'
 " Plugin 'vim-syntastic/syntastic'
 " Plugin 'w0rp/ale'
 Plugin 'martong/vim-compiledb-path'
-
-
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
@@ -47,8 +37,6 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-rooter'
 Plugin 'ConradIrwin/vim-bracketed-paste'
-Plugin 'JamshedVesuna/vim-markdown-preview'
-
 Plugin 'bronson/vim-trailing-whitespace'
 "Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -74,16 +62,6 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-
-
-
-" Auto formatting
-augroup autoformat
-    autocmd!
-    autocmd FileType cpp AutoFormatBuffer
-augroup END
-
-
 
 
 " Timing for gitgutter
@@ -179,18 +157,21 @@ nnoremap <leader>F :YcmCompleter FixIt<CR>
 "let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
-" augroup autoformat
-"     autocmd!
-"     " autocmd FileType bzl AutoFormatBuffer buildifier
-"     autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-"     " autocmd FileType dart AutoFormatBuffer dartfmt
-"     " autocmd FileType go AutoFormatBuffer gofmt
-"     " autocmd FileType gn AutoFormatBuffer gn
-"     " autocmd FileType html,css,json AutoFormatBuffer js-beautify
-"     " autocmd FileType java AutoFormatBuffer google-java-format
-"     autocmd FileType python AutoFormatBuffer autopep8
-" augroup END
+"vim-codefmt
+"
+augroup autoformat
+    autocmd!
+    " autocmd FileType bzl AutoFormatBuffer buildifier
+    autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+    " autocmd FileType dart AutoFormatBuffer dartfmt
+    autocmd FileType go AutoFormatBuffer gofmt
+    " autocmd FileType gn AutoFormatBuffer gn
+    " autocmd FileType html,css,json AutoFormatBuffer js-beautify
+    autocmd FileType java AutoFormatBuffer google-java-format
+    autocmd FileType python AutoFormatBuffer autopep8
+augroup END
 
 set textwidth=0
 set colorcolumn=120
