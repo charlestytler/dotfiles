@@ -58,6 +58,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -298,8 +299,8 @@ nmap +  :resize +10<CR>
 
 
 " Navigate between split windows with Ctrl + h,j,k,l
-nmap <C-k> :wincmd k<CR>
-nmap <C-j> :wincmd j<CR>
+"nmap <C-k> :wincmd k<CR>
+"nmap <C-j> :wincmd j<CR>
 "nmap <C-h> :wincmd h<CR>
 "nmap <C-l> :wincmd l<CR>
 " If there are multiple windows: navigate windows, otherwise: navigate buffers
