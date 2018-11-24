@@ -59,19 +59,7 @@ alias l='ls -CFx'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
-#alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-
-
-
-########## ssh-agent setup Method 2     ################################
-
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-  eval `ssh-agent`
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-ssh-add -l | grep "The agent has no identities" && ssh-add
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 
 
@@ -321,6 +309,16 @@ grab(){
 #alias dump="ls -d /tmp/ccopy* | sed 's|[^\.]*.\.||' | xargs -I % mv /tmp/ccopy.% ./%"
 alias dump="mv ~/.grab/* ."
 
+
+########### ssh-agent setup Method 2     ################################
+#
+#if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+#  eval `ssh-agent`
+#    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+#fi
+#export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+#ssh-add -l | grep "The agent has no identities" && ssh-add
+#
 
 ################## TMUX #############################
 # # Start TMUX if it is not already running
