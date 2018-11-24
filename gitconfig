@@ -1,0 +1,28 @@
+[core]
+	editor = vim
+[merge]
+	tool = meld
+	conflictstyle = diff3
+	defaultToUpstream = true
+[alias]
+    di=diff HEAD~1
+    st=status
+    br=branch
+    ci=commit
+    co=checkout
+    sh=show --format=oneline --name-only
+    amend=commit --amend --no-edit
+    abort=cherry-pick --abort
+    continue=cherry-pick --continue
+    # Simpler diff
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    # Graphical git log in your terminal
+    lg=log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --branches=*
+    lg1=log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    logg=log --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    # Detailed view of branches by age
+    bl=for-each-ref --sort=-committerdate --format='%(color:red)%(objectname:short) %(color:green)%(committerdate:relative) %(color:reset)%(refname:short) %(color:blue)%(authorname)' refs/heads/
+[pull]
+	rebase = true
+[mergetool]
+	keepBackup = false

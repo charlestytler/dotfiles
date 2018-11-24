@@ -13,6 +13,12 @@ ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
 To source bashrc while retaining computer-specific settings:  
 `echo "source ~/dotfiles/bashrc" >> ~/.bashrc`  
 
+To include file in .gitconfig add the following:
+```
+[include]
+    path = ~/dotfiles/gitconfig
+```
+
 Dependency installations needed for all functions:  
 https://github.com/sharkdp/fd  
 https://github.com/junegunn/fzf#installation  
