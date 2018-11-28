@@ -170,7 +170,7 @@ augroup autoformat
     " autocmd FileType gn AutoFormatBuffer gn
     " autocmd FileType html,css,json AutoFormatBuffer js-beautify
     autocmd FileType java AutoFormatBuffer google-java-format
-    autocmd FileType python AutoFormatBuffer autopep8
+    autocmd FileType python AutoFormatBuffer autopep8 --max-line-length=100
 augroup END
 
 set textwidth=0

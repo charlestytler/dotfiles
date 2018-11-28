@@ -20,6 +20,9 @@ alias sbash="source ~/.bashrc"
 alias jup2html="jupyter nbconvert --to html_embed"
 # ripgrep throws errors for ** wildcards in .gitignore, therefore hide errors
 alias rg="rg 2> /dev/null"
+alias shortprompt="PROMPT_DIRTRIM=1"
+alias longprompt="PROMPT_DIRTRIM=3"
+alias fullprompt="PROMPT_DIRTRIM=0"
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
