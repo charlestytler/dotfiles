@@ -63,6 +63,15 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" Vim Tmux Navigator
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+"nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+
 
 " Timing for gitgutter
 set updatetime=100
@@ -285,8 +294,8 @@ nmap +  :resize +10<CR>
 "nmap <C-h> :wincmd h<CR>
 "nmap <C-l> :wincmd l<CR>
 " If there are multiple windows: navigate windows, otherwise: navigate buffers
-nmap <expr> <C-h> winnr('$')>1 ? ":wincmd h<CR>" : ":bp<CR>"
-nmap <expr> <C-l> winnr('$')>1 ? ":wincmd l<CR>" : ":bn<CR>"
+"nmap <expr> <C-h> winnr('$')>1 ? ":wincmd h<CR>" : ":bp<CR>"
+"nmap <expr> <C-l> winnr('$')>1 ? ":wincmd l<CR>" : ":bn<CR>"
 
 
 " Navigate between buffers
@@ -295,11 +304,14 @@ map <F10> :bn<CR>
 nmap <F11> :Buffers<CR>
 map <S-F11> :enew<CR>
 vnoremap <F11> y\| :exec "tabe" fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
-"map <F12> :bd<CR>
 map <F12> :bp\|bd #<CR>
-map K :bp\|bd #<CR>
 map <S-F12> :close!<CR>
 
+nnoremap ( :bp<CR>
+nnoremap ) :bn<CR>
+nnoremap - :Buffers<CR>
+nnoremap = :bp\|bd #<CR>
+nnoremap <leader>= :close!<CR>
 
 " Refresh buffers
 set autoread
