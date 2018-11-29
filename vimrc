@@ -261,6 +261,8 @@ nnoremap <leader>f :call AutoFixSilent()<CR>
 " "Open in current window (:e command)
 " vnoremap <F8> y \| :exec "e" fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
 
+" Flash cursor position
+:nnoremap <CR> :set cul cuc<cr>:sleep 50m<cr>:set nocul nocuc<cr>/<BS>
 
 " window
 nmap <C-w><left>  :topleft  vnew<CR>
