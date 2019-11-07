@@ -1,0 +1,67 @@
+*myhelp.txt*	For NVIM version 0.2.0	Last change: 2017-11-18
+*myhelp*
+
+Charlie's personal cheat sheet for Vim.
+
+===============================================================================
+CONTENTS
+
+	1. Semantic Code Navigation and Modification.....................|myhelp-code|
+	2. Git...........................................................|myhelp-git|
+	3. Movement......................................................|myhelp-movement|
+	4. Specialty Tools...............................................|myhelp-specialty|
+	5. Settings......................................................|myhelp-settings|
+
+===============================================================================
+1. Semantic Code Navigation and Modification                    *myhelp-code*
+
+gd - Jump to Definition             ge - List diagnostic errors
+gr - Jump to References             \F - Fix error
+go - List Outline (Functions)       \f - Format selection
+gs - List Symbols                   \r - Rename variable
+<CR> Highlight current object       gc - Comment out
+gi - Info hover for object          gcc - Comment out single line
+\h - Goto header/source             \ww - Fix trailing whitespace
+
+===============================================================================
+2. Git                                                          *myhelp-git*
+
+]c,ghn - Next hunk          ghu - Hunk undo
+[c,ghp - Prev hunk          ghs - Hunk stage
+ghf - Fold git hunks        ghp - Hunk preview
+:G - git status             :Gdiff, :GBlame
+:{range}Gclog - Git change log for selection
+
+===============================================================================
+3. Movement                                                   *myhelp-movement*
+
+<SPACE> - Open fold             \<SPACE> - Close all folds
+<C-SPACE> - Close fold          \<C-SPACE> - Open all folds
+]f, [f - Next, Prev fold
+
+g; - Find in repo (fzf-ripgrep)     ; - Find in buffers (fzf-ripgrep)
+
+g/ - Easy motion search
+gj, gk, gl - Easy motion movement
+s, S - Easy motion seek (2 chars)
+ys <t/a/i/w/s> <),},]> - You surround to/about/in/word/line with ()/{}/[]
+ds( - delete surrounding ()
+
+g{*,#} - Unbounded current word search
+
+<C-\> - Open/close Tree         \t - Open Tree at current file
+
+===============================================================================
+4. Specialty Tools                                           *myhelp-specialty*
+
+:EasyAlign - Provide char to align to (<C-x> to allow alpha or regex chars)
+:call UpdatePath() - Refresh compile paths for goto file (gf)
+
+===============================================================================
+5. Settings                                                  *myhelp-settings*
+
+F1 - Line numbers
+F2 - Word Wrap
+F4 - Hightlight Search
+
+# vim: filetype=help:ts=2

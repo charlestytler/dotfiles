@@ -1,67 +1,48 @@
 "Set to 256 colors
 set t_Co=256
 
-"""    VUNDLE Configuration & Plugins Below
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Make sure you use single quotes
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.fzf
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+Plug 'tinyheero/vim-myhelp' " Personal vim-cheatsheet
+Plug 'rainglow/vim'
+Plug 'google/maktaba'
+Plug 'tyru/open-browser.vim'
+Plug 'google/vim-glaive'
+Plug 'google/vim-codefmt'
+Plug 'tpope/vim-fugitive'
+Plug 'Yggdroot/indentLine'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'martong/vim-compiledb-path'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
+Plug 'tomtom/tcomment_vim'
+Plug 'rhysd/clever-f.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'airblade/vim-rooter'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'Valloric/ListToggle'
+"Plug davidhalter/jedi-vim
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'easymotion/vim-easymotion'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/vim-slash' " Automatically clears search highlight, * search in place
+Plug 'junegunn/vim-easy-align'  " Align text about single character each line (e.g. =, |, etc.)
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" Plugin outside ~/.vim/plugged with post-update hook
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'google/maktaba'
-Plugin 'tyru/open-browser.vim'
-Plugin 'google/vim-glaive'
-Plugin 'google/vim-codefmt'
-Plugin 'tpope/vim-fugitive'
-Plugin 'Yggdroot/indentLine'
-Plugin 'Valloric/YouCompleteMe'
-" Plugin 'vim-syntastic/syntastic'
-" Plugin 'w0rp/ale'
-Plugin 'martong/vim-compiledb-path'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'airblade/vim-gitgutter'
-"Plugin 'mhinz/vim-signify'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'justinmk/vim-sneak'
-Plugin 'rhysd/clever-f.vim'
-Plugin 'junegunn/fzf.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'airblade/vim-rooter'
-Plugin 'ConradIrwin/vim-bracketed-paste'
-Plugin 'bronson/vim-trailing-whitespace'
-"Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-"Plugin 'Valloric/ListToggle'
-"Plugin 'davidhalter/jedi-vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'christoomey/vim-tmux-navigator'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" Initialize plugin system
+call plug#end()
 
 " Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
@@ -156,17 +137,8 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:sneak#s_next = 1
 
 " OpenBrowser
-"let g:netrw_nogx = 1 " disable netrw's gx mapping. 
+"let g:netrw_nogx = 1 " disable netrw's gx mapping.
 "
-
-"YouCompleteMe
-"
-nnoremap <leader>F :YcmCompleter FixIt<CR>
-
-"let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_global_ycm_extra_conf = '~/dotfiles/ycm_extra_conf.py'
 
 "vim-codefmt
 "
@@ -192,60 +164,79 @@ let g:rooter_silent_chdir = 1
 " Vim Trailer Whitespace Shortcuts
 nnoremap <leader>ww :FixWhitespace<CR>
 
-" Syntastic {
-    let g:syntastic_enable_signs=1
-    let g:syntastic_python_checkers=['flake8']
-    let g:syntastic_python_flake8_args = "--max-line-length=120"
-    let g:syntastic_cpp_include_dirs = ['source', 'build/source', '/usr/include']
-    let g:syntastic_cpp_compiler = 'clang++-3.5'
-    let g:syntastic_cpp_compiler_options = ' -std=c++11'
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-" }
+" Help file
+nmap g? :h myhelp<cr>
 
-" ALE {
-"     "let g:ale_linters = {'c': ['clang'], 'cpp': ['clang','clangtidy'], 'python':['flake8']}
-"     let g:ale_cpp_clang_executable = 'clang++'
-"     let g:ale_cpp_clang_options = '-std=c++11'
-"     let g:ale_python_flake8_options = "--max-line-length=120"
-"     let g:ale_c_build_dir = '~/code/av/source/bazel-genfiles'
-"     let g:ale_c_build_dir_names = ['~/code/av/source', '~/code/av/build/source', '/usr/include']
-"     let g:ale_lint_on_enter = 1
-"     let g:ale_lint_on_insert_leave = 1
-"     let g:ale_lint_on_save = 1
-"     let g:ale_linter_aliases = {'hidl': 'cpp'}
-"     let g:ale_linters_explicit = 1
-" }
+" Neovim folding ---------------------------------------
+set foldmethod=syntax
+"set foldnestmax=1
+set foldlevel=99 " Open all folds by default
+nnoremap <silent> <space> zo
+nnoremap <silent> <C-space> zc
+nnoremap <silent> <leader><space> :%foldc<cr>
+nnoremap <silent> <leader><C-space> zR
+nmap ]f ]z
+nmap [f [z
+highlight Folded ctermbg=60 ctermfg=12
 
 
-"*************** Uber ATG Tools *******************************
+" Git cmds ------------------------------------------------------------
+nmap gnn <Plug>(GitGutterNextHunk)
+nmap ghp <Plug>(GitGutterPrevHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+nnoremap ghf <Plug>(GitGutterFold)
 
-" This picks up the default arc lint output format
-set errorformat^=%m\ %f:%l:%c:
 
-command! -nargs=* Lint call ArcLint(<args>)
-function! ArcLint(...)
-    let results = system("arc lint --run-flexelint " . join(a:000, ' '))
-    cgetexpr results
-    copen
+" coc.nvim ------------------------------------------------------------
+
+" Use tab for trigger completion with characters ahead and navigate.
+" (This whole section is copy-pasted from coc's homepage.)
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-nnoremap <buffer> <leader>l :Lint expand('%')<cr>
 
+" Jump to definition/declaration.
+nnoremap <silent> gd :call CocAction('jumpDefinition')<cr>
+nnoremap <silent> gr :call CocAction('jumpReferences')<cr>
+nnoremap <silent> gs :CocList symbols<cr>
+nnoremap <silent> go :CocList outline<cr>
+nnoremap <silent> <leader>r :call CocAction('rename')<cr>
+nnoremap <silent> gi :call CocAction('doHover')<cr>
+nnoremap <silent> ge :CocList diagnostics<cr>
+nnoremap <silent> <leader>F :CocFix<cr>
 
-function AutoFixSilent()
-    silent !./bin/autofix %
-    redraw!
-endfunction
-"nnoremap <silent> <leader>f :!./bin/autofix %<CR>
-nnoremap <leader>f :call AutoFixSilent()<CR>
+let g:airline#extensions#coc#enabled = 1
+
+" Highlight symbol under cursor on CursorHold
+nnoremap <silent> <CR> :call CocActionAsync('highlight')<cr>
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" -------------------------------------------------------------------------
 
 
 "************* Open file commands and split windows *************
 
 
 
-"    With a file path highlighted in visual mode, this will open the file 
+"    With a file path highlighted in visual mode, this will open the file
 
 " "Open in temporary window (can return after quit)
 " vnoremap <F5> y\| :exec "!vi" fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
@@ -262,7 +253,7 @@ nnoremap <leader>f :call AutoFixSilent()<CR>
 " vnoremap <F8> y \| :exec "e" fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
 
 " Flash cursor position
-:nnoremap <CR> :set cul cuc<cr>:sleep 50m<cr>:set nocul nocuc<cr>/<BS>
+" :nnoremap <CR> :set cul cuc<cr>:redraw!<cr>:sleep 10m<cr>:set nocul nocuc<cr>/<BS>
 
 " window
 nmap <C-w><left>  :topleft  vnew<CR>
@@ -289,7 +280,6 @@ nmap }  :vertical resize +20<CR>
 nmap _  :resize -10<CR>
 nmap +  :resize +10<CR>
 
-
 " Navigate between split windows with Ctrl + h,j,k,l
 "nmap <C-k> :wincmd k<CR>
 "nmap <C-j> :wincmd j<CR>
@@ -306,7 +296,7 @@ map <F10> :bn<CR>
 nmap <F11> :Buffers<CR>
 map <S-F11> :enew<CR>
 vnoremap <F11> y\| :exec "tabe" fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
-map <F12> :bp\|bd #<CR>
+map <F12> :bp\|bd! #<CR>
 map <S-F12> :close!<CR>
 
 nnoremap ( :bp<CR>
@@ -320,9 +310,23 @@ set autoread
 map <C-F5> :checktime<CR>
 map <F5> :w \| e<CR>
 
-" Easymotion plugin
-:nmap <leader>w <Plug>(easymotion-overwin-w)
-:nmap <leader>s <Plug>(easymotion-overwin-f)
+" Easymotion plugin --------------------------------------------
+
+map  g/ <Plug>(easymotion-sn)
+omap g/ <Plug>(easymotion-tn)
+map gl <Plug>(easymotion-lineforward)
+map gL <Plug>(easymotion-linebackward)
+map gj <Plug>(easymotion-j)
+map gJ <Plug>(easymotion-eol-j)
+map gk <Plug>(easymotion-k)
+map gK <Plug>(easymotion-eol-k)
+map s <Plug>(easymotion-f2)
+omap s <Plug>(easymotion-t2)
+map S <Plug>(easymotion-F2)
+omap S <Plug>(easymotion-T2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
 
 
 "************* Preferred settings *************
@@ -365,10 +369,6 @@ autocmd BufReadPost *
 
 "************* Mapped keys *************
 
-
-
-
-
 " ESC key replacement
 inoremap jk <Esc>l
 
@@ -386,19 +386,16 @@ noremap <F4> :set hlsearch! hlsearch?<CR>
 
 
 " Switch between source/header
-" C code
-map <F6> :if expand('%:e')=='h'<CR>e %:r.c<CR>else<CR>e %:r.h<CR>endif<CR><CR>
-" C++ code
-map <S-F6> :if expand('%:e')=='hh'<CR>e %:r.cc<CR>else<CR>e %:r.hh<CR>endif<CR><CR>
-
-" YouCompleteMe GoToDefinition
-map <F7> :YcmCompleter GetType<CR>
-map <F8> :YcmCompleter GoToDefinition<CR>
-map <S-F8> :YcmCompleter GoToDeclaration<CR>
+" C or C++ code
+augroup project
+  autocmd!
+  autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+augroup END
+autocmd FileType c    map <leader>h :if expand('%:e')=='h'<CR>e %:r.c<CR>else<CR>e %:r.h<CR>endif<CR><CR>
+autocmd FileType cpp  map <leader>h :if expand('%:e')=='hh'<CR>e %:r.cc<CR>else<CR>e %:r.hh<CR>endif<CR><CR>
 
 
-
-" FZF
+" FZF ------------------------------------------------------
 
 " --column: Show column number
 " --line-number: Show line number
@@ -412,6 +409,39 @@ map <S-F8> :YcmCompleter GoToDeclaration<CR>
 " --color: Search color options
 command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
+" Reverse the layout to make the FZF list top-down
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+
+" Using the custom window creation function
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+" Function to create the custom floating window
+function! FloatingFZF()
+  " creates a scratch, unlisted, new, empty, unnamed buffer
+  " to be used in the floating window
+  let buf = nvim_create_buf(v:false, v:true)
+
+  " 90% of the height
+  let height = float2nr(&lines * 0.6)
+  " 60% of the height
+  let width = float2nr(&columns * 0.9)
+  " horizontal position (centralized)
+  let horizontal = float2nr((&columns - width) / 2)
+  " vertical position (one line down of the top)
+  let vertical = float2nr(&lines / 3)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  " open the new window, floating, and enter to it
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
 " Open fuzzy find to open new file
 "nmap <C-p> :Files ~/Code/av/source/<CR>
 nmap <C-p> :Files <CR>
@@ -422,7 +452,7 @@ vnoremap ; y\| :exec "Lines " @"<CR>
 "vnoremap ; y\| :exec "Lines " fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
 
 " Press ; to Find the visual mode selected text
-nmap g; :F 
+nmap g; :F
 vnoremap g; y\| :exec "F " @"<CR>
 "vnoremap g; y\| :exec "F " fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
 
@@ -431,21 +461,44 @@ vnoremap <silent> <C-0> :exec "!chromium-browser " fnameescape(substitute(getreg
 
 
 "################## Colors ############################
+"set termguicolors
+colorscheme peachpuff
+
 " Set DiffChange background to dark red (88)
 hi DiffChange term=bold ctermbg=88
-hi SpellBad term=reverse ctermbg=9 gui=undercurl guisp=Red
+"hi SpellBad term=reverse ctermbg=9 gui=undercurl guisp=Red
 hi Search term=reverse ctermfg=0 ctermbg=11 guibg=Yellow
-hi Folded term=standout ctermfg=19 ctermbg=248 guifg=DarkBlue guibg=LightGrey
-hi FoldColumn term=standout ctermfg=19 ctermbg=248 guifg=DarkBlue guibg=Grey
+hi NormalFloat ctermbg=60
 
+" These are supposedly colors for Neovim's terminal emulator
 
-" " ########## VIM-CompileDB-Path ###############
-" " Update Path for gf capability - run within vim with: ":call UpdatePath()"
-" function UpdatePath()
-"     silent CompileDbPath ~/code/av/compile_commands.json
-"     redir! > ~/.vim/compile_commands_paths.vim
-"     silent echon "set path=" &path
-"     redir END
-" endfunction
-" source ~/.vim/compile_commands_paths.vim
+" let g:terminal_color_0 = "#202020"
+" let g:terminal_color_1 = "#333333"
+" let g:terminal_color_2 = "#666666"
+" let g:terminal_color_3 = "#80a78c"
+" let g:terminal_color_4 = "#f7c527"
+" let g:terminal_color_5 = "#ffffff"
+" let g:terminal_color_6 = "#333333"
+" let g:terminal_color_7 = "#ffffff"
+" let g:terminal_color_8 = "#ec691e"
+" let g:terminal_color_9 = "#73e4f6"
+" let g:terminal_color_10 = "#ffffff"
+" let g:terminal_color_11 = "#a1d7f2"
+" let g:terminal_color_12 = "#73e4f6"
+" let g:terminal_color_13 = "#f7c527"
+" let g:terminal_color_14 = "#ec691e"
+" let g:terminal_color_15 = "#f7c527"
+" let g:terminal_color_16 ="#202020"
+" let g:terminal_color_background="#202020"
+" let g:terminal_color_foreground="#eee"
+
+" ########## VIM-CompileDB-Path ###############
+" Update Path for gf capability - run within vim with: ":call UpdatePath()"
+function UpdatePath()
+    silent CompileDbPath ~/code/av/compile_commands.json
+    redir! > ~/.config/nvim/compile_commands_paths.vim
+    silent echon "set path=" &path
+    redir END
+endfunction
+source ~/.config/nvim/compile_commands_paths.vim
 

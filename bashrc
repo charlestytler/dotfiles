@@ -7,11 +7,13 @@ alias uuu="cd ../../.."
 alias uuuu="cd ../../../.."
 
 
-alias v="vim"
+alias v="nvim"
 alias vgit="v \`git sh | tail -n +2\`"
 alias gitlog="git lg1 | head -10"
 alias gitclear="git reset --hard; git clean -i"
 alias gitcount="git diff --cached --numstat | wc -l"
+alias gitclidiff="export $GIT_EXTERNAL_DIFF=diffy"
+alias le='$(fc -ln -1)'
 alias jupremote="jupyter --no-browser --port=8889"
 alias evim="v ~/.vimrc"
 alias etmux="v ~/.tmux.conf"
@@ -19,7 +21,7 @@ alias ebash="v ~/dotfiles/bashrc"
 alias sbash="source ~/.bashrc"
 alias jup2html="jupyter nbconvert --to html_embed"
 # ripgrep throws errors for ** wildcards in .gitignore, therefore hide errors
-alias rg="rg 2> /dev/null"
+alias rg="rg -p 2> /dev/null"
 alias shortprompt="PROMPT_DIRTRIM=1"
 alias longprompt="PROMPT_DIRTRIM=3"
 alias fullprompt="PROMPT_DIRTRIM=0"
@@ -29,6 +31,7 @@ alias fullprompt="PROMPT_DIRTRIM=0"
 # VIM Editor Default
 #export VISUAL=vim
 #export EDITOR="$VISUAL"
+bind '"jk":vi-movement-mode'
 
 export TERM=xterm-256color
 
@@ -36,6 +39,9 @@ export TERM=xterm-256color
 # Matlab like history retrieval
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
+
+# Delete text to the right of cursor
+#bind '"\C-i":kill-line'
 
 # Set terminal tab title
 tt(){
@@ -196,6 +202,10 @@ fi
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND='fd --type f'
 export FZF_ALT_C_COMMAND='fd --type d'
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+
+# Re-bind ALT-C to Ctrl-o
+# bind "$(bind -s | grep '^"\\ec"' | sed 's/\\ec/\\C-o/')"
 
 export FZF_DEFAULT_OPTS='
     --color fg:-1,bg:-1,hl:230,fg+:3,bg+:233,hl+:229
@@ -226,7 +236,9 @@ export FZF_COMPLETION_TRIGGER='**'
 #################### FZF Functions #######################################
 
 # Ctrl-P  Open file in VIM
-bind -x '"\C-p": vim $(fzf -m --height 40% --reverse --preview="coderay {}")'
+#bind -x '"\C-p": </dev/tty vim $(fzf -m --height 40% --reverse --preview="coderay {}")'
+bind -x '"\C-p": nvim $(fzf -m --height 40% --reverse --preview="coderay {}")'
+#bind -x '"\C-p": vim -c ":Files"'
 # Other defaults:
 #     alt-c: cd to directory with fzf
 
@@ -288,7 +300,7 @@ gco() {
 
 # ripgrep inside vim
 rgg() {
-  vim -c "F $1"
+  nvim -c "F $1"
 }
 
 # Autojump
@@ -332,7 +344,7 @@ alias dump="mv ~/.grab/* ."
 
 
 ######## Prequisites for some functions ##############
-for prereq in fzf fd rg xclip; do
+for prereq in fzf fd rg xclip coderay; do
     if [ -z `which $prereq` ]; then
         echo "Warning: $prereq not installed"
     fi
