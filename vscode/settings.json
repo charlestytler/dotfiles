@@ -1,0 +1,91 @@
+{
+    "bazel.buildifierExecutable": "~/code/na/tools/buildifier",
+    "bazel.executable": "~/code/na/tools/bazel",
+    "clangd.path": "~/code/na/tools/clangd",
+    "shellcheck.executablePath": "~/code/na/tools/shellcheck",
+
+    // `-background-index` enables background creation of an index for clangd. This enables things like auto completion of things in the
+    // current translation unit, automatically adding incldues, find all references. Unfortunately it's still experimental,
+    // eats up a lot of CPU, is slow, fails a lot (silently in the background but still) and seems to slow down clangd in
+    // vscode in general. So you can decide if you  want it!
+    // `-clang-tidy` enables clang tidy checks in line by adding this to your clangd arguments. It causes the clangd extension to crash in certain circumstances so depending on what your personal preference you may or may not want to use it.
+    "clangd.arguments": ["-background-index", "-clang-tidy", "-j=4", "--pch-storage=memory"],
+
+    // Use ctrl+shift+p -> 'Save without formatting' when you don't want this
+    "editor.formatOnSave": true,
+    // fix bazel BUILD files
+    "bazel.buildifierFixOnFormat": true,
+
+    // Whether auto fetching is enabled.
+    "git.autofetch": true,
+    // Commit all changes when there are no staged changes.
+    //"git.enableSmartCommit": true,
+
+    // Controls how the editor should render whitespace characters.
+    //  - none
+    //  - boundary: Render whitespace characters except for single spaces between words.
+    //  - all
+    "editor.renderWhitespace": "boundary",
+    // Controls whether opened editors show as preview. Preview editors are reused until they are kept (e.g. via double click or editing) and show up with an italic font style.
+    "workbench.editor.enablePreview": true,
+
+    // Neovim integration into VSCodeVIM
+    // "vim.enableNeovim": true,
+    // "vim.neovimPath": "/usr/local/bin/nvim",
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "vim.visualstar": true,
+    "workbench.colorTheme": "Pastel Pro",
+    "workbench.iconTheme": "vscode-icons",
+
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["<Esc>"]
+        }
+    ],
+
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["("],
+            "commands": ["workbench.action.previousEditorInGroup"]
+        },
+        {
+            "before": [")"],
+            "commands": ["workbench.action.nextEditorInGroup"]
+        },
+        {
+            "before": ["backspace"],
+            "commands": ["workbench.action.keepEditor"]
+        },
+        {
+            "before": ["g", "d"],
+            "commands": ["editor.action.peekDefinition"]
+        },
+        {
+            "before": ["g", "s"],
+            "commands": ["workbench.action.showAllSymbols"]
+        },
+        {
+            "before": ["g", "r"],
+            "commands": ["editor.action.referenceSearch.trigger"]
+        },
+        {
+            "before": ["g", ";"],
+            "commands": ["workbench.action.findInFiles"]
+        },
+    ],
+
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["g", "d"],
+            "commands": ["editor.action.peekDefinition"]
+        },
+        {
+            "before": ["g", ";"],
+            "commands": ["workbench.action.findInFiles"]
+        },
+    ],
+    "search.location": "sidebar",
+    "files.hotExit": "off",
+}
