@@ -8,6 +8,11 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
+" Uber-specific: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Plug 'ssh://code@code.int.uberatc.com/diffusion/VIMPHAB/vimphab.git'
+Plug 'ssh://code@code.int.uberatc.com/diffusion/VIMHIDL/vim-hidl-ftplugin.git'
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Plug 'tinyheero/vim-myhelp' " Personal vim-cheatsheet
 Plug 'rainglow/vim'
 Plug 'google/maktaba'
@@ -15,6 +20,8 @@ Plug 'tyru/open-browser.vim'
 Plug 'google/vim-glaive'
 Plug 'google/vim-codefmt'
 Plug 'tpope/vim-fugitive'
+Plug 'APZelos/blamer.nvim'
+Plug 'rhysd/git-messenger.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'martong/vim-compiledb-path'
@@ -34,7 +41,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'junegunn/vim-slash' " Automatically clears search highlight, * search in place
+"Plug 'junegunn/vim-slash' " Automatically clears search highlight, * search in place
 Plug 'junegunn/vim-easy-align'  " Align text about single character each line (e.g. =, |, etc.)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -205,7 +212,6 @@ function! s:check_back_space() abort
 endfunction
 
 " Jump to definition/declaration.
-nnoremap <silent> gd :call CocAction('jumpDefinition')<cr>
 nnoremap <silent> gr :call CocAction('jumpReferences')<cr>
 nnoremap <silent> gs :CocList symbols<cr>
 nnoremap <silent> go :CocList outline<cr>
@@ -213,6 +219,9 @@ nnoremap <silent> <leader>r :call CocAction('rename')<cr>
 nnoremap <silent> gi :call CocAction('doHover')<cr>
 nnoremap <silent> ge :CocList diagnostics<cr>
 nnoremap <silent> <leader>F :CocFix<cr>
+" autocmd allows overwriting plugin
+autocmd VimEnter * nnoremap <silent> gd :call CocAction('jumpDeclaration')<cr>
+autocmd VimEnter * nnoremap <silent> gD :call CocAction('jumpDefinition')<cr>
 
 let g:airline#extensions#coc#enabled = 1
 
@@ -299,11 +308,11 @@ vnoremap <F11> y\| :exec "tabe" fnameescape(substitute(getreg('"'), '\n', '', 'g
 map <F12> :bp\|bd! #<CR>
 map <S-F12> :close!<CR>
 
-nnoremap ( :bp<CR>
-nnoremap ) :bn<CR>
+nnoremap <C-9> :bp<CR>
+nnoremap <C-0> :bn<CR>
 nnoremap - :Buffers<CR>
-nnoremap = :bp\|bd #<CR>
-nnoremap <leader>= :close!<CR>
+nnoremap <C-BS> :bp\|bd #<CR>
+nnoremap <leader><BS> :close!<CR>
 
 " Refresh buffers
 set autoread
@@ -452,7 +461,7 @@ vnoremap ; y\| :exec "Lines " @"<CR>
 "vnoremap ; y\| :exec "Lines " fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
 
 " Press ; to Find the visual mode selected text
-nmap g; :F
+nmap g; :F 
 vnoremap g; y\| :exec "F " @"<CR>
 "vnoremap g; y\| :exec "F " fnameescape(substitute(getreg('"'), '\n', '', 'g'))<CR>
 
@@ -468,7 +477,7 @@ colorscheme peachpuff
 hi DiffChange term=bold ctermbg=88
 "hi SpellBad term=reverse ctermbg=9 gui=undercurl guisp=Red
 hi Search term=reverse ctermfg=0 ctermbg=11 guibg=Yellow
-hi NormalFloat ctermbg=60
+hi PMenu ctermbg=60
 
 " These are supposedly colors for Neovim's terminal emulator
 

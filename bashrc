@@ -35,6 +35,16 @@ bind '"jk":vi-movement-mode'
 
 export TERM=xterm-256color
 
+# Function to print out all 256 colors to the terminal
+print_colors(){
+    for i in {0..255} ; do
+        printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
+        if (( i == 15 )) || (( i > 15 )) && (( (i-15) % 6 == 0 )); then
+            printf "\n";
+        fi
+    done
+}
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Matlab like history retrieval
 bind '"\e[A":history-search-backward'
