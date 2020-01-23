@@ -1,8 +1,10 @@
 {
     "bazel.buildifierExecutable": "~/code/na/tools/buildifier",
-    "bazel.executable": "~/code/na/tools/bazel",
+    //"bazel.buildifierExecutable": "/home/ctytler/code/na/external/buildifier/file/downloaded",
+    "bazel.executable": "/home/ctytler/code/na/tools/bazel",
     "clangd.path": "~/code/na/tools/clangd",
     "shellcheck.executablePath": "~/code/na/tools/shellcheck",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
 
     // `-background-index` enables background creation of an index for clangd. This enables things like auto completion of things in the
     // current translation unit, automatically adding incldues, find all references. Unfortunately it's still experimental,
@@ -21,6 +23,8 @@
     // Commit all changes when there are no staged changes.
     //"git.enableSmartCommit": true,
 
+    "breadcrumbs.enabled": true,
+
     // Controls how the editor should render whitespace characters.
     //  - none
     //  - boundary: Render whitespace characters except for single spaces between words.
@@ -37,6 +41,41 @@
     "vim.visualstar": true,
     "workbench.colorTheme": "Pastel Pro",
     "workbench.iconTheme": "vscode-icons",
+
+    "githubPullRequests.queries": [
+        {
+            "label": "Waiting For My Review",
+            "query": "is:open review-requested:${user} archived:false -review:approved"
+        },
+        {
+            "label": "Commented on by Me",
+            "query": "is:open review-requested:${user} commenter:${user} archived:false -review:approved"
+        },
+        {
+            "label": "Accepted by Others",
+            "query": "is:open review:approved review-requested:${user} archived:false"
+        },
+        {
+            "label": "Reviewed by Me",
+            "query": "is:open reviewed-by:${user} archived:false"
+        },
+        {
+            "label": "Mentioned Me - Needs Review",
+            "query": "is:open mentions:${user}"
+        },
+        {
+            "label": "Mentioned Me - Accepted",
+            "query": "is:open mentions:${user}"
+        },
+        {
+            "label": "Assigned To Me",
+            "query": "is:open assignee:${user}"
+        },
+        {
+            "label": "Created By Me",
+            "query": "is:open author:${user}"
+        },
+    ],
 
     "vim.insertModeKeyBindings": [
         {
@@ -74,6 +113,55 @@
             "before": ["g", ";"],
             "commands": ["workbench.action.findInFiles"]
         },
+        {
+            "before": ["W"],
+            "after": ["w"]
+        }
+        {
+            "before": ["f", "w"],
+            "after": ["W"]
+        },
+        {
+            "before": ["w"],
+            "after": ["leader", "w"]
+        }
+        {
+            "before": ["leader", "t"],
+            "commands": ["workbench.files.action.showActiveFileInExplorer"]
+        }
+        // Easymotion
+        {
+            "before": ["f", "h"],
+            "after": ["leader", "leader", "b"]
+        },
+        {
+            "before": ["f", "j"],
+            "after": ["leader", "leader", "j"]
+        },
+        {
+            "before": ["f", "k"],
+            "after": ["leader", "leader", "k"]
+        },
+        {
+            "before": ["f", "l"],
+            "after": ["leader", "leader", "w"]
+        },
+        {
+            "before": ["f", "H"],
+            "after": ["leader", "leader", "h"]
+        },
+        {
+            "before": ["f", "J"],
+            "after": ["leader", "leader", "j"]
+        },
+        {
+            "before": ["f", "K"],
+            "after": ["leader", "leader", "k"]
+        },
+        {
+            "before": ["f", "L"],
+            "after": ["leader", "leader", "l"]
+        },
     ],
 
     "vim.visualModeKeyBindings": [
@@ -88,4 +176,11 @@
     ],
     "search.location": "sidebar",
     "files.hotExit": "off",
+    "workbench.startupEditor": "newUntitledFile",
+    "vim.easymotionKeys": "hklyuiopnmqwertzxcvbasdgjf",
+    "vim.easymotionMarkerFontSize": "16",
+    "vim.easymotionMarkerYOffset": 3,
+    "vim.easymotionMarkerHeight": 16,
+    "vim.easymotionMarkerFontFamily": "monospace",
+    "vim.foldfix": true,
 }

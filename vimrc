@@ -308,10 +308,10 @@ vnoremap <F11> y\| :exec "tabe" fnameescape(substitute(getreg('"'), '\n', '', 'g
 map <F12> :bp\|bd! #<CR>
 map <S-F12> :close!<CR>
 
-nnoremap <C-9> :bp<CR>
-nnoremap <C-0> :bn<CR>
+nnoremap ( :bp<CR>
+nnoremap ) :bn<CR>
 nnoremap - :Buffers<CR>
-nnoremap <C-BS> :bp\|bd #<CR>
+nnoremap <M-BS> :bp\|bd #<CR>
 nnoremap <leader><BS> :close!<CR>
 
 " Refresh buffers
