@@ -1,0 +1,252 @@
+[
+  {
+    "metadata": {
+      "id": "e337c67b-55c2-4fef-8949-eb260e7fb7fd",
+      "publisherId": "Shan.code-settings-sync",
+      "publisherDisplayName": "Shan"
+    },
+    "name": "code-settings-sync",
+    "publisher": "Shan",
+    "version": "3.4.3"
+  },
+  {
+    "metadata": {
+      "id": "1eb349b4-7fc3-451a-98cf-72d86a45b367",
+      "publisherId": "Miglisoft.dark-pastel-theme",
+      "publisherDisplayName": "Miglisoft"
+    },
+    "name": "dark-pastel-theme",
+    "publisher": "Miglisoft",
+    "version": "1.0.1"
+  },
+  {
+    "metadata": {
+      "id": "da7e26d5-d57c-4742-ab47-d77fb189e195",
+      "publisherId": "cschlosser.doxdocgen",
+      "publisherDisplayName": "cschlosser"
+    },
+    "name": "doxdocgen",
+    "publisher": "cschlosser",
+    "version": "0.5.2"
+  },
+  {
+    "metadata": {
+      "id": "feda5228-1904-4f14-9634-1f4e51c529df",
+      "publisherId": "kdcro101.favorites",
+      "publisherDisplayName": "kdcro101"
+    },
+    "name": "favorites",
+    "publisher": "kdcro101",
+    "version": "2.4.5"
+  },
+  {
+    "metadata": {
+      "id": "b3917e4f-5086-4def-a82b-2ae6b708db16",
+      "publisherId": "flowtype.flow-for-vscode",
+      "publisherDisplayName": "flowtype"
+    },
+    "name": "flow-for-vscode",
+    "publisher": "flowtype",
+    "version": "1.5.0"
+  },
+  {
+    "metadata": {
+      "id": "4de763bd-505d-4978-9575-2b7696ecf94e",
+      "publisherId": "eamodio.gitlens",
+      "publisherDisplayName": "eamodio"
+    },
+    "name": "gitlens",
+    "publisher": "eamodio",
+    "version": "10.2.0"
+  },
+  {
+    "metadata": {
+      "id": "98790d67-10fa-497c-9113-f6c7489207b2",
+      "publisherId": "yzhang.markdown-all-in-one",
+      "publisherDisplayName": "yzhang"
+    },
+    "name": "markdown-all-in-one",
+    "publisher": "yzhang",
+    "version": "2.7.0"
+  },
+  {
+    "metadata": {
+      "id": "0818c8dd-33cc-4ffd-a7be-f039cc2a7aa4",
+      "publisherId": "louisyoung.pastel-pro",
+      "publisherDisplayName": "louisyoung"
+    },
+    "name": "pastel-pro",
+    "publisher": "louisyoung",
+    "version": "1.0.0"
+  },
+  {
+    "metadata": {
+      "id": "96fa4707-6983-4489-b7c5-d5ffdfdcce90",
+      "publisherId": "esbenp.prettier-vscode",
+      "publisherDisplayName": "esbenp"
+    },
+    "name": "prettier-vscode",
+    "publisher": "esbenp",
+    "version": "3.20.0"
+  },
+  {
+    "metadata": {
+      "id": "f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5",
+      "publisherId": "ms-python.python",
+      "publisherDisplayName": "ms-python"
+    },
+    "name": "python",
+    "publisher": "ms-python",
+    "version": "2020.1.58038"
+  },
+  {
+    "metadata": {
+      "id": "93ce222b-5f6f-49b7-9ab1-a0463c6238df",
+      "publisherId": "ms-vscode-remote.remote-containers",
+      "publisherDisplayName": "ms-vscode-remote"
+    },
+    "name": "remote-containers",
+    "publisher": "ms-vscode-remote",
+    "version": "0.94.0"
+  },
+  {
+    "metadata": {
+      "id": "607fd052-be03-4363-b657-2bd62b83d28a",
+      "publisherId": "ms-vscode-remote.remote-ssh",
+      "publisherDisplayName": "ms-vscode-remote"
+    },
+    "name": "remote-ssh",
+    "publisher": "ms-vscode-remote",
+    "version": "0.48.0"
+  },
+  {
+    "metadata": {
+      "id": "bfeaf631-bcff-4908-93ed-fda4ef9a0c5c",
+      "publisherId": "ms-vscode-remote.remote-ssh-edit",
+      "publisherDisplayName": "ms-vscode-remote"
+    },
+    "name": "remote-ssh-edit",
+    "publisher": "ms-vscode-remote",
+    "version": "0.49.0"
+  },
+  {
+    "metadata": {
+      "id": "f0c5397b-d357-4197-99f0-cb4202f22818",
+      "publisherId": "ms-vscode-remote.remote-wsl",
+      "publisherDisplayName": "ms-vscode-remote"
+    },
+    "name": "remote-wsl",
+    "publisher": "ms-vscode-remote",
+    "version": "0.41.9"
+  },
+  {
+    "metadata": {
+      "id": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6",
+      "publisherId": "timonwong.shellcheck",
+      "publisherDisplayName": "timonwong"
+    },
+    "name": "shellcheck",
+    "publisher": "timonwong",
+    "version": "0.9.0"
+  },
+  {
+    "metadata": {
+      "id": "4279be0d-e33f-41ce-b9ca-d1f59d9940a8",
+      "publisherId": "HallerPatrick.solarized-autumn",
+      "publisherDisplayName": "HallerPatrick"
+    },
+    "name": "solarized-autumn",
+    "publisher": "HallerPatrick",
+    "version": "0.0.2"
+  },
+  {
+    "metadata": {
+      "id": "d96e79c6-8b25-4be3-8545-0e0ecefcae03",
+      "publisherId": "vscodevim.vim",
+      "publisherDisplayName": "vscodevim"
+    },
+    "name": "vim",
+    "publisher": "vscodevim",
+    "version": "1.12.4"
+  },
+  {
+    "metadata": {
+      "id": "e21a6113-833a-4583-b519-869fd1c1c384",
+      "publisherId": "BazelBuild.vscode-bazel",
+      "publisherDisplayName": "BazelBuild"
+    },
+    "name": "vscode-bazel",
+    "publisher": "BazelBuild",
+    "version": "0.3.0"
+  },
+  {
+    "metadata": {
+      "id": "103154cb-b81d-4e1b-8281-c5f4fa563d37",
+      "publisherId": "llvm-vs-code-extensions.vscode-clangd",
+      "publisherDisplayName": "llvm-vs-code-extensions"
+    },
+    "name": "vscode-clangd",
+    "publisher": "llvm-vs-code-extensions",
+    "version": "0.0.20"
+  },
+  {
+    "metadata": {
+      "id": "583b2b34-2c1e-4634-8c0b-0b82e283ea3a",
+      "publisherId": "dbaeumer.vscode-eslint",
+      "publisherDisplayName": "dbaeumer"
+    },
+    "name": "vscode-eslint",
+    "publisher": "dbaeumer",
+    "version": "2.0.15"
+  },
+  {
+    "metadata": {
+      "id": "9ccc1dd7-7ec4-4a46-bd4f-7d7b8b9d322a",
+      "publisherId": "vscode-icons-team.vscode-icons",
+      "publisherDisplayName": "vscode-icons-team"
+    },
+    "name": "vscode-icons",
+    "publisher": "vscode-icons-team",
+    "version": "9.7.0"
+  },
+  {
+    "metadata": {
+      "id": "bee31e34-a44b-4a76-9ec2-e9fd1439a0f6",
+      "publisherId": "vadimcn.vscode-lldb",
+      "publisherDisplayName": "vadimcn"
+    },
+    "name": "vscode-lldb",
+    "publisher": "vadimcn",
+    "version": "1.4.5"
+  },
+  {
+    "metadata": {
+      "id": "1d3d1fb2-0d8f-47ed-bfce-990b8ddfc9d8",
+      "publisherId": "zxh404.vscode-proto3",
+      "publisherDisplayName": "zxh404"
+    },
+    "name": "vscode-proto3",
+    "publisher": "zxh404",
+    "version": "0.4.0"
+  },
+  {
+    "metadata": {
+      "id": "69ddd764-339a-4ecc-97c1-9c4ece58e36d",
+      "publisherId": "GitHub.vscode-pull-request-github",
+      "publisherDisplayName": "GitHub"
+    },
+    "name": "vscode-pull-request-github",
+    "publisher": "GitHub",
+    "version": "0.14.0"
+  },
+  {
+    "metadata": {
+      "id": "23d72dfc-8dd1-4e30-926e-8783b4378f13",
+      "publisherId": "ms-vscode-remote.vscode-remote-extensionpack",
+      "publisherDisplayName": "ms-vscode-remote"
+    },
+    "name": "vscode-remote-extensionpack",
+    "publisher": "ms-vscode-remote",
+    "version": "0.19.0"
+  }
+]

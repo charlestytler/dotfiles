@@ -1,30 +1,32 @@
 {
-    "bazel.buildifierExecutable": "~/code/na/tools/buildifier",
-    //"bazel.buildifierExecutable": "/home/ctytler/code/na/external/buildifier/file/downloaded",
+    //"bazel.buildifierExecutable": "~/code/na/tools/buildifier",
+    "bazel.buildifierExecutable": "/home/ctytler/code/na/external/buildifier/file/downloaded",
     "bazel.executable": "/home/ctytler/code/na/tools/bazel",
-    "clangd.path": "~/code/na/tools/clangd",
-    "shellcheck.executablePath": "~/code/na/tools/shellcheck",
+    "clangd.path": "/home/ctytler/code/na/tools/clangd",
+    "shellcheck.executablePath": "/home/ctytler/code/na/tools/shellcheck",
     "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
-
+    "path-autocomplete.pathMappings": {
+        "$root": "/home/ctytler/code/na", // the absolute root folder
+    },
     // `-background-index` enables background creation of an index for clangd. This enables things like auto completion of things in the
     // current translation unit, automatically adding incldues, find all references. Unfortunately it's still experimental,
     // eats up a lot of CPU, is slow, fails a lot (silently in the background but still) and seems to slow down clangd in
     // vscode in general. So you can decide if you  want it!
     // `-clang-tidy` enables clang tidy checks in line by adding this to your clangd arguments. It causes the clangd extension to crash in certain circumstances so depending on what your personal preference you may or may not want to use it.
-    "clangd.arguments": ["-background-index", "-clang-tidy", "-j=4", "--pch-storage=memory"],
-
-    // Use ctrl+shift+p -> 'Save without formatting' when you don't want this
-    "editor.formatOnSave": true,
+    "clangd.arguments": [
+        "-background-index",
+        "-clang-tidy",
+        "-j=4",
+        "--pch-storage=memory"
+    ],
+    "editor.quickSuggestions": true,
     // fix bazel BUILD files
     "bazel.buildifierFixOnFormat": true,
-
     // Whether auto fetching is enabled.
     "git.autofetch": true,
     // Commit all changes when there are no staged changes.
     //"git.enableSmartCommit": true,
-
     "breadcrumbs.enabled": true,
-
     // Controls how the editor should render whitespace characters.
     //  - none
     //  - boundary: Render whitespace characters except for single spaces between words.
@@ -32,7 +34,6 @@
     "editor.renderWhitespace": "boundary",
     // Controls whether opened editors show as preview. Preview editors are reused until they are kept (e.g. via double click or editing) and show up with an italic font style.
     "workbench.editor.enablePreview": true,
-
     // Neovim integration into VSCodeVIM
     // "vim.enableNeovim": true,
     // "vim.neovimPath": "/usr/local/bin/nvim",
@@ -41,7 +42,6 @@
     "vim.visualstar": true,
     "workbench.colorTheme": "Pastel Pro",
     "workbench.iconTheme": "vscode-icons",
-
     "githubPullRequests.queries": [
         {
             "label": "Waiting For My Review",
@@ -76,105 +76,159 @@
             "query": "is:open author:${user}"
         },
     ],
-
     "vim.insertModeKeyBindings": [
         {
-            "before": ["j", "k"],
-            "after": ["<Esc>"]
+            "before": [ "j", "k" ],
+            "after": [ "<Esc>" ]
         }
     ],
-
     "vim.normalModeKeyBindings": [
         {
-            "before": ["("],
-            "commands": ["workbench.action.previousEditorInGroup"]
+            "before": [ "(" ],
+            "commands": [ "workbench.action.previousEditorInGroup" ]
         },
         {
-            "before": [")"],
-            "commands": ["workbench.action.nextEditorInGroup"]
+            "before": [ ")" ],
+            "commands": [ "workbench.action.nextEditorInGroup" ]
         },
         {
-            "before": ["backspace"],
-            "commands": ["workbench.action.keepEditor"]
+            "before": [ "backspace" ],
+            "commands": [ "workbench.action.keepEditor" ]
         },
         {
-            "before": ["g", "d"],
-            "commands": ["editor.action.peekDefinition"]
+            "before": [ "g", "d" ],
+            "commands": [ "editor.action.peekDeclaration" ]
         },
         {
-            "before": ["g", "s"],
-            "commands": ["workbench.action.showAllSymbols"]
+            "before": [ "g", "D" ],
+            "commands": [ "editor.action.peekDefinition" ]
         },
         {
-            "before": ["g", "r"],
-            "commands": ["editor.action.referenceSearch.trigger"]
+            "before": [ "g", "s" ],
+            "commands": [ "workbench.action.showAllSymbols" ]
         },
         {
-            "before": ["g", ";"],
-            "commands": ["workbench.action.findInFiles"]
+            "before": [ "g", "r" ],
+            "commands": [ "editor.action.referenceSearch.trigger" ]
         },
         {
-            "before": ["W"],
-            "after": ["w"]
-        }
-        {
-            "before": ["f", "w"],
-            "after": ["W"]
+            "before": [ "g", "i" ],
+            "commands": [ "editor.action.showHover" ]
         },
         {
-            "before": ["w"],
-            "after": ["leader", "w"]
-        }
+            "before": [ "ctrl + /" ],
+            "commands": [ "workbench.action.findInFiles" ]
+        },
         {
-            "before": ["leader", "t"],
-            "commands": ["workbench.files.action.showActiveFileInExplorer"]
-        }
+            "before": [ "leader", "t" ],
+            "commands": [ "workbench.files.action.showActiveFileInExplorer" ]
+        },
+        {
+            "before": [ "g", "o" ],
+            "commands": [ "outline.focus" ]
+        },
+        {
+            "before": [ "leader", "e" ],
+            "commands": [ "workbench.files.action.focusOpenEditorsView" ]
+        },
+        {
+            "before": [ "leader", "v" ],
+            "commands": [ "favorites.focus" ]
+        },
+        {
+            "before": [ "g", "p" ],
+            "commands": [ "favorites.browse" ]
+        },
+        {
+            "before": [ "leader", "h" ],
+            "commands": [ "clangd-vscode.switchheadersource" ]
+        },
+        {
+            "before": [ "leader", "f" ],
+            "commands": [ "editor.action.formatDocument" ]
+        },
         // Easymotion
         {
-            "before": ["f", "h"],
-            "after": ["leader", "leader", "b"]
+            "before": [ "f", "h" ],
+            "after": [ "leader", "leader", "b" ]
         },
         {
-            "before": ["f", "j"],
-            "after": ["leader", "leader", "j"]
+            "before": [ "f", "j" ],
+            "after": [ "leader", "leader", "j" ]
         },
         {
-            "before": ["f", "k"],
-            "after": ["leader", "leader", "k"]
+            "before": [ "f", "k" ],
+            "after": [ "leader", "leader", "k" ]
         },
         {
-            "before": ["f", "l"],
-            "after": ["leader", "leader", "w"]
+            "before": [ "f", "l" ],
+            "after": [ "leader", "leader", "w" ]
         },
         {
-            "before": ["f", "H"],
-            "after": ["leader", "leader", "h"]
+            "before": [ "f", "H" ],
+            "after": [ "leader", "leader", "h" ]
         },
         {
-            "before": ["f", "J"],
-            "after": ["leader", "leader", "j"]
+            "before": [ "f", "J" ],
+            "after": [ "leader", "leader", "j" ]
         },
         {
-            "before": ["f", "K"],
-            "after": ["leader", "leader", "k"]
+            "before": [ "f", "K" ],
+            "after": [ "leader", "leader", "k" ]
         },
         {
-            "before": ["f", "L"],
-            "after": ["leader", "leader", "l"]
+            "before": [ "f", "L" ],
+            "after": [ "leader", "leader", "l" ]
+        },
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [ "g", "d" ],
+            "commands": [ "editor.action.peekDefinition" ]
+        },
+        {
+            "before": [ "ctrl + /" ],
+            "commands": [ "workbench.action.findInFiles" ]
+        },
+        {
+            "before": [ "leader", "f" ],
+            "commands": [ "editor.action.formatSelection" ]
+        },
+        // Easymotion
+        {
+            "before": [ "f", "h" ],
+            "after": [ "leader", "leader", "b" ]
+        },
+        {
+            "before": [ "f", "j" ],
+            "after": [ "leader", "leader", "j" ]
+        },
+        {
+            "before": [ "f", "k" ],
+            "after": [ "leader", "leader", "k" ]
+        },
+        {
+            "before": [ "f", "l" ],
+            "after": [ "leader", "leader", "w" ]
+        },
+        {
+            "before": [ "f", "H" ],
+            "after": [ "leader", "leader", "h" ]
+        },
+        {
+            "before": [ "f", "J" ],
+            "after": [ "leader", "leader", "j" ]
+        },
+        {
+            "before": [ "f", "K" ],
+            "after": [ "leader", "leader", "k" ]
+        },
+        {
+            "before": [ "f", "L" ],
+            "after": [ "leader", "leader", "l" ]
         },
     ],
 
-    "vim.visualModeKeyBindings": [
-        {
-            "before": ["g", "d"],
-            "commands": ["editor.action.peekDefinition"]
-        },
-        {
-            "before": ["g", ";"],
-            "commands": ["workbench.action.findInFiles"]
-        },
-    ],
-    "search.location": "sidebar",
     "files.hotExit": "off",
     "workbench.startupEditor": "newUntitledFile",
     "vim.easymotionKeys": "hklyuiopnmqwertzxcvbasdgjf",
@@ -183,4 +237,10 @@
     "vim.easymotionMarkerHeight": 16,
     "vim.easymotionMarkerFontFamily": "monospace",
     "vim.foldfix": true,
+    "sync.gist": "cfe856f9c8cdb5c03dbeb8ed2f49b7fe",
+    "sync.autoUpload": true,
+    "window.zoomLevel": 0,
+    "search.enableSearchEditorPreview": true,
+    "search.collapseResults": "auto",
+    "explorer.autoReveal": false,
 }
