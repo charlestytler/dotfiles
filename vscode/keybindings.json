@@ -43,7 +43,7 @@
         "when": "textInputFocus && !editorReadonly"
     },
     {
-        "key": "`",
+        "key": "ctrl+tab",
         "command": "workbench.action.terminal.toggleTerminal"
     },
     {

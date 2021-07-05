@@ -1,13 +1,7 @@
 {
-    //"bazel.buildifierExecutable": "~/code/na/tools/buildifier",
-    "bazel.buildifierExecutable": "/home/ctytler/code/na/external/buildifier/file/downloaded",
-    "bazel.executable": "/home/ctytler/code/na/tools/bazel",
-    "clangd.path": "/home/ctytler/code/na/tools/clangd",
-    "shellcheck.executablePath": "/home/ctytler/code/na/tools/shellcheck",
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
-    "path-autocomplete.pathMappings": {
-        "$root": "/home/ctytler/code/na", // the absolute root folder
-    },
+    //"path-autocomplete.pathMappings": {
+    //    "$root": "D:\code", // the absolute root folder
+    //},
     // `-background-index` enables background creation of an index for clangd. This enables things like auto completion of things in the
     // current translation unit, automatically adding incldues, find all references. Unfortunately it's still experimental,
     // eats up a lot of CPU, is slow, fails a lot (silently in the background but still) and seems to slow down clangd in
@@ -40,6 +34,7 @@
     "vim.camelCaseMotion.enable": true,
     "vim.easymotion": true,
     "vim.visualstar": true,
+    "vim.leader": ";",
     "workbench.colorTheme": "Pastel Pro",
     "workbench.iconTheme": "vscode-icons",
     "githubPullRequests.queries": [
@@ -243,4 +238,5 @@
     "search.enableSearchEditorPreview": true,
     "search.collapseResults": "auto",
     "explorer.autoReveal": false,
+    "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\wsl.exe",
 }
