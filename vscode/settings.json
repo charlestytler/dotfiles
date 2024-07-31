@@ -13,7 +13,11 @@
         "-j=4",
         "--pch-storage=memory"
     ],
-    "editor.quickSuggestions": true,
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on",
+        "other": "on"
+    },
     // fix bazel BUILD files
     "bazel.buildifierFixOnFormat": true,
     // Whether auto fetching is enabled.
@@ -35,7 +39,6 @@
     "vim.easymotion": true,
     "vim.visualstar": true,
     "vim.leader": ";",
-    "workbench.colorTheme": "Pastel Pro",
     "workbench.iconTheme": "vscode-icons",
     "githubPullRequests.queries": [
         {
@@ -239,4 +242,6 @@
     "search.collapseResults": "auto",
     "explorer.autoReveal": false,
     "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\wsl.exe",
+    "workbench.colorTheme": "Dark Pastel Theme",
+    "terminal.external.osxExec": "iTerm.app",
 }

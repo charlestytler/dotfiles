@@ -24,3 +24,10 @@ https://github.com/sharkdp/fd
 https://github.com/junegunn/fzf#installation  
 https://github.com/BurntSushi/ripgrep  
 https://github.com/Valloric/YouCompleteMe  
+
+```
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+sudo apt install fd-find
+```
+

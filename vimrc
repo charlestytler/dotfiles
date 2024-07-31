@@ -4,14 +4,17 @@ set t_Co=256
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
+"
+"   Auto load of vim-plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
-
-" Uber-specific: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Plug 'ssh://code@code.int.uberatc.com/diffusion/VIMPHAB/vimphab.git'
-Plug 'ssh://code@code.int.uberatc.com/diffusion/VIMHIDL/vim-hidl-ftplugin.git'
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Plug 'tinyheero/vim-myhelp' " Personal vim-cheatsheet
 Plug 'rainglow/vim'
@@ -127,7 +130,7 @@ map <C-\> :NERDTreeToggle<CR>
 map <leader>t :NERDTreeFind \| vertical resize 40<CR>
 
 " NERDTree Git Settings
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
@@ -501,13 +504,4 @@ hi PMenu ctermbg=60
 " let g:terminal_color_background="#202020"
 " let g:terminal_color_foreground="#eee"
 
-" ########## VIM-CompileDB-Path ###############
-" Update Path for gf capability - run within vim with: ":call UpdatePath()"
-function UpdatePath()
-    silent CompileDbPath ~/code/av/compile_commands.json
-    redir! > ~/.config/nvim/compile_commands_paths.vim
-    silent echon "set path=" &path
-    redir END
-endfunction
-source ~/.config/nvim/compile_commands_paths.vim
 
