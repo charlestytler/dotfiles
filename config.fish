@@ -2,6 +2,8 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+set -g fish_greeting
+
 ######### VIM-Mode KEYBINDS #################
 set -g fish_key_bindings fish_vi_key_bindings
 # This binds "jk" to switch to normal mode in vi-mode.
