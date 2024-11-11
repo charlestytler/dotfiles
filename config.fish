@@ -36,8 +36,11 @@ starship init fish | source
 
 ####### Custom Aliases #################################
 
-alias lt="ls -lrtF"
-alias la="ls -lrtFA"
+#alias lt="ls -lrtF"
+#alias la="ls -lrtFA"
+alias l="eza --icons=always"
+alias lt="eza --icons=always -l -s modified"
+alias la="eza --icons=always -la -s modified"
 alias u="cd .."
 alias uu="cd ../.."
 alias uuu="cd ../../.."
