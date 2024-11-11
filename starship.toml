@@ -39,10 +39,9 @@ style = "fg:#ce9deb"
 format = "[on](dimmed) [ $branch]($style)"
 
 [git_metrics]
-#format = '([\[▴$added\]]($added_style))([\[▿$deleted\]]($deleted_style))'
-format = '([\[$added\]]($added_style))([\[$deleted\]]($deleted_style))'
-added_style = 'italic green'
-deleted_style = 'italic red'
+format = '([\[▴$added\]]($added_style))([\[▿$deleted\]]($deleted_style))'
+added_style = 'green'
+deleted_style = 'red'
 ignore_submodules = true
 disabled = false
 
@@ -56,10 +55,10 @@ conflicted = '[ 🏳${count}](red)'
 up_to_date = ''
 untracked = '[ ✨$count](fg:#df9663)'
 stashed = ' 📦'
-modified = '[ $count](red)'
-staged = '[ $count](green)'
-renamed = '[ $count](fg:#df9663)'
-deleted = '[ 🗑$count](red)'
+modified = '[  $count](red)'
+staged = '[  $count](green)'
+renamed = '[  $count](fg:#df9663)'
+deleted = '[ 🗑$count](bold red)'
 
 [cmd_duration]
 style = "dimmed bold yellow"
@@ -69,4 +68,4 @@ format = '[ $duration ]($style)'
 disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "dimmed white"
-format = '[ $time ]($style)'
+format = '[  $time ]($style)'

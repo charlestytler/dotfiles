@@ -19,7 +19,7 @@
         "other": "on"
     },
     // Add font for powerline
-    "terminal.integrated.fontFamily": "Hack Nerd Font Mono",
+    "terminal.integrated.fontFamily": "Hack Nerd Font",
     // Whether auto fetching is enabled.
     "git.autofetch": true,
     // Commit all changes when there are no staged changes.
