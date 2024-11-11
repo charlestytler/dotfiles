@@ -18,8 +18,8 @@
         "strings": "on",
         "other": "on"
     },
-    // fix bazel BUILD files
-    "bazel.buildifierFixOnFormat": true,
+    // Add font for powerline
+    "terminal.integrated.fontFamily": "Hack Nerd Font Mono",
     // Whether auto fetching is enabled.
     "git.autofetch": true,
     // Commit all changes when there are no staged changes.
@@ -230,18 +230,21 @@
     "files.hotExit": "off",
     "workbench.startupEditor": "newUntitledFile",
     "vim.easymotionKeys": "hklyuiopnmqwertzxcvbasdgjf",
-    "vim.easymotionMarkerFontSize": "16",
-    "vim.easymotionMarkerYOffset": 3,
-    "vim.easymotionMarkerHeight": 16,
-    "vim.easymotionMarkerFontFamily": "monospace",
     "vim.foldfix": true,
-    "sync.gist": "cfe856f9c8cdb5c03dbeb8ed2f49b7fe",
-    "sync.autoUpload": true,
     "window.zoomLevel": 0,
-    "search.enableSearchEditorPreview": true,
     "search.collapseResults": "auto",
     "explorer.autoReveal": false,
     "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\wsl.exe",
-    "workbench.colorTheme": "Dark Pastel Theme",
+    "workbench.colorTheme": "Pastel Pro",
     "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.commandsToSkipShell": [
+        "language-julia.interrupt"
+    ],
+    "julia.symbolCacheDownload": true,
+    "julia.enableTelemetry": true,
+    "terminal.integrated.fontSize": 13,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "terminal.integrated.enableMultiLinePasteWarning": false,
 }

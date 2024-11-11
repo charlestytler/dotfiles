@@ -7,7 +7,7 @@ alias uuu="cd ../../.."
 alias uuuu="cd ../../../.."
 
 
-alias v="nvim"
+alias v="vim"
 alias vgit="v \`git sh | tail -n +2\`"
 alias gitlog="git lg1 | head -10"
 alias gitclear="git reset --hard; git clean -i"
@@ -173,6 +173,9 @@ export PROMPT_DIRTRIM=3
 
 PS1='\[\033[01;32m\][\t]\[\033[01;34m\]\w\[\033[00m\]\[\033[00m\]:> '
 
+source ~/.git-prompt.sh
+source ~/.git-completion.bash
+
 # Show git branch in terminal (from wiki computer_setup/linux/bashrc)
 # Custom GIT PS1 function
 function local_git_ps1 ()
@@ -186,19 +189,19 @@ function local_git_ps1 ()
 }
 
 # If we have the git_ps1 helper use it
-if command -v __git_ps1 >/dev/null 2>&1  ; then
+if command -v local_git_ps1 >/dev/null 2>&1  ; then
 
     # Define the options for the git PS1
     # WARNING: enabling some of these options can cause performance issues
     # on large repositories, leading to sluggish shell use.
-    #GIT_PS1_SHOWDIRTYSTATE="y"
+    GIT_PS1_SHOWDIRTYSTATE="y"
     #GIT_PS1_SHOWSTASHSTATE="y"
     #GIT_PS1_SHOWUNTRACKEDFILES="y"
     #GIT_PS1_SHOWUPSTREAM="verbose"
 
     # Update the standard Ubuntu PS1 with git information.
     PS1='\[\033[01;32m\][\t]\[\033[01;34m\]\w\[\033[00m\]\[\033[00m\]:$(local_git_ps1)> '
-    #PS1='\[\033[01;32m\][\t]\[\033[01;34m\]$PS1_PATH\[\033[00m\]\[\033[00m\]:$(local_git_ps1)> '
+    #PS1='\[\033[01;32m\][\t]\[\033[01;34m\]$PS1_PATH\[\033[00m\]\[\033[00m\]:$(parse_git_branch)> '
 fi
 
 

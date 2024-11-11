@@ -1,0 +1,72 @@
+format = """
+[ 󰝰 ](fg:#4896f3 bg:#343b54)\
+${custom.git_root}\
+$directory\
+[](fg:#343b54)\
+$git_branch\
+$git_commit\
+$git_status\
+$git_state\
+$fill\
+
+$cmd_duration\
+$git_metrics\
+$time\
+\n$character"""
+
+[custom.git_root]
+# command outputs the top level directory and cuts off everything but the last directory name
+command = 'git rev-parse --is-inside-work-tree &>/dev/null && git rev-parse --show-toplevel 2>/dev/null | xargs basename'
+when = true
+shell = ["sh", "--norc", "-c"]
+use_stdin = false
+format = '[$output]($style)'
+style = 'bold fg:#4896f3 bg:#343b54'
+
+[directory]
+format = '[$path$read_only ]($style)'
+repo_root_format = '[$path$read_only ]($style)'
+style = 'fg:#4896f3 bg:#343b54'
+truncation_length = 3
+repo_root_style = 'bold fg:#4896f3 bg:#343b54'
+truncation_symbol = "/…/"
+
+[fill]
+symbol = ' '
+
+[git_branch]
+style = "fg:#ce9deb"
+format = "[on](dimmed) [ $branch]($style)"
+
+[git_metrics]
+#format = '([\[▴$added\]]($added_style))([\[▿$deleted\]]($deleted_style))'
+format = '([\[$added\]]($added_style))([\[$deleted\]]($deleted_style))'
+added_style = 'italic green'
+deleted_style = 'italic red'
+ignore_submodules = true
+disabled = false
+
+[git_status]
+format = '([\($ahead_behind\)](dimmed)) ([\[$staged$modified$renamed$untracked$deleted$conflicted$stashed \]](dimmed))'
+ahead = '[⇡${count}](fg:#bf92d4)'
+diverged = '[⇡${ahead_count}⇣${behind_count}](red)'
+behind = '[⇣${count}](fg:#bf92d4)'
+conflicted = '[ 🏳${count}](red)'
+# up_to_date = '[󰸞](green)'
+up_to_date = ''
+untracked = '[ ✨$count](fg:#df9663)'
+stashed = ' 📦'
+modified = '[ $count](red)'
+staged = '[ $count](green)'
+renamed = '[ $count](fg:#df9663)'
+deleted = '[ 🗑$count](red)'
+
+[cmd_duration]
+style = "dimmed bold yellow"
+format = '[ $duration ]($style)'
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "dimmed white"
+format = '[ $time ]($style)'
