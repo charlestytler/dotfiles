@@ -29,16 +29,12 @@ function fish_user_key_bindings
     end
 end
 
-##### STARSHIP PROMPT ###########
-starship init fish | source
-# enable_transience
-
-
 ####### Custom Aliases #################################
 
+alias c="z"
 #alias lt="ls -lrtF"
 #alias la="ls -lrtFA"
-alias l="eza --icons=always"
+alias ls="eza --icons=always"
 alias lt="eza --icons=always -l -s modified"
 alias la="eza --icons=always -la -s modified"
 alias u="cd .."
@@ -46,7 +42,7 @@ alias uu="cd ../.."
 alias uuu="cd ../../.."
 alias uuuu="cd ../../../.."
 
-alias v="vim"
+alias v="nvim"
 alias vgit="v \`git sh | tail -n +2\`"
 alias gitlog="git lg1 | head -10"
 alias gitclear="git reset --hard; git clean -i"
@@ -59,3 +55,10 @@ alias ebash="v ~/dotfiles/bashrc"
 alias sbash="source ~/.bashrc"
 alias jup2html="jupyter nbconvert --to html_embed"
 
+
+##### STARSHIP PROMPT ###########
+starship init fish | source
+# enable_transience
+
+# Zoxide (smart cd)
+zoxide init fish --cmd cd | source
