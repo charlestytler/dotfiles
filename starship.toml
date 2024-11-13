@@ -32,7 +32,7 @@ repo_root_style = 'bold fg:#4896f3 bg:#343b54'
 truncation_symbol = "/…/"
 
 [fill]
-symbol = ' '
+symbol = '.'
 
 [git_branch]
 style = "fg:#ce9deb"
