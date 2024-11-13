@@ -21,11 +21,11 @@ choco install fish starship neovim fd ripgrep fzf
 To setup dotfiles on a new machine:  
 ```
 git clone git@github.com:charlestytler/dotfiles.git ~/dotfiles
-ln -s ~/dotfiles/vimrc ~/.vimrc
-ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
-echo "source ~/dotfiles/bashrc" >> ~/.bashrc
-echo "source ~/dotfiles/config.fish" >> ~/.config/fish/config.fish
-echo -e "[include]\n    path = ~/dotfiles/gitconfig" >> ~/.gitconfig
+ln -s ~/dotfiles/vim/vimrc ~/.vimrc
+ln -s ~/dotfiles/tmux ~/.config/tmux
+echo "source ~/dotfiles/bash/bashrc" >> ~/.bashrc
+fish -c exit && echo "source ~/dotfiles/fish/config.fish" >> ~/.config/fish/config.fish
+echo -e "[include]\n    path = ~/dotfiles/git/gitconfig" >> ~/.gitconfig
 
 if [[ "$(uname)" = "Darwin" ]]; then
     VSCODE_PATH=("$HOME/Library/Application\ Support/Code/User/")
