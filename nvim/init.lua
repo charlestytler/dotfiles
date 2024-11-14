@@ -23,7 +23,6 @@ require("lazy").setup({
   },
 
   { import = "plugins" },
-  { import = "charlie.plugins" },
 }, lazy_config)
 
 -- load theme
@@ -34,5 +33,6 @@ require "options"
 require "nvchad.autocmds"
 
 vim.schedule(function()
-  require "mappings"
+  require "nvchad_mappings"
+  require "user_mappings"
 end)
