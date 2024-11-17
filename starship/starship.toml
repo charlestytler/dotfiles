@@ -3,6 +3,7 @@ format = """
 ${custom.git_root}\
 $directory\
 [](fg:#343b54)\
+$hostname\
 $git_branch\
 $git_commit\
 $git_status\
@@ -13,6 +14,12 @@ $cmd_duration\
 $git_metrics\
 $time\
 \n$character"""
+
+[hostname]
+ssh_only = true
+format = '[via ](dimmed)[$ssh_symbol ]($style)'
+style = 'cyan'
+ssh_symbol = ' '
 
 [custom.git_root]
 # command outputs the top level directory and cuts off everything but the last directory name
