@@ -1,6 +1,9 @@
 return {
   "neovim/nvim-lspconfig",
   config = function()
-    require "configs.lspconfig"
+    require "lsp_config.config"
   end,
+  dependencies = {
+    "antosha417/nvim-lsp-file-operations",
+  },
 }

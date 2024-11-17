@@ -7,9 +7,8 @@ map("n", "Q", "<Cmd>qall!<CR>", { noremap = true, desc = "Quit w/o Saving" })
 vim.g.mapleader = " "
 
 -- File Buffer Navigation
-map({ "n", "i", "v" }, "(", "<cmd> bp <cr>", { desc = "Buffer Prev" })
-map({ "n", "i", "v" }, ")", "<cmd> bn <cr>", { desc = "Buffer Next" })
-map({ "n", "i", "v" }, "<tab><BS>", "<cmd>bp|bd #<cr>", { desc = "Buffer Close" })
+map({ "n", "v" }, "(", "<cmd> bp <cr>", { desc = "Buffer Prev" })
+map({ "n", "v" }, ")", "<cmd> bn <cr>", { desc = "Buffer Next" })
 
 -- Tmux/vim Window Navigation
 map("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", { noremap = true, desc = "Window Select " })
@@ -17,10 +16,27 @@ map("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", { noremap = true, desc = "Window 
 map("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", { noremap = true, desc = "Window Select " })
 map("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", { noremap = true, desc = "Window Select " })
 -- (vim) Window Splits
-map("n", "<tab>h", "<cmd>leftabove vsplit<cr>", { noremap = true, desc = "Window Split " })
-map("n", "<tab>j", "<cmd>rightbelow split<cr>", { noremap = true, desc = "Window Split " })
-map("n", "<tab>k", "<cmd>leftabove split<cr>", { noremap = true, desc = "Window Split " })
-map("n", "<tab>l", "<cmd>rightbelow vsplit<cr>", { noremap = true, desc = "Window Split " })
+map("n", "<leader>wh", "<cmd>leftabove vsplit<cr>", { noremap = true, desc = "Window Split " })
+map("n", "<leader>wj", "<cmd>rightbelow split<cr>", { noremap = true, desc = "Window Split " })
+map("n", "<leader>wk", "<cmd>leftabove split<cr>", { noremap = true, desc = "Window Split " })
+map("n", "<leader>wl", "<cmd>rightbelow vsplit<cr>", { noremap = true, desc = "Window Split " })
+
+-- Window Resizing
+map("n", "<C-]>", "<cmd>vertical resize +15<cr>", { noremap = false, desc = "Window Width +" })
+map("n", "<C-[", "<cmd>vertical resize -15<cr>", { noremap = false, desc = "Window Width +" })
+
+map("n", "<leader>w]", "<cmd>vertical resize +15<cr>", { noremap = false, desc = "Window Width +" })
+map("n", "<leader>w[", "<cmd>vertical resize -15<cr>", { noremap = false, desc = "Window Width +" })
+map("n", "<leader>w.", "<cmd>resize +15<cr>", { noremap = false, desc = "Window Height +" })
+map("n", "<leader>w,", "<cmd>resize -15<cr>", { noremap = false, desc = "Window Height +" })
+
+map("n", "<leader>w}", "<cmd>vertical resize +10<cr>", { noremap = false, desc = "Window Width +" })
+map("n", "<leader>w{", "<cmd>vertical resize -10<cr>", { noremap = false, desc = "Window Width -" })
+map("n", "<leader>w>", "<cmd>resize +10<cr>", { noremap = false, desc = "Window Height +" })
+map("n", "<leader>w<", "<cmd>resize -10<cr>", { noremap = false, desc = "Window Height -" })
+
+map("n", "<leader>w=", "<C-w>=", { noremap = false, desc = "Window size equal" })
+map({ "n", "v" }, "<leader>wq", "<C-w>q", { noremap = false, desc = "Window close" })
 
 -- Movement
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection " })

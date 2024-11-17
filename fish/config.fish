@@ -62,3 +62,8 @@ starship init fish | source
 
 # Zoxide (smart cd)
 zoxide init fish --cmd cd | source
+
+# NPM 
+# requires "fisher install jorgebucaran/nvm.fish"
+set -xU nvm_default_version 22
+

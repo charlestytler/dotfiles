@@ -27,14 +27,14 @@ map("n", "<leader>ur", "<cmd>set rnu!<CR>", { desc = "UI toggle relative number"
 map("n", "<leader>uc", "<cmd>NvCheatsheet<CR>", { desc = "UI toggle nvcheatsheet" })
 
 map("n", "<leader>cf", function()
-  require("conform").format { lsp_fallback = true }
+  require("conform").format { lsp_fallback = false }
 end, { desc = "code format file" })
 
 -- global lsp mappings
-map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
+-- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
 -- tabufline
-map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "buffer new" })
+-- map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "buffer new" })
 
 --map("n", "<tab>", function()
 --  require("nvchad.tabufline").next()
@@ -74,7 +74,7 @@ map(
 )
 
 map("n", "<leader>sf", "<cmd>Telescope live_grep<CR>", { desc = "Search files" })
-map("v", "<leader>sg", "<cmd>Telescope grep_string<CR>", { desc = "Search grep under cursor" })
+map({ "n", "v" }, "<leader>sg", "<cmd>Telescope grep_string<CR>", { desc = "Search grep under cursor" })
 map("n", "<leader>s/", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Search in current file" })
 map("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Search help" })
 map("n", "<leader>sc", "<cmd>Telescope live_grep cwd=$HOME/.config/nvim<CR>", { desc = "Search config files" })

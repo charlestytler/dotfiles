@@ -1,6 +1,6 @@
 return {
   -- Disable NvChad's default tree
-  { "nvim-tree/nvim-tree", enabled = false },
+  { "nvim-tree/nvim-tree", opts = { disable_netrw = false }, enabled = false },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -35,6 +35,7 @@ return {
         desc = "Explorer NeoTree focus",
       },
       { "<C-n>", "<leader>fE", desc = "Explorer NeoTree toggle", remap = true },
+      { "<leader>t", ":Neotree reveal<CR>", desc = "Reveal file in tree", remap = false },
       {
         "<leader>gs",
         function()
@@ -43,7 +44,7 @@ return {
         desc = "Git status",
       },
       {
-        "<leader>bb",
+        "<leader>b",
         function()
           require("neo-tree.command").execute { source = "buffers", toggle = true }
         end,
