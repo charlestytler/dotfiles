@@ -15,4 +15,6 @@ config.macos_window_background_blur = 10
 config.enable_tab_bar = false
 config.window_decorations = "TITLE | RESIZE"
 
+config.window_close_confirmation = 'NeverPrompt'
+
 return config
