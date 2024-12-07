@@ -14,8 +14,8 @@
     amend=commit --amend --no-edit
     abort=cherry-pick --abort
     continue=cherry-pick --continue
-    # Simpler diff
-    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    d = !PARENT=$(git branch --show-current) && git checkout -b $1 && git branch -u $PARENT
+    u = !PARENT=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) && git checkout $PARENT
     # Graphical git log in your terminal
     lg=log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --branches=*
     lg1=log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative

@@ -7,13 +7,13 @@ VS Code: https://code.visualstudio.com/download
 Download and install fonts "Hack Nerd Font": https://www.nerdfonts.com/font-downloads  
   
 ```
-brew install fish starship neovim fd ripgrep fzf
+brew install fish starship neovim fd ripgrep fzf bat
 ```  
 ```
-sudo apt-get install fish starship neovim fd ripgrep fzf
+sudo apt-get install fish starship neovim fd ripgrep fzf bat
 ```
 ```  
-choco install fish starship neovim fd ripgrep fzf
+choco install fish starship neovim fd ripgrep fzf bat
 ```  
 
 
