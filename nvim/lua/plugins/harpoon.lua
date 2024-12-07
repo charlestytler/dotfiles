@@ -3,6 +3,12 @@ return {
   event = "VeryLazy",
   branch = "harpoon2",
   dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+  opts = {
+    global_settings = {
+      -- mark_branch = true,
+      -- tabline = true,
+    },
+  },
   keys = {
     {
       "<leader>`",

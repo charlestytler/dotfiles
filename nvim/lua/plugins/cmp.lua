@@ -45,6 +45,17 @@ local opts = {
     { name = "path" },
     { name = "codeium" },
   },
+  enabled = function()
+    local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+    if buftype == "prompt" then
+      return false
+    end
+    local is_floating = vim.api.nvim_win_get_config(0).relative ~= ""
+    if is_floating then
+      return false
+    end
+    return true
+  end,
 }
 
 return {

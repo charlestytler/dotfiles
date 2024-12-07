@@ -9,14 +9,12 @@ M.on_attach = function(_, bufnr)
   local map = vim.keymap.set
 
   map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
-  map("n", "gi", vim.lsp.buf.signature_help, opts "Show signature help")
-
   -- map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
   -- map("n", "gI", vim.lsp.buf.implementation, opts "Go to implementation")
   -- map("n", "gt", vim.lsp.buf.type_definition, opts "Go to type definition")
   map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts "Go to definition")
   map("n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts "Go to implementation")
-  map("n", "gi", "<cmd>Telescope lsp_signature_help<CR>", opts "Show signature help")
+  map("n", "gs", "<cmd>Telescope lsp_signature_help<CR>", opts "Show signature help")
   map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts "Go to type definition")
   map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts "Show references")
 

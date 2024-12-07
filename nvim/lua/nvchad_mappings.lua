@@ -44,9 +44,7 @@ end, { desc = "code format file" })
 --  require("nvchad.tabufline").prev()
 --end, { desc = "buffer goto prev" })
 
-map("n", "<leader>x", function()
-  require("nvchad.tabufline").close_buffer()
-end, { desc = "buffer close" })
+map("n", "<leader>x", "<cmd>bdelete<CR>", { desc = "buffer close" })
 
 -- Comment
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
