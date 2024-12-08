@@ -22,9 +22,10 @@ To setup dotfiles on a new machine:
 ```
 git clone git@github.com:charlestytler/dotfiles.git ~/dotfiles
 ln -s ~/dotfiles/vim/vimrc ~/.vimrc
+ln -s ~/dotfiles/nvim ~/.config/nvim
 ln -s ~/dotfiles/tmux ~/.config/tmux
 echo "source ~/dotfiles/bash/bashrc" >> ~/.bashrc
-fish -c exit && echo "source ~/dotfiles/fish/config.fish" >> ~/.config/fish/config.fish
+fish -c exit && ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish && ln -s ~/dotfiles/fish/conf.d ~/.config/fish/conf.d
 echo -e "[include]\n    path = ~/dotfiles/git/gitconfig" >> ~/.gitconfig
 
 if [[ "$(uname)" = "Darwin" ]]; then
