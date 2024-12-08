@@ -25,7 +25,7 @@ ln -s ~/dotfiles/vim/vimrc ~/.vimrc
 ln -s ~/dotfiles/nvim ~/.config/nvim
 ln -s ~/dotfiles/tmux ~/.config/tmux
 echo "source ~/dotfiles/bash/bashrc" >> ~/.bashrc
-fish -c exit && ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish && ln -s ~/dotfiles/fish/conf.d ~/.config/fish/conf.d
+fish -c exit && cp ~/dotfiles/fish/config.fish.sample ~/dotfiles/fish/config.fish && ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish && ln -s ~/dotfiles/fish/conf.d ~/.config/fish/conf.d
 echo -e "[include]\n    path = ~/dotfiles/git/gitconfig" >> ~/.gitconfig
 
 if [[ "$(uname)" = "Darwin" ]]; then
