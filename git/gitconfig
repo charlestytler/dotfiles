@@ -1,5 +1,6 @@
 [core]
 	editor = vim
+  pager = delta
 [merge]
 	tool = meld
 	conflictstyle = diff3
@@ -24,5 +25,27 @@
     bl=for-each-ref --sort=-committerdate --format='%(color:red)%(objectname:short) %(color:green)%(committerdate:relative) %(color:reset)%(refname:short) %(color:blue)%(authorname)' refs/heads/
 [pull]
 	rebase = true
+[push]
+  default = simple
 [mergetool]
 	keepBackup = false
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    # dark = true
+    # light = true
+    # features = "arctic-fox"
+    # features = "chameleon"
+    # features = "charlie-dark"
+    features = "grey-pastel"
+    # side-by-side = true
+
+[merge]
+    conflictstyle = zdiff3
+[include]
+    path = ~/dotfiles/git/delta/themes.gitconfig
+
