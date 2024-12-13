@@ -18,6 +18,15 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+lspconfig["basedpyright"].setup {
+  capabilities = nvlsp.capabilities,
+  settings = {
+    basedpyright = {
+      typeCheckingMode = "standard",
+    },
+  },
+}
+
 -- configuring single server, example: typescript
 -- lspconfig.ts_ls.setup {
 --   on_attach = nvlsp.on_attach,
