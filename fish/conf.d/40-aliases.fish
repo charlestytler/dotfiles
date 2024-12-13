@@ -11,4 +11,5 @@ alias uuuu="cd ../../../.."
 
 alias v="nvim"
 alias vi="nvim" # Cause I still do this out of habit
+alias vv="nvim -S ~/.nvim/last_session.vim" #Open last session
 
