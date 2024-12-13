@@ -14,8 +14,8 @@ return {
       enabled = true,
       key_bindings = {
         accept = "<Tab>",
+        accept_word = ";<Tab>",
         clear = "jl",
-        next = "<S-Tab>",
       },
     },
   },

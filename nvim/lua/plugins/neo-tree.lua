@@ -14,6 +14,7 @@ return {
     cmd = "Neotree",
     opts = {
       close_if_last_window = true,
+
       -- Auto close on file open
       event_handlers = {
         {
@@ -26,6 +27,7 @@ return {
           end,
         },
       },
+
       -- Show harpoon index numbers
       filesystem = {
         components = {
@@ -93,13 +95,13 @@ return {
         end,
         desc = "Git status",
       },
-      {
-        "<leader>b",
-        function()
-          require("neo-tree.command").execute { source = "buffers", toggle = true }
-        end,
-        desc = "Buffer Explorer",
-      },
+      -- {
+      --   "<leader>b",
+      --   function()
+      --     require("neo-tree.command").execute { source = "buffers", toggle = true }
+      --   end,
+      --   desc = "Buffer Explorer",
+      -- },
     },
   },
 }

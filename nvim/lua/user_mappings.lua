@@ -37,6 +37,7 @@ map("n", "<leader>w<", "<cmd>resize -10<cr>", { noremap = false, desc = "Window 
 
 map("n", "<leader>w=", "<C-w>=", { noremap = false, desc = "Window size equal" })
 map({ "n", "v" }, "<leader>wq", "<C-w>q", { noremap = false, desc = "Window close" })
+map("n", "<leader>w<CR>", ":tab split<CR>", { noremap = false, desc = "Window maximize (tab)" })
 
 -- Movement
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection " })
@@ -50,10 +51,10 @@ vim.keymap.set("n", "n", "nzzzv", { desc = "󰈞 next" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "󰈞 prev" })
 
 -- Register workarounds
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Register-hold Paste" })
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Clipboard- yank" })
-vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Clipboard- yank line" })
--- vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Register-hold Delete" })
+vim.keymap.set("x", ";p", [["_dP]], { desc = "Register-hold Paste" })
+vim.keymap.set({ "n", "v" }, ";y", [["+y]], { desc = "Clipboard- yank" })
+vim.keymap.set("n", ";Y", [["+Y]], { desc = "Clipboard- yank line" })
+vim.keymap.set({ "n", "v" }, ";d", '"_d', { desc = "Register-hold Delete" })
 
 -- Under cursor utilities
 vim.keymap.set(

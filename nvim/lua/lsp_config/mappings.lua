@@ -28,7 +28,7 @@ M.on_attach = function(_, bufnr)
 
   map("n", "<leader>rs", require "nvchad.lsp.renamer", opts "Rename Symbol")
 
-  map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
+  map({ "n", "v" }, "<leader>ca", "<cmd>FzfLua lsp_code_actions<CR>", opts "Code action")
 
   map("n", "<leader>cD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts "Diagnostics for file")
   map("n", "<leader>cd", vim.diagnostic.open_float, opts "Diagnostics for current line")
