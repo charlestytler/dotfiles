@@ -1,0 +1,10 @@
+git diff nvim/lua/plugins/gitsigns.lua | delta --zero-style "" --plus-style "syntax darkgreen" --plus-non-emph-style "syntax bold" --minus-non-emph-style "grey dim black" --minus-emph-style "black strike red"
+
+git diff | delta --zero-style "" --plus-style "syntax #3c5e4c" --plus-non-emph-style "syntax" --minus-non-emph-style "omit" --minus-emph-style "black strike red" --syntax-theme "Monokai Extended"
+
+-- Github white
+git diff nvim/lua/plugins/dashboard-nvim.lua git/gitconfig | delta --zero-style "syntax snow" --plus-style "syntax palegreen" --plus-non-emph-style "syntax palegreen" --plus-emph-style "syntax mediumaquamarine" --minus-non-emph-style "grey dim #fad1d1" --minus-emph-style "black strike red" --syntax-theme "GitHub"
+
+git diff | delta --light --features "hoopoe" --zero-style "syntax ivory" --hunk-header-style "syntax snow" --hunk-header-decoration-style "white box" --file-style "snow bold auto" --syntax-theme "GitHub"
+
+
