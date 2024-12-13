@@ -21,10 +21,14 @@ M.ui = {
 M.base46 = {
   theme = "palenight",
 
-  -- hl_override = {
-  -- 	Comment = { italic = true },
-  -- 	["@comment"] = { italic = true },
-  -- },
+  hl_override = {
+    DiffAdd = { fg = "NONE", bg = "#405050" },
+    DiffChange = { fg = "NONE", bg = "#555555" },
+    DiffDelete = { fg = "NONE", bg = "#875c60" },
+    DiffText = { bold = true, fg = "NONE", bg = "#1f1500" },
+    -- Comment = { italic = true },
+    -- ["@comment"] = { italic = true },
+  },
 }
 
 return M

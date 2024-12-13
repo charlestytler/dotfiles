@@ -1,6 +1,7 @@
 return {
   "nvimdev/dashboard-nvim",
-  event = "VimEnter",
+  -- event = "VimEnter",
+  enable = false,
   opts = {
     theme = "hyper",
     config = {
@@ -10,12 +11,12 @@ return {
       shortcut = {
         { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
         {
-          icon = " ",
+          icon = " ",
           icon_hl = "@variable",
-          desc = "Files",
+          desc = "Oil",
           group = "Label",
-          action = "Telescope find_files",
-          key = "f",
+          action = "Oil .",
+          key = "o",
         },
         {
           desc = "󰊢 Repos",
