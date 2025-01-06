@@ -3,10 +3,17 @@ return {
   event = "BufReadPre",
   dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons" },
   keys = {
-    { "<leader>ui", '<Cmd>lua require"incline".toggle()<Cr>', desc = "Incline: Toggle" },
+    { "<leader>uh", '<Cmd>lua require"incline".toggle()<Cr>', desc = "Headers: Toggle" },
   },
   config = function()
     require("incline").setup {
+      window = {
+        zindex = 30,
+        margin = {
+          vertical = { top = vim.o.laststatus == 3 and 0 or 1, bottom = 0 }, -- shift to overlap window borders
+          horizontal = { left = 0, right = 2 },
+        },
+      },
       render = function(props)
         local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
         local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)

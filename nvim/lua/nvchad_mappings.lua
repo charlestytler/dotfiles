@@ -44,7 +44,7 @@ end, { desc = "code format file" })
 --  require("nvchad.tabufline").prev()
 --end, { desc = "buffer goto prev" })
 
-map("n", "<leader>x", "<cmd>bdelete<CR>", { desc = "buffer close" })
+-- map("n", "<leader>x", "<cmd>bdelete<CR>", { desc = "buffer close" })
 
 -- Comment
 map("n", "<leader>'", "gcc", { desc = "toggle comment", remap = true })
@@ -110,9 +110,9 @@ map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 --end, { desc = "terminal new vertical term" })
 
 -- toggleable
-map({ "n", "t" }, "<S-\\>", function()
-  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "terminal toggleable vertical term" })
+-- map({ "n", "t" }, "<A-v>", function()
+--   require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
+-- end, { desc = "terminal toggleable vertical term" })
 
 -- map({ "n", "t" }, "<A-h>", function()
 --   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }

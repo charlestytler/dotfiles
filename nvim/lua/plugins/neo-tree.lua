@@ -66,28 +66,13 @@ return {
     },
     keys = {
       {
-        "<leader>fe",
-        function()
-          require("neo-tree.command").execute { toggle = true, dir = LazyVim.root() }
-        end,
-        desc = "Find in Explorer NeoTree (Root Dir)",
-      },
-      {
-        "<leader>fE",
+        "<C-n>",
         function()
           require("neo-tree.command").execute { toggle = true, dir = vim.uv.cwd() }
         end,
-        desc = "Explorer NeoTree (cwd)",
+        desc = "Explorer NeoTree toggle",
       },
-      {
-        "<leader>e",
-        function()
-          require("neo-tree.command").execute { action = "focus" }
-        end,
-        desc = "Explorer NeoTree focus",
-      },
-      { "<C-n>", "<leader>fE", desc = "Explorer NeoTree toggle", remap = true },
-      { "<leader>t", ":Neotree reveal<CR>", desc = "Reveal file in tree", remap = false },
+      { "<leader>e", ":Neotree reveal<CR>", desc = "[E]xplorer Reveal File", remap = false },
       {
         "<leader>gs",
         function()

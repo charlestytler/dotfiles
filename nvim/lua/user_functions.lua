@@ -6,15 +6,8 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   command = 'silent! normal! g`"zvzz',
 })
 
--- Save session before quit
-vim.api.nvim_create_autocmd({ "VimLeave" }, {
-  desc = "Save session before quit",
-  pattern = "*",
-  command = "silent! mksession! ~/.nvim/session.vim",
-})
-
 -- Create a new scratch buffer
-vim.api.nvim_create_user_command("Ns", function()
+vim.api.nvim_create_user_command("Scratch", function()
   vim.cmd [[
 		execute 'vsplit | enew'
 		setlocal buftype=nofile
@@ -37,6 +30,7 @@ vim.api.nvim_create_user_command("CompareClipboard", function()
 	]]
   vim.cmd("set filetype=" .. ftype)
 end, { nargs = 0 })
+vim.keymap.set("n", "<leader>dp", "<cmd>CompareClipboard<cr>", { desc = " Diff against Clipboard" })
 
 vim.api.nvim_create_user_command("CompareClipboardSelection", function()
   vim.cmd [[
@@ -54,3 +48,4 @@ end, {
   nargs = 0,
   range = true,
 })
+vim.keymap.set("v", "<leader>dp", "<cmd>CompareClipboard<cr>", { desc = " Diff against Clipboard" })
