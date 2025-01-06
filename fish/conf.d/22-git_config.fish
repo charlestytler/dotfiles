@@ -12,7 +12,7 @@ function git_br_preview_win_width
 end
 alias gco='git checkout $(git branch --sort=-committerdate --format "%(refname:short)" | \
   fzf --height=40% --reverse --ansi \
-  --preview="git tree --highlight {}" \
+  --preview="git tree --concise --highlight {}" \
   --preview-window=right,$(git_br_preview_win_width))'
 
 # gpo - Protection against pushing master
