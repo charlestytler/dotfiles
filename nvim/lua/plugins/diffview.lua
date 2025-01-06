@@ -3,10 +3,10 @@ return {
   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
   opts = {},
   keys = {
-    { "<leader>do", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen" },
-    { "<leader>dc", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
-    { "<leader>dt", "<cmd>DiffviewToggleFiles<cr>", desc = "DiffviewToggleFiles" },
-    { "<leader>df", "<cmd>DiffviewFocusFiles<cr>", desc = "DiffviewFocusFiles" },
+    { "<leader>do", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
+    { "<leader>dq", "<cmd>DiffviewClose<cr>", desc = "Diffview Quit" },
+    { "<leader>d\\", "<cmd>DiffviewToggleFiles<cr>", desc = "Diffview Toggle Files" },
+    { "<leader>df", "<cmd>DiffviewFocusFiles<cr>", desc = "Diffview Focus Files" },
   },
 }
 
