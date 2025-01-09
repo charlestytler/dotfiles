@@ -46,6 +46,7 @@ local opts = {
     { name = "nvim_lua" },
     { name = "path" },
     { name = "codeium" },
+    { name = "codecompanion" },
   },
   enabled = function()
     local buftype = vim.api.nvim_buf_get_option(0, "buftype")

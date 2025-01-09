@@ -12,17 +12,18 @@ return {
 
     -- Document existing key chains
     require("which-key").add {
-      { "<leader>c", group = "[C]ode" },
-      { "<leader>d", group = "[D]iff" },
-      { "<leader>f", group = "[F]ind 🔍" },
-      { "<leader>r", group = "[R]eplace" },
-      { "<leader>s", group = "[S]earch" },
-      { "<leader>t", group = "[T]est" },
-      { "<leader>w", group = "[W]indow" },
-      { "<leader>u", group = "[U]I" },
-      { "<leader>g", group = "[G]it", mode = { "n", "v" } },
-      { "<leader>gh", group = "[H]unk", mode = { "n", "v" } },
-      { "<leader>cw", group = "[W]orkspace", mode = { "n", "v" } },
+      { "<leader>c", group = "[C]ode </>" },
+      { "<leader>d", group = "[D]iff 🚧" },
+      { "<leader>f", group = "[F]iles 📂" },
+      { "<leader>l", group = "[L]og 🪵" },
+      { "<leader>r", group = "[R]eplace 🔁" },
+      { "<leader>s", group = "[S]earch 🔍" },
+      { "<leader>t", group = "[T]est 🧪" },
+      { "<leader>w", group = "[W]indow 🪟" },
+      { "<leader>u", group = "[U]I 🎨" },
+      { "<leader>g", group = "[G]it 󰊢", mode = { "n", "v" } },
+      { "<leader>gh", group = "[H]unk ⇄", mode = { "n", "v" } },
+      { "<leader>cw", group = "[W]orkspace 💼", mode = { "n", "v" } },
     }
   end,
 }
