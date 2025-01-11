@@ -48,7 +48,6 @@ map("n", "<leader>wT", ":tab split<CR>", { noremap = false, desc = "Open in new 
 -- Movement
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection " })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection " })
-vim.keymap.set("n", "s", "<nop>")
 
 -- Cursor movement overrides
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "" })

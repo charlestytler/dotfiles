@@ -17,23 +17,16 @@ local opts = {
       select = true,
     },
 
-    -- disable completion with tab as it conflicts with Codeium completion
+    -- disable completion with tab as it conflicts with other AI completion tools
     ["<Tab>"] = cmp.config.disable,
+
     -- ["<Tab>"] = cmp.mapping(function(fallback)
     --   if cmp.visible() then
     --     cmp.select_next_item()
-    --   elseif require("luasnip").expand_or_jumpable() then
-    --     require("luasnip").expand_or_jump()
-    --   else
-    --     fallback()
-    --   end
-    -- end, { "i", "s" }),
-    --
-    -- ["<S-Tab>"] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   elseif require("luasnip").jumpable(-1) then
-    --     require("luasnip").jump(-1)
+    --   -- elseif require("luasnip").expand_or_jumpable() then
+    --   --   vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+    --   elseif vim.b._copilot_suggestion ~= nil then
+    --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes(vim.fn["copilot#Accept"](), true, true, true), "")
     --   else
     --     fallback()
     --   end
@@ -45,8 +38,7 @@ local opts = {
     { name = "buffer" },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "codeium" },
-    { name = "codecompanion" },
+    -- { name = "codeium" },
   },
   enabled = function()
     local buftype = vim.api.nvim_buf_get_option(0, "buftype")
