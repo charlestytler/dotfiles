@@ -12,6 +12,8 @@ return {
 
     -- Document existing key chains
     require("which-key").add {
+      { ";a", group = "[A]lign", mode = { "x" } },
+      { "<leader>a", group = "[A]i 🤖" },
       { "<leader>c", group = "[C]ode </>" },
       { "<leader>d", group = "[D]iff 🚧" },
       { "<leader>f", group = "[F]iles 📂" },
