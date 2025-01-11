@@ -1,16 +1,14 @@
 # ghostty +show-config --default --docs
 # ghostty +list-themes
 
-font-family                    = Hack Nerd Font
+font-family                    = 0xProto
 #font-family                    = PragmataPro Liga 
 #font-family-bold               = PragmataPro Liga 
 #font-family-italic             = PragmataPro Liga 
 #font-family-bold-italic        = PragmataPro Liga 
 
 font-thicken                   = true
-font-feature                   = calt
-font-feature                   = liga
-font-feature                   = ss13
+font-feature                   = ss01
 
 # font-size                      = 13
 window-inherit-font-size       = true
