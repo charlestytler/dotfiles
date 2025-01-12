@@ -7,7 +7,7 @@ return {
     -- Plugins
     bigfile = { enabled = true },
     bufdelete = { enabled = true },
-    dashboard = require "configs.snacks-dashboard",
+    dashboard = require "configs.dashboard",
     indent = { enabled = false },
     notify = { enabled = false }, -- allows for `lua Snacks.notify("custom message")`
     notifier = {

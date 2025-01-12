@@ -1,4 +1,4 @@
-return {
+local octo = {
   "pwntester/octo.nvim",
   requires = {
     "nvim-lua/plenary.nvim",
@@ -10,4 +10,8 @@ return {
   config = function()
     require("octo").setup()
   end,
+}
+
+return {
+  octo,
 }
