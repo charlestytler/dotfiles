@@ -1,3 +1,14 @@
+-- {
+--   "echasnovski/mini.jump",
+--   version = false,
+--   event = "VeryLazy",
+--   opts = {
+--     mappings = {
+--       repeat_jump = "'", -- note: overrides marks keymap
+--     },
+--   },
+-- },
+
 local leap = {
   "ggandor/leap.nvim",
   config = function()
@@ -23,7 +34,7 @@ local flash = {
         enabled = true,
       },
       char = {
-        enabled = true,
+        enabled = false,
         keys = { "f", "F", "t", "T", [";"] = "," }, -- default { "f", "F", "t", "T", ";", "," },
         autohide = true,
         jump_labels = false,
@@ -44,14 +55,51 @@ local flash = {
 local quickscope = {
   "unblevable/quick-scope",
   event = "BufEnter",
-  config = function()
+  init = function()
     vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
-    vim.keymap.set({ "n" }, "<leader>uq", "<cmd>QuickScopeToggle<CR>", { desc = "Quickscope Toggle" })
   end,
+  config = function()
+    vim.keymap.set({ "n" }, "<leader>uq", "<cmd>QuickScopeToggle<CR>", { desc = "Quickscope Toggle" })
+    vim.keymap.set({ "n" }, ",", ";", { desc = "Repeat f,F,t,T" })
+  end,
+}
+
+local nvim_spider = {
+  "chrisgrieser/nvim-spider",
+  event = "VeryLazy",
+  opts = {},
+  keys = {
+    {
+      ";w",
+      "<cmd>lua require('spider').motion('w')<CR>",
+      mode = { "n", "o", "x" },
+      desc = "camelCase w",
+    },
+    {
+      ";e",
+      "<cmd>lua require('spider').motion('e')<CR>",
+      mode = { "n", "o", "x" },
+      desc = "camelCase e",
+    },
+    {
+      ";b",
+      "<cmd>lua require('spider').motion('e')<CR>",
+      mode = { "n", "o", "x" },
+      desc = "camelCase b",
+    },
+    -- Punctuation skipping option off
+    {
+      ";W",
+      "<cmd>lua require('spider').motion('w', {skipInsignificantPunctuation = false})<CR>",
+      mode = { "n", "o", "x" },
+      desc = "camelCase w (noskip punct.)",
+    },
+  },
 }
 
 return {
   leap,
   flash,
   quickscope,
+  nvim_spider,
 }

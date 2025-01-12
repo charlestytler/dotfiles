@@ -1,4 +1,4 @@
-return {
+local timber = {
   "Goose97/timber.nvim",
   version = "*", -- Use for stability; omit to use `main` branch for the latest features
   event = "VeryLazy",
@@ -29,4 +29,8 @@ return {
     log_marker = "🪵", -- Or any other string, e.g: MY_LOG
     -- default_keymaps_enabled = false,
   },
+}
+
+return {
+  timber,
 }

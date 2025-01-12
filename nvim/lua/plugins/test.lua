@@ -1,4 +1,4 @@
-return {
+local neotest = {
   "nvim-neotest/neotest",
   dependencies = {
     "nvim-neotest/nvim-nio",
@@ -43,4 +43,8 @@ return {
       },
     }
   end,
+}
+
+return {
+  neotest,
 }

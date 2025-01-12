@@ -1,4 +1,18 @@
-return {
+local mini_diff = {
+  "echasnovski/mini.diff",
+  version = false,
+  event = "VeryLazy",
+  opts = {
+    view = {
+      style = "sign",
+    },
+  },
+  keys = {
+    { "<leader>go", "<cmd>lua MiniDiff.toggle_overlay()<cr>", desc = "Diff Overlay" },
+  },
+}
+
+local diffview = {
   "sindrets/diffview.nvim",
   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
   opts = {},
@@ -8,6 +22,11 @@ return {
     { "<leader>d\\", "<cmd>DiffviewToggleFiles<cr>", desc = "Diffview Toggle Files" },
     { "<leader>df", "<cmd>DiffviewFocusFiles<cr>", desc = "Diffview Focus Files" },
   },
+}
+
+return {
+  mini_diff,
+  diffview,
 }
 
 --[[

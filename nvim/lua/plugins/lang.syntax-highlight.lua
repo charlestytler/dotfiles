@@ -1,4 +1,28 @@
-return {
+local treesitter = {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "c",
+        "cpp",
+        "typescript",
+        "tsx",
+        "git_rebase",
+        "gitcommit",
+        "gitignore",
+        "javascript",
+        "python",
+      },
+    },
+  },
+}
+
+local render_markdown = {
   "MeanderingProgrammer/render-markdown.nvim",
   -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
   -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
@@ -7,4 +31,9 @@ return {
   ---@type render.md.UserConfig
   opts = {},
   ft = "markdown",
+}
+
+return {
+  treesitter,
+  render_markdown,
 }

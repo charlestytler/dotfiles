@@ -1,7 +1,11 @@
--- Overwrite NvChad on_attach capabilities
-local M = {}
+local servers = {
+  "lua_ls",
+  "html",
+  "cssls",
+  "ts_ls",
+}
 
-M.on_attach = function(_, bufnr)
+local map_on_attach = function(_, bufnr)
   local function opts(desc)
     return { buffer = bufnr, desc = "LSP " .. desc }
   end
@@ -38,4 +42,47 @@ M.on_attach = function(_, bufnr)
   map("n", "<leader>cR", ":LspRestart<CR>", opts "Restart LSP")
 end
 
-return M
+return {
+  "neovim/nvim-lspconfig",
+  config = function()
+    -- require "lsp_config.config"
+
+    -- load defaults i.e lua_lsp
+    require("nvchad.configs.lspconfig").defaults()
+
+    local lspconfig = require "lspconfig"
+    local nvlsp = require "nvchad.configs.lspconfig"
+
+    -- lsps with default config
+    for _, lsp in ipairs(servers) do
+      lspconfig[lsp].setup {
+        -- on_attach = nvlsp.on_attach,
+        on_attach = map_on_attach,
+        on_init = nvlsp.on_init,
+        capabilities = nvlsp.capabilities,
+      }
+    end
+
+    -- Language servers with custom config
+    lspconfig["basedpyright"].setup {
+      on_attach = map_on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+      settings = {
+        basedpyright = {
+          typeCheckingMode = "standard",
+        },
+      },
+    }
+  end,
+  dependencies = {
+    "antosha417/nvim-lsp-file-operations",
+  },
+}
+
+-- configuring single server, example: typescript
+-- lspconfig.ts_ls.setup {
+--   on_attach = nvlsp.on_attach,
+--   on_init = nvlsp.on_init,
+--   capabilities = nvlsp.capabilities,
+-- }
