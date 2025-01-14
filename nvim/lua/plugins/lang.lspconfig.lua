@@ -1,8 +1,10 @@
+-- See https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local servers = {
   "lua_ls",
   "html",
   "cssls",
   "ts_ls",
+  "bashls",
 }
 
 local map_on_attach = function(_, bufnr)
@@ -42,7 +44,7 @@ local map_on_attach = function(_, bufnr)
   map("n", "<leader>cR", ":LspRestart<CR>", opts "Restart LSP")
 end
 
-return {
+local lspconfig = {
   "neovim/nvim-lspconfig",
   config = function()
     -- require "lsp_config.config"
@@ -77,6 +79,7 @@ return {
   end,
   dependencies = {
     "antosha417/nvim-lsp-file-operations",
+    "williamboman/mason-lspconfig.nvim",
   },
 }
 
@@ -86,3 +89,19 @@ return {
 --   on_init = nvlsp.on_init,
 --   capabilities = nvlsp.capabilities,
 -- }
+
+local mason_lspconfig = {
+  "williamboman/mason-lspconfig.nvim",
+  -- Ensure plugins are loaded in order: mason, mason-lspconfig, nvim-lspconfig
+  dependencies = {
+    "williamboman/mason.nvim",
+  },
+  opts = {
+    ensure_installed = servers,
+  },
+}
+
+return {
+  mason_lspconfig,
+  lspconfig,
+}

@@ -1,6 +1,15 @@
+local formatters = {
+  "black",
+  "prettierd",
+  "stylua",
+}
+
 local conform = {
   "stevearc/conform.nvim",
   event = "BufWritePre", -- uncomment for format on save
+  dependencies = {
+    "zapling/mason-conform.nvim",
+  },
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },
@@ -23,6 +32,14 @@ local conform = {
   },
 }
 
+local mason_conform = {
+  "zapling/mason-conform.nvim",
+  dependencies = {
+    "williamboman/mason.nvim",
+  },
+}
+
 return {
+  mason_conform,
   conform,
 }

@@ -1,6 +1,13 @@
-return {
+local linters = {
+  "eslint_d",
+}
+
+local nvim_lint = {
   "mfussenegger/nvim-lint",
   event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "rshkarin/mason-nvim-lint",
+  },
   config = function()
     local lint = require "lint"
 
@@ -29,4 +36,20 @@ return {
       end
     end, { desc = "Lint current file" })
   end,
+}
+
+local mason_nvim_lint = {
+  "rshkarin/mason-nvim-lint",
+  -- Ensure plugin install order: mason, mason-nvim-lint, nvim-lint
+  dependencies = {
+    "williamboman/mason.nvim",
+  },
+  opts = {
+    ensure_installed = linters,
+  },
+}
+
+return {
+  mason_nvim_lint,
+  nvim_lint,
 }

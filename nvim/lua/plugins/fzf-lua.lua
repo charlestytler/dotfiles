@@ -251,7 +251,7 @@ return {
     { "<leader>sm", "<cmd>FzfLua marks<CR>", desc = "Search marks" },
     { "<leader>sp", "<cmd>FzfLua registers<CR>", desc = "Search paste register" },
     { "<leader>s:", "<cmd>FzfLua commands<CR>", desc = "Search commands" },
-    { "<leader>sc", "lua require('fzf-lua').live_grep_native({cwd = '~/dotfiles'})", desc = "Search config files" },
+    { "<leader>sc", "<cmd>lua require('fzf-lua').live_grep_native({cwd = '~/dotfiles'})<CR>", desc = "Search config files" },
 
     { "<leader>s", "<cmd>FzfLua grep_visual<CR>", mode = { "v" }, { desc = "Search selection" } },
 

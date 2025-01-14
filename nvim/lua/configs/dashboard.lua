@@ -1,3 +1,37 @@
+local gitPRs = function()
+  local in_git = Snacks.git.get_root() ~= nil
+  local cmds = {
+    {
+      icon = " ",
+      title = "Git GUI",
+      cmd = "echo && git tree",
+      key = "g",
+      action = function()
+        Snacks.lazygit()
+      end,
+      height = 7,
+    },
+    {
+      icon = " ",
+      title = "Open PRs",
+      cmd = "gh pr list -L 7",
+      key = "p",
+      action = function()
+        vim.fn.jobstart("gh pr list --web", { detach = true })
+      end,
+    },
+  }
+  return vim.tbl_map(function(cmd)
+    return vim.tbl_extend("force", {
+      section = "terminal",
+      enabled = in_git,
+      padding = 1,
+      ttl = 5 * 60,
+      indent = 3,
+    }, cmd)
+  end, cmds)
+end
+
 local dashboardConfig = {
   enabled = true,
   width = 70,
@@ -47,39 +81,7 @@ local dashboardConfig = {
     { section = "header" },
     { section = "keys", gap = 1, padding = 1 },
     { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-    function()
-      local in_git = Snacks.git.get_root() ~= nil
-      local cmds = {
-        {
-          icon = " ",
-          title = "Git GUI",
-          cmd = "echo && git tree",
-          key = "g",
-          action = function()
-            Snacks.lazygit()
-          end,
-          height = 7,
-        },
-        {
-          icon = " ",
-          title = "Open PRs",
-          cmd = "gh pr list -L 7",
-          key = "p",
-          action = function()
-            vim.fn.jobstart("gh pr list --web", { detach = true })
-          end,
-        },
-      }
-      return vim.tbl_map(function(cmd)
-        return vim.tbl_extend("force", {
-          section = "terminal",
-          enabled = in_git,
-          padding = 1,
-          ttl = 5 * 60,
-          indent = 3,
-        }, cmd)
-      end, cmds)
-    end,
+    -- gitPRs,
     {
       icon = " ",
       desc = "Browse Git Repo",
