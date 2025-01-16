@@ -1,6 +1,7 @@
 local formatters = {
   "black",
-  "prettierd",
+  "prettier",
+  "shfmt",
   "stylua",
 }
 
@@ -12,16 +13,17 @@ local conform = {
   },
   opts = {
     formatters_by_ft = {
-      lua = { "stylua" },
+      sh = { "shfmt" },
+      css = { "prettier" },
+      html = { "prettier" },
       javascript = { "prettier" },
       javascriptreact = { "prettier" },
+      json = { "prettier" },
+      lua = { "stylua" },
+      python = { "black" },
+      scss = { "prettier" },
       typescript = { "prettier" },
       typescriptreact = { "prettier" },
-      css = { "prettier" },
-      scss = { "prettier" },
-      html = { "prettier" },
-      json = { "prettier" },
-      python = { "black" },
     },
 
     format_on_save = {
@@ -36,6 +38,9 @@ local mason_conform = {
   "zapling/mason-conform.nvim",
   dependencies = {
     "williamboman/mason.nvim",
+  },
+  opts = {
+    formatters = formatters,
   },
 }
 
