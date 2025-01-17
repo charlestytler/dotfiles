@@ -3,6 +3,23 @@
 # Note: executed at end of file.
 # Declare associative arrays to store sections and subsections
 run() {
+
+  show_help() {
+    echo "Usage: $0 [options]"
+    echo
+    echo "Default behavior is to install all sections specified in installConfig.cfg"
+    echo
+    echo "Options:"
+    echo "  --include, -i  Comma-separated list of sections to include"
+    echo "  --exclude, -e  Comma-separated list of sections to exclude"
+    echo "  --help         Display this help message"
+    echo
+    echo "Examples:"
+    echo "  $0             # Install all sections"
+    echo "  $0 -i vim,git  # Install only vim and git sections"
+    echo "  $0 -e pkgs     # Install all sections except pkgs"
+  }
+
   # Check if running script from correct directory
   if [ ! -f ./install.sh ]; then
     echo "Please run this script from the dotfiles directory"
@@ -11,14 +28,68 @@ run() {
 
   DOTFILES_DIR=$(pwd)
 
-  echo "Installing dotfiles..."
   currentOS=$(detectOS)
   sections=$(parseConfigAndGetSections "./installConfig.cfg")
+
+  # Initialize include and exclude lists
+  include_sections=()
+  exclude_sections=()
+
+  # Parse options
+  while [[ "$#" -gt 0 ]]; do
+    case $1 in
+    --include | -i)
+      IFS=',' read -r -a include_sections <<<"$2"
+      shift 2
+      ;;
+    --exclude | -e)
+      IFS=',' read -r -a exclude_sections <<<"$2"
+      shift 2
+      ;;
+    --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1"
+      show_help
+      exit 1
+      ;;
+    esac
+  done
+
+  # Filter sections based on include and exclude options
+  if [ ${#include_sections[@]} -gt 0 ]; then
+    sections=$(echo "$sections" | tr ' ' '\n' | grep -E "$(
+      IFS='|'
+      echo "${include_sections[*]}"
+    )" | tr '\n' ' ')
+  fi
+
+  if [ ${#exclude_sections[@]} -gt 0 ]; then
+    sections=$(echo "$sections" | tr ' ' '\n' | grep -vE "$(
+      IFS='|'
+      echo "${exclude_sections[*]}"
+    )" | tr '\n' ' ')
+  fi
+
+  # Handle case of no sections found
+  if [ -z "$sections" ]; then
+    echo "No sections found to install, check spelling or --help for instructions"
+    exit 0
+  fi
+
+  echo "Installing dotfiles..."
   echo
   echo "Sections to install:"
-  echo "$sections"
-  promptToContinue "Do you want to install all sections? (y/n) " || exit 0
-  parseConfigAndHandleActions "./installConfig.cfg" "$currentOS"
+  echo "  $sections"
+  if promptToContinue "Do you want to install these sections? (y/n) "; then
+    echo
+    parseConfigAndHandleActions "./installConfig.cfg" "$currentOS" "$sections"
+  else
+    echo "Re-run script with --include/-i or --exclude/-e flags to modify sections to install"
+    exit 0
+  fi
 }
 
 parseConfigAndGetSections() {
@@ -56,6 +127,14 @@ parseConfigAndGetSections() {
 parseConfigAndHandleActions() {
   local cfg_file_path="$1"
   local currentOS="$2"
+  local filtered_sections="$3"
+
+  # Define color codes
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  YELLOW='\033[1;33m'
+  PURPLE='\033[0;35m'
+  RESET='\033[0m' # No Color
 
   # Variables to track in while loop
   previous_section=""
@@ -82,10 +161,15 @@ parseConfigAndHandleActions() {
         specifiedOS=""
       fi
 
+      # Skip sections not in the filtered list
+      if [[ ! " $filtered_sections " =~ " $current_section " ]]; then
+        continue
+      fi
+
       # Detect section change
       if [[ "$current_section" != "$previous_section" ]]; then
         # Print out header for section actions once per section
-        echo "${current_section}:"
+        echo "${PURPLE}${current_section}${RESET}:"
         previous_section="$current_section"
       fi
 
@@ -94,14 +178,19 @@ parseConfigAndHandleActions() {
 
     # Handle key-value pair lines
     if [[ "$line" =~ ^([^=]+)=(.*)$ ]]; then
+      key=$(trim "${BASH_REMATCH[1]}")
+      value=$(trim "${BASH_REMATCH[2]}")
 
       # Ignore if specifiedOS exists and does not equal the currentOS
       if [[ -n "$specifiedOS" && "$specifiedOS" != "$currentOS" ]]; then
         continue
       fi
 
-      key=$(trim "${BASH_REMATCH[1]}")
-      value=$(trim "${BASH_REMATCH[2]}")
+      # Skip sections not in the filtered list
+      if [[ ! " $filtered_sections " =~ " $current_section " ]]; then
+        continue
+      fi
+
       handleConfigActions "$key" "$value"
     fi
   done <"$cfg_file_path"
@@ -123,7 +212,7 @@ handleConfigActions() {
     eval "safeSymlink $value"
     ;;
   *)
-    echo "ERROR: No action defined for key: $key and value: $value"
+    echo "${RED}ERROR${RESET}: No action defined for key: $key and value: $value"
     exit 1
     ;;
   esac
@@ -159,7 +248,7 @@ safeAppendToFile() {
 
   if [ -f "$file" ]; then
     if grep -q "$string" "$file"; then
-      echo "    skipping... reference already included in config file"
+      echo "    ${GREEN}already installed:${RESET} reference included in: ${file}"
       return
     fi
   fi
@@ -175,13 +264,13 @@ safeSymlink() {
   case "$targetStatus" in
   0) # nothing exists at target
     ln -s "${source}" "${target}"
-    echo "    ${target}: installed"
+    echo "    ${GREEN}installed:${RESET} ${target}"
     ;;
   1) # symlink already exists
     existing_source=$(readlink "${target}")
     # Note: strip (optional) trailing slash from directory paths
     if [ "${existing_source%/}" == "${source%/}" ]; then
-      echo "    ${target}: not installed... link already exists"
+      echo "    ${GREEN}already installed:${RESET} ${target}"
     else
       echo "    Link exists but points to different location:"
       echo "      Existing link  -> $(readlink "${target}")"
@@ -196,16 +285,17 @@ safeSymlink() {
     overwriteWithUserPermission "${target}" "${source}"
     ;;
   3)
-    echo "    ${target}: not installed... config file exists"
+    echo "    ${RED}not installed:${RESET} ${target}: config file exists at location"
     overwriteWithUserPermission "${target}" "${source}"
     ;;
   4)
-    echo "    ${target}: not installed... directory exists"
+    echo "    ${RED}not installed:${RESET} ${target}: directory exists at location"
     overwriteWithUserPermission "${target}" "${source}"
     ;;
   5)
-    echo "    ${target}: not installed... parent directory does not exist"
-    echo "    Make sure ${target} is properly installed first"
+    echo "    ${YELLOW}making directory at:${RESET} $(dirname "${target}")"
+    mkdir -p "$(dirname "${target}")" && ln -s "${source}" "${target}" &&
+      echo "    ${GREEN}installed:${RESET} ${target}"
     ;;
   esac
 }
@@ -213,7 +303,12 @@ safeSymlink() {
 overwriteWithUserPermission() {
   local target=$1
   local source=$2
-  promptToContinue "Do you want to overwrite this? (y/n) " && ln -sf "${source}" "${target}" || echo "    ${target}: skipped"
+  if promptToContinue "Do you want to overwrite this? (y/n) "; then
+    ln -sf "${source}" "${target}"
+    echo "    ${GREEN}installed:${RESET} ${target}"
+  else
+    echo "    ${YELLOW}skipped:${RESET} ${target}"
+  fi
 }
 
 promptToContinue() {
