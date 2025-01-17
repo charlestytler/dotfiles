@@ -14,6 +14,10 @@ run() {
   echo "Installing dotfiles..."
   currentOS=$(detectOS)
   sections=$(parseConfigAndGetSections "./installConfig.cfg")
+  echo
+  echo "Sections to install:"
+  echo "$sections"
+  promptToContinue "Do you want to install all sections? (y/n) " || exit 0
   parseConfigAndHandleActions "./installConfig.cfg" "$currentOS"
 }
 
@@ -177,26 +181,27 @@ safeSymlink() {
     existing_source=$(readlink "${target}")
     # Note: strip (optional) trailing slash from directory paths
     if [ "${existing_source%/}" == "${source%/}" ]; then
-      echo "    ${target}: skipped... link already exists"
+      echo "    ${target}: not installed... link already exists"
     else
       echo "    Link exists but points to different location:"
-      echo "      $(readlink "${target}")"
-      echo "      ${source}"
-      overwriteWithUserPermission "${target}" "${target}" "${source}"
+      echo "      Existing link  -> $(readlink "${target}")"
+      echo "      Installer link -> ${source}"
+      overwriteWithUserPermission "${target}" "${source}"
     fi
     ;;
   2)
     echo "    ${target}: not installed... broken link exists"
-    ls -l "${target}"
-    overwriteWithUserPermission "${target}" "${target}" "${source}"
+    echo "      Existing link  -> $(readlink "${target}")"
+    echo "      Installer link -> ${source}"
+    overwriteWithUserPermission "${target}" "${source}"
     ;;
   3)
     echo "    ${target}: not installed... config file exists"
-    overwriteWithUserPermission "${target}" "${target}" "${source}"
+    overwriteWithUserPermission "${target}" "${source}"
     ;;
   4)
     echo "    ${target}: not installed... directory exists"
-    overwriteWithUserPermission "${target}" "${target}" "${source}"
+    overwriteWithUserPermission "${target}" "${source}"
     ;;
   5)
     echo "    ${target}: not installed... parent directory does not exist"
@@ -206,14 +211,14 @@ safeSymlink() {
 }
 
 overwriteWithUserPermission() {
-  local name=$1
-  local target=$2
-  local source=$3
-  promptToContinue && ln -sf "${source}" "${target}" || echo "    ${name}: skipped"
+  local target=$1
+  local source=$2
+  promptToContinue "Do you want to overwrite this? (y/n) " && ln -sf "${source}" "${target}" || echo "    ${target}: skipped"
 }
 
 promptToContinue() {
-  read -p "    Do you want to overwrite this? (y/n) " -n 1 -r
+  local question="$1"
+  read -p "    $question" -n 1 -r </dev/tty
   echo
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     return 1
