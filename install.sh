@@ -212,7 +212,7 @@ handleConfigActions() {
     eval "safeSymlink $value"
     ;;
   *)
-    echo "${RED}ERROR${RESET}: No action defined for key: $key and value: $value"
+    echo "${RED}ERROR${RESET}: No action defined for key: ${YELLOW}$key${RESET} and value: ${YELLOW}$value${RESET}"
     exit 1
     ;;
   esac
