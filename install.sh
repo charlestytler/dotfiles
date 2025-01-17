@@ -1,35 +1,7 @@
-# Custom path definitions
-if [[ "$(uname)" = "Darwin" ]]; then
-  VSCODE_PATH="$HOME/Library/Application\ Support/Code/User"
-elif [[ "$(uname)" = "MINGW"* ]]; then
-  VSCODE_PATH="%APPDATA%/Code/User"
-else
-  VSCODE_PATH="$HOME/.config/Code/User"
-fi
-
-# Config installation steps
-declare -A installScript
-DOTFILES_DIR="$HOME/dotfiles"
-
-installScript["vim"]="\
-  safeSymlink $DOTFILES_DIR/vim/vimrc $HOME/.vimrc"
-
-installScript["nvim"]="\
-  safeSymlink $DOTFILES_DIR/nvim $HOME/.config/nvim"
-
-installScript["tmux"]="\
-  safeSymlink $DOTFILES_DIR/tmux $HOME/.config/tmux"
-
-installScript["starship"]="\
-  safeSymlink $DOTFILES_DIR/starship/starship.toml $HOME/.config/starship.toml"
-
-installScript["vscode"]="\
-  safeSymlink $DOTFILES_DIR/vscode/settings.json $VSCODE_PATH/settings.json; \
-  safeSymlink $DOTFILES_DIR/vscode/keybindings.json $VSCODE_PATH/keybindings.json"
-
-### End of user configuration ###
+# #!/usr/bin/env bash
 
 # Note: executed at end of file.
+# Declare associative arrays to store sections and subsections
 run() {
   # Check if running script from correct directory
   if [ ! -f ./install.sh ]; then
@@ -37,30 +9,157 @@ run() {
     exit 1
   fi
 
+  DOTFILES_DIR=$(pwd)
+
   echo "Installing dotfiles..."
-  for program in "${!installScript[@]}"; do
-    echo "$program:"
-    ${installScript[$program]}
-  done
+  currentOS=$(detectOS)
+  sections=$(parseConfigAndGetSections "./installConfig.cfg")
+  parseConfigAndHandleActions "./installConfig.cfg" "$currentOS"
+}
 
-  # safeSymlink vim ~/dotfiles/vim/vimrc ~/.vimrc
-  # safeSymlink nvim ~/dotfiles/nvim ~/.config/nvim
-  # safeSymlink tmux ~/dotfiles/tmux ~/.config/tmux
-  # safeSymlink starship ~/dotfiles/starship/starship.toml ~/.config/starship.toml
-  # # echo "source ~/dotfiles/bash/bashrc" >>~/.bashrc
-  # # fish -c exit && cp ~/dotfiles/fish/config.fish.sample ~/dotfiles/fish/config.fish && ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish && ln -s ~/dotfiles/fish/conf.d ~/.config/fish/conf.d
-  # # echo -e "[include]\n    path = ~/dotfiles/git/gitconfig" >>~/.gitconfig
-  # #
-  # if [[ "$(uname)" = "Darwin" ]]; then
-  #   VSCODE_PATH="$HOME/Library/Application\ Support/Code/User/"
-  # elif [[ "$(uname)" = "MINGW"* ]]; then
-  #   VSCODE_PATH="%APPDATA%\Code\User\settings.json"
-  # else
-  #   VSCODE_PATH="$HOME/.config/Code/User/"
-  # fi
-  # safeSymlink vscode.settings ~/dotfiles/vscode/settings.json "$VSCODE_PATH"/
-  # safeSymlink vscode.keys ~/dotfiles/vscode/keybindings.json "$VSCODE_PATH"/
+parseConfigAndGetSections() {
+  local cfg_file_path="$1"
 
+  # Variables to track in while loop
+  declare -a all_sections
+  previous_section=""
+  current_section=""
+
+  while IFS= read -r line; do
+    # Trim leading and trailing whitespace
+    line=$(trim "$line")
+
+    # Handle section header lines
+    if [[ "$line" =~ ^\[(.*)\]$ ]]; then
+      current_section="${BASH_REMATCH[1]}"
+      if [[ "$current_section" =~ : ]]; then
+        current_section="${current_section%%:*}"
+      fi
+
+      # Detect section change
+      if [[ "$current_section" != "$previous_section" ]]; then
+        all_sections+=("$current_section")
+        previous_section="$current_section"
+      fi
+    fi
+
+  done <"$cfg_file_path"
+
+  # Return a list of all sections
+  echo "${all_sections[*]}"
+}
+
+parseConfigAndHandleActions() {
+  local cfg_file_path="$1"
+  local currentOS="$2"
+
+  # Variables to track in while loop
+  previous_section=""
+  current_section=""
+  specifiedOS=""
+
+  while IFS= read -r line; do
+    # Trim leading and trailing whitespace
+    line=$(trim "$line")
+
+    # Ignore empty lines and comments
+    if [[ -z "$line" || "$line" =~ ^# ]]; then
+      continue
+    fi
+
+    # Handle section header lines
+    if [[ "$line" =~ ^\[(.*)\]$ ]]; then
+      section="${BASH_REMATCH[1]}"
+      if [[ "$section" =~ : ]]; then
+        current_section="${section%%:*}"
+        specifiedOS="${section##*:}"
+      else
+        current_section="$section"
+        specifiedOS=""
+      fi
+
+      # Detect section change
+      if [[ "$current_section" != "$previous_section" ]]; then
+        # Print out header for section actions once per section
+        echo "${current_section}:"
+        previous_section="$current_section"
+      fi
+
+      continue
+    fi
+
+    # Handle key-value pair lines
+    if [[ "$line" =~ ^([^=]+)=(.*)$ ]]; then
+
+      # Ignore if specifiedOS exists and does not equal the currentOS
+      if [[ -n "$specifiedOS" && "$specifiedOS" != "$currentOS" ]]; then
+        continue
+      fi
+
+      key=$(trim "${BASH_REMATCH[1]}")
+      value=$(trim "${BASH_REMATCH[2]}")
+      handleConfigActions "$key" "$value"
+    fi
+  done <"$cfg_file_path"
+}
+
+handleConfigActions() {
+  local key="$1"
+  local value="$2"
+
+  case "$key" in
+  "cmd")
+    eval "$value"
+    ;;
+  "include")
+    eval "safeAppendToFile $value"
+    ;;
+  "symlink")
+    # set - $value
+    eval "safeSymlink $value"
+    ;;
+  *)
+    echo "ERROR: No action defined for key: $key and value: $value"
+    exit 1
+    ;;
+  esac
+}
+
+# Function to trim leading and trailing whitespace
+trim() {
+  local var="$*"
+  # Remove leading whitespace characters
+  var="${var#"${var%%[![:space:]]*}"}"
+  # Remove trailing whitespace characters
+  var="${var%"${var##*[![:space:]]}"}"
+  printf "%s" "$var"
+}
+
+detectOS() {
+  local os
+  os=$(uname)
+  case "$os" in
+  Darwin) echo "MAC" ;;
+  Linux) echo "LINUX" ;;
+  MINGW*) echo "WIN" ;;
+  *) echo "Unsupported OS: $os" && exit 1 ;;
+  esac
+}
+
+safeAppendToFile() {
+  local string=$1
+  local file=$2
+
+  # Workaround for strings with ONE newline (only check after the newline)
+  string=$(printf "%b" "$string" | tail -n 1)
+
+  if [ -f "$file" ]; then
+    if grep -q "$string" "$file"; then
+      echo "    skipping... reference already included in config file"
+      return
+    fi
+  fi
+  echo "$string" >>"$file"
 }
 
 safeSymlink() {
@@ -69,18 +168,20 @@ safeSymlink() {
 
   checkSymlinkTargetStatus "${target}"
   local targetStatus=$?
-  echo "🪵 [install.sh:73] targetStatus: ${targetStatus}"
   case "$targetStatus" in
   0) # nothing exists at target
     ln -s "${source}" "${target}"
     echo "    ${target}: installed"
     ;;
   1) # symlink already exists
-    if [ "$(readlink "${target}")" = "${source}" ]; then
+    existing_source=$(readlink "${target}")
+    # Note: strip (optional) trailing slash from directory paths
+    if [ "${existing_source%/}" == "${source%/}" ]; then
       echo "    ${target}: skipped... link already exists"
     else
       echo "    Link exists but points to different location:"
       echo "      $(readlink "${target}")"
+      echo "      ${source}"
       overwriteWithUserPermission "${target}" "${target}" "${source}"
     fi
     ;;
@@ -124,7 +225,6 @@ checkSymlinkTargetStatus() {
 
   local targetDir
   targetDir=$(dirname "${targetLoc}")
-  echo "targetDir: ${targetDir}"
   if [ ! -d "${targetDir}" ]; then
     # "Parent directory does not exist"
     return 5 # false
