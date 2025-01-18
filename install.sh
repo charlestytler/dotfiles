@@ -21,7 +21,7 @@ run() {
   }
 
   # Check if running script from correct directory
-  if [ ! -f ./install.sh ]; then
+  if [ ! -f ./install.sh ] || [ ! -f ./installConfig.cfg ]; then
     echo "Please run this script from the dotfiles directory"
     exit 1
   fi
@@ -203,8 +203,9 @@ handleConfigActions() {
 
   case "$key" in
   "cmd")
-    echo "    Running: ${value}"
-    eval "$value"
+    eval "$value" &&
+      echo -e "    ${GREEN}installed:${RESET} cmd successful" ||
+      echo -e "    ${RED}failed:${RESET} cmd failed"
     ;;
   "include")
     eval "safeAppendToFile $value"
