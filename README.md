@@ -1,46 +1,35 @@
 # dotfiles
 Configuration files for unix systems
 
-### Dependency installations needed for all configs:  
-VS Code: https://code.visualstudio.com/download  
-  
-Download and install fonts "Hack Nerd Font": https://www.nerdfonts.com/font-downloads  
-  
-```
-brew install fish starship neovim fd ripgrep fzf bat tmux zoxide
-```  
-```
-sudo apt-get install fish starship neovim fd ripgrep fzf bat tmux zoxide
-yay -S fish starship neovim fd ripgrep fzf bat tmux zoxide
-```
-```  
-choco install fish starship neovim fd ripgrep fzf bat tmux zoxide
-```  
+## Contents
 
+Contains configuration files for applications used in unix environments:
+Arch/Debian linux, MacOS, WSL, Git Bash on Windows
 
-### Install Configs
+Also includes an ./install.sh script which can safely install (check for existing installations and warn for overwrites) dotfiles and package dependencies.
+
+## Installation
 To setup dotfiles on a new machine:  
 ```
-git clone git@github.com:charlestytler/dotfiles.git ~/dotfiles
-ln -s ~/dotfiles/vim/vimrc ~/.vimrc
-ln -s ~/dotfiles/nvim ~/.config/nvim
-ln -s ~/dotfiles/tmux ~/.config/tmux
-ln -s ~/dotfiles/starship/starship.toml ~/.config/starship.toml
-echo "source ~/dotfiles/bash/bashrc" >> ~/.bashrc
-fish -c exit && cp ~/dotfiles/fish/config.fish.sample ~/dotfiles/fish/config.fish && ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish && ln -s ~/dotfiles/fish/conf.d ~/.config/fish/conf.d
-echo -e "[include]\n    path = ~/dotfiles/git/gitconfig" >> ~/.gitconfig
-
-if [[ "$(uname)" = "Darwin" ]]; then
-    VSCODE_PATH=("$HOME/Library/Application\ Support/Code/User/")
-elif [ "$(uname)" = "MINGW"* ]; then
-    VSCODE_PATH=(%APPDATA%\Code\User\settings.json)
-else
-    VSCODE_PATH=($HOME/.config/Code/User/)
-fi
-
-ln -s ~/dotfiles/vscode/settings.json "$VSCODE_PATH"/
-ln -s ~/dotfiles/vscode/keybindings.json "$VSCODE_PATH"/
-
+git clone git@github.com:charlestytler/dotfiles.git $HOME/dotfiles
+cd $HOME/dotfiles && ./install.sh
 ```  
 
+*To install only a subset of config files:*
+Provide --include or --exclude flags when calling install script, see `install.sh --help` for details.
 
+### Config file for Installer
+
+The installation is updated by editing the installConfig.cfg file.
+
+*Use the following formatting:*
+- Sections
+  - `[<name>]`: Section - A named installation step that can optionally be skipped by user.
+  - `[:<OS>]`: Subsection - A subsection that specifies the OS for the installation step.
+    -   where <OS> is one of: LINUX, MAC, WIN
+
+- Keys and Values
+  - pkgs = <package1> <package2> ... - List of packages to install.
+  - include = "<string>" <file> - Include the string (i.e. echo >>) in the specified file.
+  - symlink = <source> <destination> - Symlink the source file to the destination.
+- cmd = <command> - Bash command to run.
