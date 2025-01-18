@@ -134,6 +134,7 @@ parseConfigAndHandleActions() {
   GREEN='\033[0;32m'
   YELLOW='\033[1;33m'
   PURPLE='\033[0;35m'
+  ORANGE='\033[0;33m'
   RESET='\033[0m' # No Color
 
   # Variables to track in while loop
@@ -169,7 +170,7 @@ parseConfigAndHandleActions() {
       # Detect section change
       if [[ "$current_section" != "$previous_section" ]]; then
         # Print out header for section actions once per section
-        echo "${PURPLE}${current_section}${RESET}:"
+        echo -e "${ORANGE}${current_section}${RESET}:"
         previous_section="$current_section"
       fi
 
@@ -202,6 +203,7 @@ handleConfigActions() {
 
   case "$key" in
   "cmd")
+    echo "    Running: ${value}"
     eval "$value"
     ;;
   "include")
@@ -212,7 +214,7 @@ handleConfigActions() {
     eval "safeSymlink $value"
     ;;
   *)
-    echo "${RED}ERROR${RESET}: No action defined for key: ${YELLOW}$key${RESET} and value: ${YELLOW}$value${RESET}"
+    echo -e "${RED}ERROR${RESET}: No action defined for key: ${YELLOW}$key${RESET} and value: ${YELLOW}$value${RESET}"
     exit 1
     ;;
   esac
@@ -248,7 +250,7 @@ safeAppendToFile() {
 
   if [ -f "$file" ]; then
     if grep -q "$string" "$file"; then
-      echo "    ${GREEN}already installed:${RESET} reference included in: ${file}"
+      echo -e "    ${GREEN}already installed:${RESET} reference included in: ${file}"
       return
     fi
   fi
@@ -264,13 +266,13 @@ safeSymlink() {
   case "$targetStatus" in
   0) # nothing exists at target
     ln -s "${source}" "${target}"
-    echo "    ${GREEN}installed:${RESET} ${target}"
+    echo -e "    ${GREEN}installed:${RESET} ${target}"
     ;;
   1) # symlink already exists
     existing_source=$(readlink "${target}")
     # Note: strip (optional) trailing slash from directory paths
     if [ "${existing_source%/}" == "${source%/}" ]; then
-      echo "    ${GREEN}already installed:${RESET} ${target}"
+      echo -e "    ${GREEN}already installed:${RESET} ${target}"
     else
       echo "    Link exists but points to different location:"
       echo "      Existing link  -> $(readlink "${target}")"
@@ -279,23 +281,23 @@ safeSymlink() {
     fi
     ;;
   2)
-    echo "    ${target}: not installed... broken link exists"
+    echo -e "    ${RED}not installed:${RESET} broken link exists"
     echo "      Existing link  -> $(readlink "${target}")"
     echo "      Installer link -> ${source}"
     overwriteWithUserPermission "${target}" "${source}"
     ;;
   3)
-    echo "    ${RED}not installed:${RESET} ${target}: config file exists at location"
+    echo -e "    ${RED}not installed:${RESET} config file exists at ${target}"
     overwriteWithUserPermission "${target}" "${source}"
     ;;
   4)
-    echo "    ${RED}not installed:${RESET} ${target}: directory exists at location"
+    echo -e "    ${RED}not installed:${RESET} directory exists at ${target}"
     overwriteWithUserPermission "${target}" "${source}"
     ;;
   5)
-    echo "    ${YELLOW}making directory at:${RESET} $(dirname "${target}")"
+    echo -e "    ${YELLOW}making directory:${RESET} $(dirname "${target}")"
     mkdir -p "$(dirname "${target}")" && ln -s "${source}" "${target}" &&
-      echo "    ${GREEN}installed:${RESET} ${target}"
+      echo -e "    ${GREEN}installed:${RESET} ${target}"
     ;;
   esac
 }
@@ -305,9 +307,9 @@ overwriteWithUserPermission() {
   local source=$2
   if promptToContinue "Do you want to overwrite this? (y/n) "; then
     ln -sf "${source}" "${target}"
-    echo "    ${GREEN}installed:${RESET} ${target}"
+    echo -e "    ${GREEN}installed:${RESET} ${target}"
   else
-    echo "    ${YELLOW}skipped:${RESET} ${target}"
+    echo -e "    ${YELLOW}skipped:${RESET} ${target}"
   fi
 }
 
