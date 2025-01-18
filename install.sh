@@ -1,35 +1,71 @@
 # #!/usr/bin/env bash
 
 # Note: executed at end of file.
-# Declare associative arrays to store sections and subsections
 run() {
-
-  show_help() {
-    echo "Usage: $0 [options]"
-    echo
-    echo "Default behavior is to install all sections specified in installConfig.cfg"
-    echo
-    echo "Options:"
-    echo "  --include, -i  Comma-separated list of sections to include"
-    echo "  --exclude, -e  Comma-separated list of sections to exclude"
-    echo "  --help         Display this help message"
-    echo
-    echo "Examples:"
-    echo "  $0             # Install all sections"
-    echo "  $0 -i vim,git  # Install only vim and git sections"
-    echo "  $0 -e pkgs     # Install all sections except pkgs"
-  }
-
   # Check if running script from correct directory
   if [ ! -f ./install.sh ] || [ ! -f ./installConfig.cfg ]; then
     echo "Please run this script from the dotfiles directory"
     exit 1
   fi
+  DOTFILES_DIR=$(pwd) # Global variable allowed for use in installConfig.cfg
 
-  DOTFILES_DIR=$(pwd)
+  # Define color codes
+  local RED='\033[0;31m'
+  local GREEN='\033[0;32m'
+  local YELLOW='\033[1;33m'
+  local ORANGE='\033[0;33m'
+  local RESET='\033[0m' # No Color
 
-  currentOS=$(detectOS)
-  sections=$(parseConfigAndGetSections "./installConfig.cfg")
+  # Mutable arrays populated by parseConfigForSectionsPkgsCommands
+  declare -a CONFIG_sections
+  declare -a CONFIG_pkgs
+  declare -a CONFIG_commands
+  parseConfigForSectionsPkgsCommands "./installConfig.cfg" # Only care about sections on this parse
+  filtered_sections=$(parseArgs "${CONFIG_sections[*]}" "$@")
+
+  echo -e "Installing dotfiles...\n\nSections to install:"
+  echo "  $filtered_sections"
+  if ! promptToContinue "Do you want to install dotfiles for these applications? (y/n) "; then
+    echo "Re-run script with --include/-i or --exclude/-e flags to modify sections to install"
+    exit 0
+  fi
+
+  # Rerun parsing to get pkgs and commands for filtered sections
+  # This could be avoided by using associative arrays, but that would require bash 4.0
+  CONFIG_pkgs=()     # Reset CONFIG_pkgs array
+  CONFIG_commands=() # Reset CONFIG_commands array
+  parseConfigForSectionsPkgsCommands "./installConfig.cfg" "$(detectOS)" "$filtered_sections"
+
+  # Install any missing packages
+  echo
+  installMissingPkgs "${CONFIG_pkgs[*]}"
+
+  # Execute all commands parsed from config file
+  echo -e "\nDotfiles installation..."
+  for cmd in "${CONFIG_commands[@]}"; do
+    eval "$cmd"
+  done
+}
+
+show_help() {
+  echo "Usage: $0 [options]"
+  echo
+  echo "Default behavior is to install all sections specified in installConfig.cfg"
+  echo
+  echo "Options:"
+  echo "  --include, -i  Comma-separated list of sections to include"
+  echo "  --exclude, -e  Comma-separated list of sections to exclude"
+  echo "  --help         Display this help message"
+  echo
+  echo "Examples:"
+  echo "  $0             # Install all sections"
+  echo "  $0 -i vim,git  # Install only vim and git sections"
+  echo "  $0 -e pkgs     # Install all sections except pkgs"
+}
+
+parseArgs() {
+  local sections="$1"
+  shift
 
   # Initialize include and exclude lists
   include_sections=()
@@ -79,63 +115,13 @@ run() {
     exit 0
   fi
 
-  echo "Installing dotfiles..."
-  echo
-  echo "Sections to install:"
-  echo "  $sections"
-  if promptToContinue "Do you want to install these sections? (y/n) "; then
-    echo
-    parseConfigAndHandleActions "./installConfig.cfg" "$currentOS" "$sections"
-  else
-    echo "Re-run script with --include/-i or --exclude/-e flags to modify sections to install"
-    exit 0
-  fi
+  echo "$sections"
 }
 
-parseConfigAndGetSections() {
-  local cfg_file_path="$1"
-
-  # Variables to track in while loop
-  declare -a all_sections
-  previous_section=""
-  current_section=""
-
-  while IFS= read -r line; do
-    # Trim leading and trailing whitespace
-    line=$(trim "$line")
-
-    # Handle section header lines
-    if [[ "$line" =~ ^\[(.*)\]$ ]]; then
-      current_section="${BASH_REMATCH[1]}"
-      if [[ "$current_section" =~ : ]]; then
-        current_section="${current_section%%:*}"
-      fi
-
-      # Detect section change
-      if [[ "$current_section" != "$previous_section" ]]; then
-        all_sections+=("$current_section")
-        previous_section="$current_section"
-      fi
-    fi
-
-  done <"$cfg_file_path"
-
-  # Return a list of all sections
-  echo "${all_sections[*]}"
-}
-
-parseConfigAndHandleActions() {
+parseConfigForSectionsPkgsCommands() {
   local cfg_file_path="$1"
   local currentOS="$2"
   local filtered_sections="$3"
-
-  # Define color codes
-  RED='\033[0;31m'
-  GREEN='\033[0;32m'
-  YELLOW='\033[1;33m'
-  PURPLE='\033[0;35m'
-  ORANGE='\033[0;33m'
-  RESET='\033[0m' # No Color
 
   # Variables to track in while loop
   previous_section=""
@@ -162,16 +148,14 @@ parseConfigAndHandleActions() {
         specifiedOS=""
       fi
 
-      # Skip sections not in the filtered list
-      if [[ ! " $filtered_sections " =~ " $current_section " ]]; then
-        continue
-      fi
-
       # Detect section change
       if [[ "$current_section" != "$previous_section" ]]; then
-        # Print out header for section actions once per section
-        echo -e "${ORANGE}${current_section}${RESET}:"
+        CONFIG_sections+=("$current_section")
         previous_section="$current_section"
+
+        # Print out header for section actions once per section
+        [[ " $filtered_sections " =~ " $current_section " ]] &&
+          CONFIG_commands+=("echo -e \"${ORANGE}${current_section}${RESET}:\"")
       fi
 
       continue
@@ -181,16 +165,10 @@ parseConfigAndHandleActions() {
     if [[ "$line" =~ ^([^=]+)=(.*)$ ]]; then
       key=$(trim "${BASH_REMATCH[1]}")
       value=$(trim "${BASH_REMATCH[2]}")
-
       # Ignore if specifiedOS exists and does not equal the currentOS
-      if [[ -n "$specifiedOS" && "$specifiedOS" != "$currentOS" ]]; then
-        continue
-      fi
-
+      [[ -n "$specifiedOS" && "$specifiedOS" != "$currentOS" ]] && continue
       # Skip sections not in the filtered list
-      if [[ ! " $filtered_sections " =~ " $current_section " ]]; then
-        continue
-      fi
+      [[ ! " $filtered_sections " =~ " $current_section " ]] && continue
 
       handleConfigActions "$key" "$value"
     fi
@@ -203,16 +181,19 @@ handleConfigActions() {
 
   case "$key" in
   "cmd")
-    eval "$value" &&
-      echo -e "    ${GREEN}installed:${RESET} cmd successful" ||
-      echo -e "    ${RED}failed:${RESET} cmd failed"
+    local success_msg="    ${GREEN}installed:${RESET} cmd successful"
+    local failed_msg="    ${RED}failed:${RESET} cmd failed"
+    CONFIG_commands+=("$value")
+    CONFIG_commands+=("[ $? -eq 0 ] && echo -e \"$success_msg\" || echo -e \"$failed_msg\"")
     ;;
   "include")
-    eval "safeAppendToFile $value"
+    CONFIG_commands+=("safeAppendToFile $value")
     ;;
   "symlink")
-    # set - $value
-    eval "safeSymlink $value"
+    CONFIG_commands+=("safeSymlink $value")
+    ;;
+  "pkgs")
+    CONFIG_pkgs+=("$value")
     ;;
   *)
     echo -e "${RED}ERROR${RESET}: No action defined for key: ${YELLOW}$key${RESET} and value: ${YELLOW}$value${RESET}"
@@ -351,6 +332,57 @@ checkSymlinkTargetStatus() {
     # "No file or link exists"
     return 0 # true
   fi
+}
+
+installMissingPkgs() {
+  local pkg_list="$1"
+
+  pkg_manager=$(getFirstDetectedAsInstalled yay paru pacman apt brew choco)
+
+  # Set package manager flags based on detected package manager
+  local query_flag="list"
+  local install_flag="install"
+  local maybe_sudo=""
+
+  # Package managers which use different flags/settings
+  local arch_pms=("pacman" "paru" "yay")
+  local linux_distro_pms=("pacman" "apt")
+  if [[ " ${arch_pms[*]} " =~ ${pkg_manager} ]]; then
+    query_flag="-Q"
+    install_flag="-S"
+  fi
+  if [[ " ${linux_distro_pms[*]} " =~ ${pkg_manager} ]]; then
+    maybe_sudo="sudo "
+  fi
+
+  # Find packages that are not installed
+  installed_pkgs=$(eval "$pkg_manager $query_flag")
+  missing_pkgs=()
+  for pkg in $pkg_list; do
+    if [[ " ${installed_pkgs[*]} " =~ ${pkg} ]]; then
+      continue # Skip already installed packages
+    else
+      missing_pkgs+=("$pkg")
+    fi
+  done
+
+  if [ ${#missing_pkgs[@]} -gt 0 ]; then
+    echo "The following packages are not installed:"
+    echo "  ${missing_pkgs[*]}"
+    if promptToContinue "Do you want to install these packages with ${pkg_manager} before installing dotfiles? (y/n) "; then
+      eval "${maybe_sudo}$pkg_manager ${install_flag} ${missing_pkgs[*]}"
+    fi
+  fi
+}
+
+getFirstDetectedAsInstalled() {
+  for pm in "$@"; do
+    if command -v "$pm" &>/dev/null; then
+      echo "$pm"
+      return
+    fi
+  done
+  exit 1
 }
 
 run "$@"
