@@ -27,37 +27,57 @@ installMissingPkgs() {
   fi
 
   # Set package manager flags based on detected package manager
-  local query_flag="list"
-  local install_flag="install"
+  local query_flag=" list"
+  local install_flag=" install"
   local maybe_sudo=""
 
   # Package managers which use different flags/settings
-  local arch_pms=("pacman" "paru" "yay")
-  local linux_distro_pms=("pacman" "apt")
-  if [[ " ${arch_pms[*]} " =~ ${pkg_manager} ]]; then
-    query_flag="-Q"
-    install_flag="-S"
-  fi
-  if [[ " ${linux_distro_pms[*]} " =~ ${pkg_manager} ]]; then
+  case "$pkg_manager" in
+  "paru" | "yay")
+    query_flag=" -Q"
+    install_flag=" -S"
+    ;;
+  "pacman")
+    query_flag=" -Q"
+    install_flag=" -S"
     maybe_sudo="sudo "
-  fi
+    ;;
+  "apt")
+    query_flag="-mark showmanual"
+    install_flag="-get install"
+    maybe_sudo="sudo "
+    ;;
+  "brew")
+    query_flag=" list -1"
+    ;;
+  esac
 
   # Find packages that are not installed
-  installed_pkgs=$(eval "$pkg_manager $query_flag")
-  missing_pkgs=()
-  for pkg in $pkg_list; do
-    if [[ " ${installed_pkgs[*]} " =~ ${pkg} ]]; then
-      continue # Skip already installed packages
-    else
-      missing_pkgs+=("$pkg")
-    fi
+  all_installed_pkgs=$(eval "${pkg_manager}${query_flag}" | cut -d' ' -f1)
+  declare -a already_installed_pkgs
+  declare -a missing_pkgs
+  for query_pkg in $pkg_list; do
+    local found=false
+    for installed_pkg in $all_installed_pkgs; do
+      if [[ $installed_pkg == "$query_pkg" ]]; then
+        found=true
+        already_installed_pkgs+=("$query_pkg")
+        break
+      fi
+    done
+    [[ $found == false ]] && missing_pkgs+=("$query_pkg")
   done
 
+  source _installFns/asciiColorCodes.sh # Import color constants
+  echo "The following packages are already installed:"
+  echo -e "  ${ORANGE}${already_installed_pkgs[*]}${RESET}"
+
   if [ ${#missing_pkgs[@]} -gt 0 ]; then
+    echo
     echo "The following packages are not installed:"
-    echo "  ${missing_pkgs[*]}"
+    echo -e "  ${ORANGE}${missing_pkgs[*]}${RESET}"
     if promptToContinue "Do you want to install these packages with ${pkg_manager} before installing dotfiles? (y/n) "; then
-      eval "${maybe_sudo}$pkg_manager ${install_flag} ${missing_pkgs[*]}"
+      eval "${maybe_sudo}${pkg_manager}${install_flag} ${missing_pkgs[*]}"
     fi
   fi
 }
