@@ -21,7 +21,7 @@ local codeium = {
   opts = {
     enable_cmp_source = true,
     virtual_text = {
-      enabled = false,
+      enabled = true,
       key_bindings = {
         accept = "<Tab>",
         accept_line = ";<Tab>",
@@ -73,8 +73,8 @@ local neocodeium = {
 }
 
 return {
-  copilot,
-  -- codeium,
-  codecompanion,
+  -- copilot,
+  codeium,
+  -- codecompanion,
   -- neocodeium
 }
