@@ -58,8 +58,7 @@ return {
       },
       actions = {
         files = {
-          -- ["enter"] = actions.file_edit_or_qf,  -- Default
-          ["enter"] = actions.file_edit,
+          ["enter"] = actions.file_edit_or_qf, -- Default
           ["ctrl-q"] = actions.file_send_to_qf,
           ["ctrl-s"] = actions.file_split,
           ["ctrl-v"] = actions.file_vsplit,
@@ -251,7 +250,11 @@ return {
     { "<leader>sm", "<cmd>FzfLua marks<CR>", desc = "Search marks" },
     { "<leader>sp", "<cmd>FzfLua registers<CR>", desc = "Search paste register" },
     { "<leader>s:", "<cmd>FzfLua commands<CR>", desc = "Search commands" },
-    { "<leader>sc", "<cmd>lua require('fzf-lua').live_grep_native({cwd = '~/dotfiles'})<CR>", desc = "Search config files" },
+    {
+      "<leader>sc",
+      "<cmd>lua require('fzf-lua').live_grep_native({cwd = '~/dotfiles'})<CR>",
+      desc = "Search config files",
+    },
 
     { "<leader>s", "<cmd>FzfLua grep_visual<CR>", mode = { "v" }, { desc = "Search selection" } },
 
