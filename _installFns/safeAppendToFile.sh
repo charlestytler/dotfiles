@@ -12,7 +12,7 @@ safeAppendToFile() {
 
   if [ -f "$file" ]; then
     if grep -q "$string" "$file"; then
-      echo -e "    ${GREEN}already installed:${RESET} reference included in: ${file}"
+      printf "    ${GREEN}already installed:${RESET} reference included in: ${file}\n"
       return
     fi
   fi

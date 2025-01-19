@@ -42,7 +42,7 @@ parseConfigForSectionsPkgsCommands() {
 
         # Print out header for section actions once per section
         [[ " $filtered_sections " =~ " $current_section " ]] &&
-          CONFIG_commands+=("echo -e \"${ORANGE}${current_section}${RESET}:\"")
+          CONFIG_commands+=("printf \"${ORANGE}${current_section}${RESET}:\\n\"")
       fi
 
       continue
@@ -75,7 +75,7 @@ handleConfigActions() {
     local success_msg="    ${GREEN}installed:${RESET} cmd successful"
     local failed_msg="    ${RED}failed:${RESET} cmd failed"
     CONFIG_commands+=("$value")
-    CONFIG_commands+=("[ $? -eq 0 ] && echo -e \"$success_msg\" || echo -e \"$failed_msg\"")
+    CONFIG_commands+=("[ $? -eq 0 ] && printf \"$success_msg\\n\" || echo -e \"$failed_msg\\n\"")
     ;;
   "include")
     CONFIG_commands+=("safeAppendToFile $value")
@@ -87,7 +87,7 @@ handleConfigActions() {
     CONFIG_pkgs+=("$value")
     ;;
   *)
-    echo -e "${RED}ERROR${RESET}: No action defined for key: ${YELLOW}$key${RESET} and value: ${YELLOW}$value${RESET}"
+    printf "${RED}ERROR${RESET}: No action defined for key: ${YELLOW}$key${RESET} and value: ${YELLOW}$value${RESET}\n"
     exit 1
     ;;
   esac

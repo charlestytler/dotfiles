@@ -15,13 +15,13 @@ safeSymlink() {
   case "$linkStatus" in
   0) # nothing exists at link
     ln -s "${target}" "${link}"
-    echo -e "    ${GREEN}installed:${RESET} ${link}"
+    printf "    ${GREEN}installed:${RESET} ${link}\n"
     ;;
   1) # symlink already exists
     existing_target=$(readlink "${link}")
     # Note: strip (optional) trailing slash from directory paths
     if [ "${existing_target%/}" == "${target%/}" ]; then
-      echo -e "    ${GREEN}already installed:${RESET} ${link}"
+      printf "    ${GREEN}already installed:${RESET} ${link}\n"
     else
       echo "    Link exists but points to different location:"
       echo "      Existing link  -> $(readlink "${link}")"
@@ -30,23 +30,23 @@ safeSymlink() {
     fi
     ;;
   2)
-    echo -e "    ${RED}not installed:${RESET} broken link exists"
+    printf "    ${RED}not installed:${RESET} broken link exists\n"
     echo "      Existing link  -> $(readlink "${link}")"
     echo "      Installer link -> ${target}"
     overwriteSymlinkWithUserPermission "${target}" "${link}"
     ;;
   3)
-    echo -e "    ${RED}not installed:${RESET} config file exists at ${link}"
+    printf "    ${RED}not installed:${RESET} config file exists at ${link}\n"
     overwriteSymlinkWithUserPermission "${target}" "${link}"
     ;;
   4)
-    echo -e "    ${RED}not installed:${RESET} directory exists at ${link}"
+    printf "    ${RED}not installed:${RESET} directory exists at ${link}\n"
     overwriteSymlinkWithUserPermission "${target}" "${link}"
     ;;
   5)
-    echo -e "    ${YELLOW}making directory:${RESET} $(dirname "${link}")"
+    printf "    ${YELLOW}making directory:${RESET} $(dirname "${link}")\n"
     mkdir -p "$(dirname "${link}")" && ln -s "${target}" "${link}" &&
-      echo -e "    ${GREEN}installed:${RESET} ${link}"
+      printf "    ${GREEN}installed:${RESET} ${link}\n"
     ;;
   esac
 }
@@ -58,9 +58,9 @@ overwriteSymlinkWithUserPermission() {
 
   if promptToContinue "Do you want to overwrite this? (y/n) "; then
     ln -sf "${target}" "${link}"
-    echo -e "    ${GREEN}installed:${RESET} ${link}"
+    printf "    ${GREEN}installed:${RESET} ${link}\n"
   else
-    echo -e "    ${YELLOW}skipped:${RESET} ${link}"
+    printf "    ${YELLOW}skipped:${RESET} ${link}\n"
   fi
 }
 

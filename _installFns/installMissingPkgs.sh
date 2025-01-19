@@ -70,12 +70,12 @@ installMissingPkgs() {
 
   source _installFns/asciiColorCodes.sh # Import color constants
   echo "The following packages are already installed:"
-  echo -e "  ${ORANGE}${already_installed_pkgs[*]}${RESET}"
+  printf "  ${ORANGE}${already_installed_pkgs[*]}${RESET}\n"
 
   if [ ${#missing_pkgs[@]} -gt 0 ]; then
     echo
     echo "The following packages are not installed:"
-    echo -e "  ${ORANGE}${missing_pkgs[*]}${RESET}"
+    printf "  ${ORANGE}${missing_pkgs[*]}${RESET}\n"
     if promptToContinue "Do you want to install these packages with ${pkg_manager} before installing dotfiles? (y/n) "; then
       eval "${maybe_sudo}${pkg_manager}${install_flag} ${missing_pkgs[*]}"
     fi
