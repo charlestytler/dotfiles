@@ -34,7 +34,7 @@ end
 
 local dashboardConfig = {
   enabled = true,
-  width = 70,
+  width = 60,
   preset = {
     header = [[
 ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
@@ -51,33 +51,26 @@ local dashboardConfig = {
     -- \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\
     --  \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
     keys = {
-      { icon = " ", key = "o", desc = "[o]il (Open File Sys)", action = ":Oil ." },
-      { icon = " ", key = "n", desc = "[n]ew File", action = ":ene | startinsert" },
-      { icon = " ", key = "r", desc = "[r]ecent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-      { icon = " ", key = "s", desc = "Git [s]how Files", action = "<leader>fs" },
-      { icon = " ", key = "b", desc = "Git [b]ranch Files", action = "<leader>fb" },
-      { icon = " ", key = "d", desc = "[d]otfiles", action = "<leader>fc" },
-      { icon = " ", key = "S", desc = "Restore [S]ession", section = "session" },
-      { icon = " ", desc = "[g]it GUI", key = "g", action = "<leader>gg" },
-      { icon = "󰒲 ", key = "L", desc = "[L]azy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-      { icon = " ", key = "q", desc = "[q]uit", action = ":qa" },
+      -- stylua: ignore start
+      { pane = 2, icon = " ", key = "o", desc = "[o]pen", action = ":Oil ." },
+      { pane = 2, icon = " ", key = "n", desc = "[n]ew File", action = ":ene | startinsert" },
+      { pane = 2, icon = " ", key = "r", desc = "[r]ecent files", action = "<leader>fr" },
+      { pane = 2, icon = " ", key = "f", desc = "[f]iles (smart)", action = ":lua Snacks.picker.smart()"},
+      { pane = 1, icon = " ", key = "s", desc = "Git [s]how Files", action = "<leader>fs" },
+      { pane = 1, icon = " ", key = "b", desc = "Git [b]ranch Files", action = "<leader>fb" },
+      { pane = 2, icon = " ", key = "d", desc = "[d]otfiles", action = "<leader>fc" },
+      { pane = 2, icon = " ", desc = "[g]it GUI", key = "g", action = "<leader>gg" },
+      { pane = 2, icon = " ", desc = "Browse Git [R]epo", padding = 1, key = "R", action = function() Snacks.gitbrowse() end},
+      { pane = 2, icon = "󰒲 ", key = "l", desc = "[L]azy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+      { pane = 2, icon = " ", key = "q", desc = "[q]uit", action = ":qa" },
+      { pane = 2, icon = " ", key = "<Space>", desc = "Restore Session", section = "session" },
+      -- stylua: ignore end
     },
   },
   sections = {
     { section = "header" },
+    { pane = 1, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
     { section = "keys", gap = 1, padding = 1 },
-    { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-    -- gitPRs,
-    {
-      icon = " ",
-      desc = "Browse Git [R]epo",
-      padding = 1,
-      key = "R",
-      action = function()
-        Snacks.gitbrowse()
-      end,
-    },
-    { section = "startup" },
   },
 }
 
