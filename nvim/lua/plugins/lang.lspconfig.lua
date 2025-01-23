@@ -37,7 +37,7 @@ local map_on_attach = function(_, bufnr)
   map("n", "<leader>rs", require "nvchad.lsp.renamer", opts "Rename Symbol")
 
   -- map("n", "<leader>cD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts "Diagnostics for file")
-  -- map("n", "<leader>cd", vim.diagnostic.open_float, opts "Diagnostics for current line")
+  map("n", "<leader>cd", vim.diagnostic.open_float, opts "Diagnostics for current line")
   map("n", "[d", vim.diagnostic.goto_prev, opts "Goto previous diagnostic")
   map("n", "]d", vim.diagnostic.goto_next, opts "Goto next diagnostic")
 
