@@ -90,13 +90,6 @@ map("n", "<leader>ut", function()
   require("nvchad.themes").open()
 end, { desc = "UI choose nvchad themes" })
 
-map(
-  "n",
-  "<leader>fa",
-  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-  { desc = "telescope find all files" }
-)
-
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 

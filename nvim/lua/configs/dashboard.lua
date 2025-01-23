@@ -51,30 +51,16 @@ local dashboardConfig = {
     -- \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\
     --  \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
     keys = {
-      { icon = " ", key = "o", desc = "Oil (Open File Sys)", action = ":Oil ." },
-      { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-      { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-      {
-        icon = " ",
-        key = "s",
-        desc = "Git [S]how Files",
-        action = ":lua require('fzf-lua').files({cmd = 'git show --format=oneline --name-only | tail -n +2'})",
-      },
-      {
-        icon = " ",
-        key = "b",
-        desc = "Git [B]ranch Files",
-        action = ":lua require('fzf-lua').files({cmd = 'git diff HEAD@{u}..HEAD --name-only'})",
-      },
-      {
-        icon = " ",
-        key = "d",
-        desc = "Dotfiles",
-        action = ":lua require('fzf-lua').files({cwd = '~/dotfiles'})",
-      },
-      { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-      { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-      { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+      { icon = " ", key = "o", desc = "[o]il (Open File Sys)", action = ":Oil ." },
+      { icon = " ", key = "n", desc = "[n]ew File", action = ":ene | startinsert" },
+      { icon = " ", key = "r", desc = "[r]ecent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+      { icon = " ", key = "s", desc = "Git [s]how Files", action = "<leader>fs" },
+      { icon = " ", key = "b", desc = "Git [b]ranch Files", action = "<leader>fb" },
+      { icon = " ", key = "d", desc = "[d]otfiles", action = "<leader>fc" },
+      { icon = " ", key = "S", desc = "Restore [S]ession", section = "session" },
+      { icon = " ", desc = "[g]it GUI", key = "g", action = "<leader>gg" },
+      { icon = "󰒲 ", key = "L", desc = "[L]azy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+      { icon = " ", key = "q", desc = "[q]uit", action = ":qa" },
     },
   },
   sections = {
@@ -84,7 +70,7 @@ local dashboardConfig = {
     -- gitPRs,
     {
       icon = " ",
-      desc = "Browse Git Repo",
+      desc = "Browse Git [R]epo",
       padding = 1,
       key = "R",
       action = function()

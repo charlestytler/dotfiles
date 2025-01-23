@@ -18,11 +18,13 @@ local map_on_attach = function(_, bufnr)
   -- map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
   -- map("n", "gI", vim.lsp.buf.implementation, opts "Go to implementation")
   -- map("n", "gt", vim.lsp.buf.type_definition, opts "Go to type definition")
-  map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts "Go to definition")
-  map("n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts "Go to implementation")
-  map("n", "gs", "<cmd>Telescope lsp_signature_help<CR>", opts "Show signature help")
-  map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts "Go to type definition")
-  map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts "Show references")
+  --
+  -- map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts "Go to definition")
+  -- map("n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts "Go to implementation")
+  -- map("n", "gs", "<cmd>Telescope lsp_signature_help<CR>", opts "Show signature help")
+  -- map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts "Go to type definition")
+  -- map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts "Show references")
+  -- map({ "n", "v" }, "<leader>ca", "<cmd>FzfLua lsp_code_actions<CR>", opts "Code action")
 
   map("n", "gi", vim.lsp.buf.hover, opts "Show hover info")
   map("n", "<leader>cwa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
@@ -34,10 +36,8 @@ local map_on_attach = function(_, bufnr)
 
   map("n", "<leader>rs", require "nvchad.lsp.renamer", opts "Rename Symbol")
 
-  map({ "n", "v" }, "<leader>ca", "<cmd>FzfLua lsp_code_actions<CR>", opts "Code action")
-
-  map("n", "<leader>cD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts "Diagnostics for file")
-  map("n", "<leader>cd", vim.diagnostic.open_float, opts "Diagnostics for current line")
+  -- map("n", "<leader>cD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts "Diagnostics for file")
+  -- map("n", "<leader>cd", vim.diagnostic.open_float, opts "Diagnostics for current line")
   map("n", "[d", vim.diagnostic.goto_prev, opts "Goto previous diagnostic")
   map("n", "]d", vim.diagnostic.goto_next, opts "Goto next diagnostic")
 

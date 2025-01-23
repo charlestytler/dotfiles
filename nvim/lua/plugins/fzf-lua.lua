@@ -2,6 +2,7 @@ return {
   "ibhagwan/fzf-lua",
   -- optional for icon support
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  enabled = false,
   cmd = "FzfLua",
   config = function()
     local actions = require "fzf-lua.actions"
@@ -59,6 +60,7 @@ return {
       actions = {
         files = {
           ["enter"] = actions.file_edit_or_qf, -- Default
+          -- ["enter"] = actions.file_edit,
           ["ctrl-q"] = actions.file_send_to_qf,
           ["ctrl-s"] = actions.file_split,
           ["ctrl-v"] = actions.file_vsplit,
@@ -230,7 +232,7 @@ return {
     { "<leader>fq", "<cmd>FzfLua quickfix<CR>", desc = "Find in Quickfix list" },
     {
       "<leader>fs",
-      "<cmd>lua require('fzf-lua').files({cmd = 'git show --format=oneline --name-only | tail -n +2'})<CR>",
+      "<cmd>lua require('fzf-lua').files({cmd = 'git show --format=oneline --name-only --pretty='''})<CR>",
       desc = "Find Git Show Files",
     },
     {
