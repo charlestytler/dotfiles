@@ -1,5 +1,6 @@
 alias vgit="nvim \`git sh | tail -n +2\`"
-alias gitlog="git lg1 | head -10"
+alias gitlog="git lg1 --color=always | head -10"
+alias gitlg="git lg --color=always | head -15"
 alias gitclear="git reset --hard; git clean -i"
 alias gitcount="git diff --cached --numstat | wc -l"
 alias gitclidiff="export $GIT_EXTERNAL_DIFF=diffy"
