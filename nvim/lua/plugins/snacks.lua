@@ -15,17 +15,29 @@ local snacks = {
       timeout = 2000,
     },
     picker = {
-      layouts = {
-        -- Make dropdown default wider
-        dropdown = {
-          layout = {
-            width = 0.8, -- default: 0.4
+      layouts = { dropdown = { layout = { width = 0.8 } } },
+      previewers = { git = { native = true } },
+      win = {
+        input = {
+          keys = {
+            ["<c-a>"] = { "select_all", mode = { "n", "i" } },
+            ["<C-m>"] = { "toggle_maximize", mode = { "i", "n" } },
+            ["<c-p>"] = { "toggle_preview", mode = { "i", "n" } },
+            ["<C-v>"] = { "focus_preview", mode = { "i", "n" } },
+            ["<C-f>"] = { "focus_input", mode = { "i", "n" } },
+            ["<C-w>"] = { "cycle_win", mode = { "i", "n" } },
+            ["<c-j>"] = { "list_down", mode = { "i", "n" } },
+            ["<c-k>"] = { "list_up", mode = { "i", "n" } },
+            -- ["<c-n>"] = { "list_down", mode = { "i", "n" } },
+            -- ["<c-p>"] = { "list_up", mode = { "i", "n" } },
+            ["<c-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+            ["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" } },
+            ["<c-s>"] = { "edit_split", mode = { "i", "n" } },
+            ["<c-q>"] = { "qflist", mode = { "i", "n" } },
           },
-        },
-      },
-      previewers = {
-        git = {
-          native = true,
         },
       },
     },

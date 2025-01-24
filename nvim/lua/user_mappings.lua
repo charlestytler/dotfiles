@@ -70,21 +70,6 @@ vim.keymap.set(
 )
 vim.keymap.set("v", "<leader>r/", 'y:%s/<C-r>"/<C-r>"/gI<Left><Left><Left>', { desc = "Replace selection" })
 
--- Quickfix
-local function toggle_quickfix()
-  local windows = vim.fn.getwininfo()
-  for _, win in pairs(windows) do
-    if win["quickfix"] == 1 then
-      vim.cmd.cclose()
-      return
-    end
-  end
-  vim.cmd.copen()
-end
-vim.keymap.set("n", "<Leader>cq", toggle_quickfix, { desc = "Toggle Quickfix Window" })
-vim.keymap.set("n", "<Leader>cn", "<cmd>cn<cr>", { desc = "Next Quickfix" })
-vim.keymap.set("n", "<Leader>cp", "<cmd>cp<cr>", { desc = "Previous Quickfix" })
-
 -- Count
 vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Number Increase" })
 vim.keymap.set("v", "<leader>+", "g<C-a>", { desc = "Number Increase sequence" })
