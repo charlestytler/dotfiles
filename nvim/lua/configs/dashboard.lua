@@ -63,7 +63,7 @@ local dashboardConfig = {
       { pane = 2, icon = " ", desc = "Browse Git [R]epo", padding = 1, key = "R", action = function() Snacks.gitbrowse() end},
       { pane = 2, icon = "󰒲 ", key = "l", desc = "[L]azy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
       { pane = 2, icon = " ", key = "q", desc = "[q]uit", action = ":qa" },
-      { pane = 2, icon = " ", key = "<Space>", desc = "Restore Session", section = "session" },
+      { pane = 2, icon = " ", key = "<Tab>", desc = "Restore Session", section = "session" },
       -- stylua: ignore end
     },
   },
