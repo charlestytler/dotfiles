@@ -75,6 +75,6 @@ local neocodeium = {
 return {
   -- copilot,
   codeium,
-  -- codecompanion,
+  codecompanion,
   -- neocodeium
 }

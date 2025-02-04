@@ -97,9 +97,35 @@ local nvim_spider = {
   },
 }
 
+local treewalker = {
+  "aaronik/treewalker.nvim",
+
+  -- The following options are the defaults.
+  -- Treewalker aims for sane defaults, so these are each individually optional,
+  -- and setup() does not need to be called, so the whole opts block is optional as well.
+  opts = {
+    -- Whether to briefly highlight the node after jumping to it
+    highlight = true,
+
+    -- How long should above highlight last (in ms)
+    highlight_duration = 250,
+
+    -- The color of the above highlight. Must be a valid vim highlight group.
+    -- (see :h highlight-group for options)
+    highlight_group = "CursorLine",
+  },
+  keys = {
+    { "<C-S-k>", mode = { "n", "v" }, "<cmd>Treewalker Up<cr>", desc = "Treewalker Up", { silent = true } },
+    { "<C-S-j>", mode = { "n", "v" }, "<cmd>Treewalker Down<cr>", desc = "Treewalker Down", { silent = true } },
+    { "<C-S-h>", mode = { "n", "v" }, "<cmd>Treewalker Left<cr>", desc = "Treewalker Left", { silent = true } },
+    { "<C-S-l>", mode = { "n", "v" }, "<cmd>Treewalker Right<cr>", desc = "Treewalker Right", { silent = true } },
+  },
+}
+
 return {
   leap,
   flash,
   quickscope,
   nvim_spider,
+  treewalker,
 }

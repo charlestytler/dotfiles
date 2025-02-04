@@ -2,7 +2,7 @@ local snacks = {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  ---@type snacks.Config
+  -- @type snacks.Config
   opts = {
     -- Plugins
     bigfile = { enabled = true },
@@ -43,6 +43,7 @@ local snacks = {
     },
     quickfile = { enabled = true },
     rename = { enabled = false },
+    scroll = { enabled = true, animate = { easing = "outCubic" } },
     statuscolumn = { enabled = false },
     terminal = { enabled = false },
     words = { enabled = true },

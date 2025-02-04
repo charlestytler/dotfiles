@@ -113,7 +113,18 @@ local noice = {
       hover = {
         enabled = false,
       },
-      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+      signature = {
+        enabled = false,
+        auto_open = {
+          enabled = true,
+          trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
+          throttle = 50, -- Debounce lsp signature help request by 50ms
+        },
+      },
+      -- defaults for hover and signature help
+      documentation = {
+        view = "hover",
+      },
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
         ["vim.lsp.util.stylize_markdown"] = true,
