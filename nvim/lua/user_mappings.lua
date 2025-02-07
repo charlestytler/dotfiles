@@ -27,7 +27,7 @@ map("n", "<leader>wl", "<cmd>rightbelow vsplit<cr>", { noremap = true, desc = "W
 
 -- Window Resizing
 map("n", "<C-]>", "<cmd>vertical resize +15<cr>", { noremap = false, desc = "Window Width +" })
-map("n", "<C-[", "<cmd>vertical resize -15<cr>", { noremap = false, desc = "Window Width -" })
+map("n", "<C-[>", "<cmd>vertical resize -15<cr>", { noremap = false, desc = "Window Width -" })
 
 map("n", "<leader>ww", "<cmd>vertical resize +15<cr>", { noremap = false, desc = "[W]ide Window Width +" })
 map("n", "<leader>wn", "<cmd>vertical resize -15<cr>", { noremap = false, desc = "[N]arrow Window Width -" })

@@ -1,3 +1,50 @@
+local custom_pickers = {}
+
+function custom_pickers.git(picker_opts)
+  local function finder(opts, ctx)
+    local cwd = Snacks.git.get_root()
+    return require("snacks.picker.source.proc").proc({
+      opts,
+      {
+        cmd = "git",
+        args = picker_opts.args,
+        -- @param item snacks.picker.finder.Item
+        transform = function(item)
+          item.cwd = cwd
+          item.file = item.text
+        end,
+      },
+    }, ctx)
+  end
+
+  Snacks.picker.pick {
+    source = picker_opts.name,
+    finder = finder,
+    preview = picker_opts.preview,
+    title = picker_opts.title,
+  }
+end
+
+function custom_pickers.git_show()
+  custom_pickers.git {
+    args = { "diff-tree", "--no-commit-id", "--name-only", "--diff-filter=d", "HEAD", "-r" },
+    name = "git_show",
+    title = "Git Last Commit",
+    preview = "git_show",
+  }
+end
+
+function custom_pickers.git_diff_upstream()
+  custom_pickers.git {
+    args = { "diff-tree", "--no-commit-id", "--name-only", "--diff-filter=d", "HEAD@{u}..HEAD", "-r" },
+    name = "git_diff_upstream",
+    title = "Git Branch Changed Files",
+    preview = "file",
+  }
+end
+
+-- Start of config
+
 local snacks = {
   "folke/snacks.nvim",
   priority = 1000,
@@ -80,7 +127,7 @@ local snacks = {
     { "<C-p>", function() Snacks.picker.files({layout={preset="vscode"}}) end, desc = "Find Files" },
     -- find
     -- { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
-    { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config"), layout={preset="select"} }) end, desc = "Find Config File" },
+    { "<leader>fc", function() Snacks.picker.files({ cwd = "~/dotfiles", layout={preset="select"} }) end, desc = "Find Config File" },
     { "<leader>ff", function() Snacks.picker.files({ layout={preset="select"} }) end, desc = "Find Files" },
     { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
     { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
@@ -90,22 +137,11 @@ local snacks = {
     { "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Log" },
     -- { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
 
-    --  Custom pick: pick(<string> source, <snacks.picker.Config> opts)
-    { "<leader>fs", function() Snacks.picker.git_files {
-          cwd = Snacks.git.get_root(),
-          args = { "diff-tree", "--no-commit-id", "--name-only", "--diff-filter=d", "HEAD", "-r" },
-          title = "Git Last Commit",
-          preview = "git_show",
-        } end, desc = "Find in Git Show"},
-    { "<leader>fb", function() Snacks.picker.git_files {
-          cwd = Snacks.git.get_root(),
-          args = { "diff", "--name-only", "HEAD@{u}..HEAD" },
-          title = "Git Branch Changed Files",
-        } end, desc = "Find in Git Branch"},
+    --  Git files
+    { "<leader>fs", custom_pickers.git_show, desc = "Find in Git Show" },
+    { "<leader>fb", custom_pickers.git_diff_upstream, desc = "Find in Git Branch" },
     { "<leader>fd", function() Snacks.picker.git_status() end, desc = "Find in Git Diff" },
-    -- { "<leader>fs", function() Snacks.picker.files({cmd="git show --format=oneline --name-only | tail -n +2"}) end, desc = "Find in Git Show" },
-    -- { "<leader>fb", function() Snacks.picker.pick("git diff HEAD@{u}..HEAD --name-only") end, desc = "Find in Git Branch" },
-    -- { "<leader>fb", function() Snacks.picker.pick("git diff --name-only") end, desc = "Find in Git Diff" },
+
     -- Grep
     { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
     { "<leader>sB", function() Snacks.picker.grep_buffers({ layout = "dropdown" }) end, desc = "Grep Open Buffers" },
