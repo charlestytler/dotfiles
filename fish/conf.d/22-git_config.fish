@@ -16,14 +16,4 @@ alias gco='git checkout $(git branch --sort=-committerdate --format "%(refname:s
   --preview="git tree --concise --highlight {}" \
   --preview-window=right,$(git_br_preview_win_width))'
 
-# gpo - Protection against pushing master
-function gpo --wraps='git po' --description 'alias gph git ph'
-  set -l branch (git rev-parse --abbrev-ref HEAD)
-
-  set -l protected "master" "main"
-  if contains $branch $protected
-    echo "Protected branch $branch. Skipping push."
-    return 1
-  end
-  git push origin $argv
-end
+alias gpo='git push origin'
