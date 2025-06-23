@@ -1,11 +1,22 @@
 -- See https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-local servers = {
+-- or :help lspconfig-all
+local servers_with_default_config = {
   "lua_ls",
   "html",
   "cssls",
+  "clangd",
   "ts_ls",
   "bashls",
+  "julials",
 }
+
+local servers_with_custom_config = {
+  "basedpyright",
+}
+
+local all_servers = {}
+vim.list_extend(all_servers, servers_with_default_config)
+vim.list_extend(all_servers, servers_with_custom_config)
 
 local map_on_attach = function(_, bufnr)
   local function opts(desc)
@@ -56,7 +67,7 @@ local lspconfig = {
     local nvlsp = require "nvchad.configs.lspconfig"
 
     -- lsps with default config
-    for _, lsp in ipairs(servers) do
+    for _, lsp in ipairs(servers_with_default_config) do
       lspconfig[lsp].setup {
         -- on_attach = nvlsp.on_attach,
         on_attach = map_on_attach,
@@ -76,6 +87,19 @@ local lspconfig = {
         },
       },
     }
+
+    -- lspconfig["julials"].setup {
+    --   on_attach = map_on_attach,
+    --   on_init = nvlsp.on_init,
+    --   capabilities = nvlsp.capabilities,
+    --   on_new_config = function(new_config, _)
+    --     local julia = vim.fn.expand "~/.julia/environments/nvim-lspconfig/bin/julia"
+    --     if require("lspconfig").util.path.is_file(julia) then
+    --       vim.notify("julia found", vim.log.levels.INFO)
+    --       new_config.cmd[1] = julia
+    --     end
+    --   end,
+    -- }
   end,
   dependencies = {
     "antosha417/nvim-lsp-file-operations",
@@ -97,7 +121,7 @@ local mason_lspconfig = {
     "williamboman/mason.nvim",
   },
   opts = {
-    ensure_installed = servers,
+    ensure_installed = all_servers,
   },
 }
 

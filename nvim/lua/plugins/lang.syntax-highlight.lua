@@ -12,6 +12,7 @@ local treesitter = {
         "gitignore",
         "html",
         "javascript",
+        "julia",
         "lua",
         "python",
         "tsx",

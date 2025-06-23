@@ -112,7 +112,6 @@ local snacks = {
     { "<leader>x", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse" },
     { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
-    { "<leader>gf", function() Snacks.lazygit.log_file() end, desc = "Lazygit Current File History" },
     { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>gl", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)" },
     { "<leader>ux", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
@@ -137,7 +136,8 @@ local snacks = {
     { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
     { "<leader>fl", function() Snacks.picker.picker_layouts() end, desc = "Layout select" },
     -- git
-    { "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Log" },
+    { "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Commits" },
+    { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git File History" },
     -- { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
 
     --  Git files

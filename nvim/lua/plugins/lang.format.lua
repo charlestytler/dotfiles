@@ -1,5 +1,6 @@
 local formatters = {
   "black",
+  "clang-format",
   "prettier",
   "shfmt",
   "stylua",

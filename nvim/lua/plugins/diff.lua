@@ -14,7 +14,7 @@ local mini_diff = {
 
 local diffview = {
   "sindrets/diffview.nvim",
-  cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+  cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
   opts = {},
   keys = {
     { "<leader>do", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
