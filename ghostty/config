@@ -32,7 +32,7 @@ macos-auto-secure-input        = true
 macos-secure-input-indication  = true
 scrollback-limit               = 4200
 shell-integration              = fish
-shell-integration-features     = cursor,sudo,title
+shell-integration-features     = cursor,sudo,title,ssh-env,ssh-terminfo
 
 # Key bindings
 # keybind                        = ctrl+h=goto_split:left
