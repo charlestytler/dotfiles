@@ -1,3 +1,15 @@
+# For using git in WSL and Windows
+function git --description 'Use git.exe on Windows mounts and linux git elsewhere'
+    # Check if the current directory starts with /mnt/c/ or /mnt/d/
+    if string match -q "/mnt/c/*" (pwd); or string match -q "/mnt/d/*" (pwd)
+        git.exe $argv
+    else
+        # 'command git' ensures we call the binary, not the function itself (prevents recursion)
+        command git $argv
+    end
+end
+
+
 alias vgit="nvim \`git sh | tail -n +2\`"
 alias gitlog="git lg1 --color=always | head -10"
 alias gitlg="git lg --color=always | head -15"
