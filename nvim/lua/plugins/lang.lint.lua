@@ -1,6 +1,7 @@
 local linters = {
   "eslint_d",
   "shellcheck",
+  "cmakelint",
 }
 
 local nvim_lint = {
@@ -14,6 +15,7 @@ local nvim_lint = {
 
     lint.linters_by_ft = {
       bash = { "shellcheck" },
+      cmake = { "cmakelint" },
       javascript = { "eslint_d" },
       typescript = { "eslint_d" },
       javascriptreact = { "eslint_d" },

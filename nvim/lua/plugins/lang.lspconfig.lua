@@ -12,6 +12,7 @@ local servers_with_default_config = {
 
 local servers_with_custom_config = {
   "basedpyright",
+  "neocmake",
 }
 
 local all_servers = {}
@@ -85,6 +86,20 @@ local lspconfig = {
         basedpyright = {
           typeCheckingMode = "standard",
         },
+      },
+    }
+
+    lspconfig["neocmake"].setup {
+      on_attach = map_on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+      cmd = { "neocmakelsp", "stdio" },
+      filetypes = { "cmake" },
+      single_file_support = true, -- suggested
+      init_options = {
+        format = { enable = true },
+        lint = { enable = true },
+        scan_cmake_in_package = true, -- default is true
       },
     }
 

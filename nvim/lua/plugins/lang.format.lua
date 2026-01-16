@@ -4,6 +4,7 @@ local formatters = {
   "prettier",
   "shfmt",
   "stylua",
+  "gersemi", -- cmake formatter
 }
 
 local conform = {
@@ -15,6 +16,7 @@ local conform = {
   opts = {
     formatters_by_ft = {
       sh = { "shfmt" },
+      cmake = { "gersemi" },
       css = { "prettier" },
       html = { "prettier" },
       javascript = { "prettier" },
