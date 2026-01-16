@@ -10,6 +10,7 @@ $git_status\
 $git_state\
 $fill\
 
+$python\
 $cmd_duration\
 $git_metrics\
 $time\
@@ -66,6 +67,12 @@ modified = '[  $count](red)'
 staged = '[  $count](green)'
 renamed = '[  $count](fg:#df9663)'
 deleted = '[ 🗑$count](bold red)'
+
+[python]
+format = '[$symbol$virtualenv]($style) '
+style = "green bold"
+# Only show if a venv is actually active
+symbol = "󱔎 "
 
 [cmd_duration]
 style = "dimmed bold yellow"
