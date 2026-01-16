@@ -39,14 +39,16 @@ local oil = {
   ---@type oil.SetupOpts
   opts = {
     keymaps = {
-      ["g?"] = { "actions.show_help", mode = "n" },
+      ["<leader>?"] = { "actions.show_help", mode = "n" },
       ["<CR>"] = "actions.select",
       ["<M-l>"] = { "actions.select", opts = { vertical = true } },
       ["<M-j>"] = { "actions.select", opts = { horizontal = true } },
       ["<C-t>"] = { "actions.select", opts = { tab = true } },
+      ["<C-h>"] = false,
       ["<C-p>"] = "actions.preview",
       ["<C-c>"] = { "actions.close", mode = "n" },
       ["<C-5>"] = "actions.refresh",
+      ["<C-l>"] = false,
       ["<BS>"] = { "actions.parent", mode = "n" },
       ["_"] = { "actions.open_cwd", mode = "n" },
       ["`"] = { "actions.cd", mode = "n" },
