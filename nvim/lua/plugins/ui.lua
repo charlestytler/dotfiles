@@ -32,26 +32,46 @@ local incline = {
   "b0o/incline.nvim",
   event = "BufReadPre",
   dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons" },
-  keys = {
-    { "<leader>uh", '<Cmd>lua require"incline".toggle()<Cr>', desc = "Headers: Toggle" },
-  },
   config = function()
+    -- 1. Create a state variable
+    local show_relative_path = false
+
     require("incline").setup {
       window = {
         zindex = 30,
         margin = {
-          vertical = { top = vim.o.laststatus == 3 and 0 or 1, bottom = 0 }, -- shift to overlap window borders
+          vertical = { top = vim.o.laststatus == 3 and 0 or 1, bottom = 0 },
           horizontal = { left = 0, right = 2 },
         },
       },
       render = function(props)
-        local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+        -- 2. Modify filename logic based on state
+        local path = vim.api.nvim_buf_get_name(props.buf)
+        local filename = vim.fn.fnamemodify(path, ":t")
+
+        -- If toggle is on, use relative path; otherwise, just filename
+        -- local display_name = show_relative_path and vim.fn.fnamemodify(path, ":.") or filename
+        local display_name = filename
+        if show_relative_path then
+          local root = Snacks.git.get_root(path)
+          if root then
+            -- Strip the root path + the following slash from the full path
+            display_name = path:sub(#root + 2)
+          else
+            display_name = vim.fn.fnamemodify(path, ":.")
+          end
+        end
+
+        if display_name == "" then
+          display_name = "[No Name]"
+        end
+
         local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
         local modified = vim.bo[props.buf].modified and "bold,italic" or "bold"
 
+        -- [Existing helper functions: get_git_diff and get_diagnostic_label remain the same]
         local function get_git_diff()
           local icons = { removed = " ", changed = " ", added = " " }
-          icons["changed"] = icons.modified
           local signs = vim.b[props.buf].gitsigns_status_dict
           local labels = {}
           if signs == nil then
@@ -67,10 +87,10 @@ local incline = {
           end
           return labels
         end
-        local function get_diagnostic_label()
-          local icons = { error = "", warn = " ", info = " ", hint = "" }
-          local label = {}
 
+        local function get_diagnostic_label()
+          local icons = { error = "", warn = " ", info = " ", hint = " " }
+          local label = {}
           for severity, icon in pairs(icons) do
             local n = #vim.diagnostic.get(props.buf, { severity = vim.diagnostic.severity[string.upper(severity)] })
             if n > 0 then
@@ -83,15 +103,25 @@ local incline = {
           return label
         end
 
-        local buffer = {
+        return {
           { get_diagnostic_label() },
           { get_git_diff() },
           { (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" },
-          { filename .. " ", gui = modified },
+          { display_name .. " ", gui = modified }, -- Use display_name here
         }
-        return buffer
       end,
     }
+
+    -- 3. Create the toggle keymap
+    -- We define it inside config so it has access to the 'show_relative_path' variable
+    vim.keymap.set("n", "<leader>up", function()
+      show_relative_path = not show_relative_path
+      require("incline").refresh() -- Force an immediate re-render
+    end, { desc = "Path in Headers: Toggle" })
+
+    vim.keymap.set("n", "<leader>uh", function()
+      require("incline").toggle()
+    end, { desc = "Headers: Toggle" })
   end,
 }
 
