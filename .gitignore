@@ -1,3 +1,6 @@
 # Ignore changes to this file to allow machine-specific settings that aren't propagated to all machines.
 config.fish
+
+# Ignore these to allow plugin managers to freshly install them.
+nvm.fish
 tmux/plugins/

@@ -10,9 +10,3 @@ end
 
 set -g fish_greeting
 
-
-# NPM 
-# requires "fisher install jorgebucaran/nvm.fish"
-#     https://github.com/jorgebucaran/fisher
-set -xU nvm_default_version 22
-
