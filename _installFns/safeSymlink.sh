@@ -54,9 +54,10 @@ safeSymlink() {
 overwriteSymlinkWithUserPermission() {
   local target=$1
   local link=$2
-  target ./promptToContinue.sh # Import promptToContinue function
+  source _installFns/promptToContinue.sh # Import promptToContinue function
 
   if promptToContinue "Do you want to overwrite this? (y/n) "; then
+    rm -rf "${link}"
     ln -sf "${target}" "${link}"
     printf "    ${GREEN}installed:${RESET} ${link}\n"
   else
