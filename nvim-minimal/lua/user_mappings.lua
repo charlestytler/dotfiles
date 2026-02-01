@@ -11,8 +11,10 @@ map("n", "<leader>q", "q", { noremap = true, desc = "Macro" })
 map("n", "q", "<Nop>")
 
 -- File Buffer Navigation -- disabled due to buffer_manager.lua
--- map({ "n", "v" }, "(", "<cmd> bp <cr>", { desc = "Buffer Prev" })
--- map({ "n", "v" }, ")", "<cmd> bn <cr>", { desc = "Buffer Next" })
+if not require("lazy.core.config").plugins["j-morano/buffer_manager.nvim"] then
+  map({ "n", "v" }, "(", "<cmd> bp <cr>", { desc = "Buffer Prev" })
+  map({ "n", "v" }, ")", "<cmd> bn <cr>", { desc = "Buffer Next" })
+end
 
 -- Window Navigation (don't override tmux-navigator if installed)
 if not require("lazy.core.config").plugins["vim-tmux-navigator"] then
