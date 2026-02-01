@@ -1,10 +1,10 @@
 # This function expects to modify the following externally defined variables:
 #
 # extern CONFIG_sections
-# extern CONFIG_pkgs
 # extern CONFIG_commands
+# extern INSTALL_commands
 #
-parseConfigForSectionsPkgsCommands() {
+parseConfigForSectionsAndCommands() {
   local cfg_file_path="$1"
   local currentOS="$2"
   local filtered_sections="$3"
@@ -53,7 +53,7 @@ parseConfigForSectionsPkgsCommands() {
       key=$(trimWhiteSpace "${BASH_REMATCH[1]}")
       value=$(trimWhiteSpace "${BASH_REMATCH[2]}")
       # Ignore if specifiedOS exists and does not equal the currentOS
-      [[ -n "$specifiedOS" && "$specifiedOS" != "$currentOS" ]] && continue
+      [[ -n "$specifiedOS" && "$specifiedOS" != *"$currentOS"* ]] && continue
       # Skip sections not in the filtered list
       [[ ! " $filtered_sections " =~ " $current_section " ]] && continue
 
@@ -83,8 +83,8 @@ handleConfigActions() {
   "symlink")
     CONFIG_commands+=("safeSymlink $value")
     ;;
-  "pkgs")
-    CONFIG_pkgs+=("$value")
+  "install")
+    INSTALL_commands+=("$value")
     ;;
   *)
     printf "${RED}ERROR${RESET}: No action defined for key: ${YELLOW}$key${RESET} and value: ${YELLOW}$value${RESET}\n"
