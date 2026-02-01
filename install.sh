@@ -8,6 +8,7 @@ run() {
     exit 1
   fi
   DOTFILES_DIR=$(pwd) # Global variable allowed for use in installConfig.cfg
+  CONFIG_HOME="$HOME/.config" # Global variable default, may be overwritten by detectOS
 
   source _installFns/parseArgs.sh          # Import parseArgs
   source _installFns/parseConfig.sh        # Import parseConfigForSectionsAndCommands
