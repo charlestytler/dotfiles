@@ -1,6 +1,8 @@
 [core]
 	editor = nvim
   pager = delta
+[init]
+  defaultBranch = main
 [merge]
 	tool = meld
 	conflictstyle = diff3
