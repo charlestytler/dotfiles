@@ -127,6 +127,7 @@ local snacks = {
     -- { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<C-p>", function() Snacks.picker.files({layout={preset="vscode"}}) end, desc = "Find Files" },
+
     -- find
     -- { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = "~/dotfiles", layout={preset="select"} }) end, desc = "Find Config File" },
@@ -173,7 +174,8 @@ local snacks = {
     { "gI", function() Snacks.picker.lsp_implementations({ layout = "ivy" }) end, desc = "Goto Implementation" },
     { "gy", function() Snacks.picker.lsp_type_definitions({ layout = "ivy" }) end, desc = "Goto T[y]pe Definition" },
     { "<leader>cD", function() Snacks.picker.diagnostics_buffer({ layout = "ivy" }) end, desc = "Diagnostics in Buffer" },
-    { "<leader>cp", function() Snacks.picker.diagnostics({ layout = "ivy" }) end, desc = "Project-wide Diagnostics" },
+    { "<leader>cp", function() Snacks.picker.diagnostics({ layout = "ivy" }) end, desc = "Diagnostics Project-wide" },
+    { "<leader>ca", function() Snacks.picker.lsp_code_actions() end, desc = "Code Actions" },
     -- stylua: ignore end
   },
   init = function()
