@@ -42,37 +42,45 @@
     "workbench.iconTheme": "vscode-icons",
     "githubPullRequests.queries": [
         {
+            "label": "Local Pull Request Branches",
+            "query": "default"
+        },
+        {
             "label": "Waiting For My Review",
-            "query": "is:open review-requested:${user} archived:false -review:approved"
+            "query": "repo:${owner}/${repository} is:open review-requested:${user} archived:false -review:approved"
         },
         {
             "label": "Commented on by Me",
-            "query": "is:open review-requested:${user} commenter:${user} archived:false -review:approved"
+            "query": "repo:${owner}/${repository} is:open review-requested:${user} commenter:${user} archived:false -review:approved"
         },
         {
             "label": "Accepted by Others",
-            "query": "is:open review:approved review-requested:${user} archived:false"
+            "query": "repo:${owner}/${repository} is:open review:approved review-requested:${user} archived:false"
         },
         {
             "label": "Reviewed by Me",
-            "query": "is:open reviewed-by:${user} archived:false"
+            "query": "repo:${owner}/${repository} is:open reviewed-by:${user} archived:false"
         },
         {
             "label": "Mentioned Me - Needs Review",
-            "query": "is:open mentions:${user}"
+            "query": "repo:${owner}/${repository} is:open mentions:${user}"
         },
         {
             "label": "Mentioned Me - Accepted",
-            "query": "is:open mentions:${user}"
+            "query": "repo:${owner}/${repository} is:open mentions:${user}"
         },
         {
             "label": "Assigned To Me",
-            "query": "is:open assignee:${user}"
+            "query": "repo:${owner}/${repository} is:open assignee:${user}"
         },
         {
             "label": "Created By Me",
-            "query": "is:open author:${user}"
+            "query": "repo:${owner}/${repository} is:open author:${user}"
         },
+        {
+            "label": "All Open",
+            "query": "default"
+        }
     ],
     "vim.insertModeKeyBindings": [
         {
@@ -247,4 +255,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "terminal.integrated.enableMultiLinePasteWarning": false,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
 }
