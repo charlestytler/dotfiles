@@ -174,7 +174,7 @@ local snacks = {
     { "gI", function() Snacks.picker.lsp_implementations({ layout = "ivy" }) end, desc = "Goto Implementation" },
     { "gy", function() Snacks.picker.lsp_type_definitions({ layout = "ivy" }) end, desc = "Goto T[y]pe Definition" },
     { "<leader>cD", function() Snacks.picker.diagnostics_buffer({ layout = "ivy" }) end, desc = "Diagnostics in Buffer" },
-    { "<leader>cp", function() Snacks.picker.diagnostics({ layout = "ivy" }) end, desc = "Diagnostics Project-wide" },
+    { "<leader>ce", function() Snacks.picker.diagnostics({ layout = "ivy" }) end, desc = "Diagnostics Errors Project-wide" },
     { "<leader>ca", function() Snacks.picker.lsp_code_actions() end, desc = "Code Actions" },
     -- stylua: ignore end
   },
