@@ -12,36 +12,20 @@ local colors = {
   red = "#ec5f67",
 }
 
-local function diff_source()
-  local gitsigns = vim.b.gitsigns_status_dict
-  if gitsigns then
-    return {
-      added = gitsigns.added,
-      modified = gitsigns.changed,
-      removed = gitsigns.removed,
-    }
-  end
-end
+local filetypeIcon = {
+  "filetype",
+  colored = true,
+  icon_only = true,
+  separator = "",
+  padding = { left = 1, right = 0 },
+}
 
-local lsp_status = {
-  -- Lsp server name .
+local workspaceDir = {
   function()
-    local msg = ""
-    local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-    local clients = vim.lsp.get_clients()
-    if next(clients) == nil then
-      return msg
-    end
-    for _, client in ipairs(clients) do
-      local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
-      end
-    end
-    return msg
+    return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
   end,
-  icon = " ",
-  color = { fg = "#cccccc" },
+  icon = "", -- Optional: folder icon
+  color = {},
 }
 
 local lualine = {
@@ -49,16 +33,16 @@ local lualine = {
   opts = {
     options = {
       theme = "tomorrow_night",
-      section_separators = { left = "", right = "" },
-      component_separators = { left = "", right = "|" },
+      section_separators = { left = "", right = "" },
+      component_separators = { left = "|", right = "|" },
     },
     sections = {
-      lualine_a = { { "mode", separator = { left = "", right = "" }, right_padding = 2 } },
-      lualine_b = { "branch", "diff", "diagnostics" },
-      lualine_c = { "filename", "searchcount" },
-      lualine_x = { "encoding", "fileformat", "filetype" },
-      lualine_y = { "lsp_status" },
-      lualine_z = { "progress", "location" },
+      lualine_a = { "mode" },
+      lualine_b = { filetypeIcon, { "filename", padding = { left = 0, right = 1 } } },
+      lualine_c = { "branch", "diff", "diagnostics", "searchcount" },
+      lualine_x = { "filetype", "lsp_status" },
+      lualine_y = { "progress", { "location", padding = { left = 0, right = 1 } } },
+      lualine_z = { workspaceDir },
     },
     inactive_sections = {
       lualine_a = {},
@@ -66,8 +50,9 @@ local lualine = {
       lualine_c = { "filename" },
       lualine_x = { "location" },
       lualine_y = {},
-      lualine_z = {},
+      lualine_z = { workspaceDir },
     },
+    extensions = { "quickfix", "oil" },
   },
 }
 
