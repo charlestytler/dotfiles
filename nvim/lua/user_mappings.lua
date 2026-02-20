@@ -50,6 +50,9 @@ map({ "n", "v" }, "<leader>wq", "<C-w>q", { noremap = false, desc = "[Q]uit Wind
 map("n", "<leader>w<CR>", "<C-w>|<C-w>_", { noremap = false, desc = "Window maximize" })
 map("n", "<leader>wT", ":tab split<CR>", { noremap = false, desc = "Open in new [T]ab" })
 
+-- UI
+map("n", "<leader>ur", "<cmd>set rnu!<CR>", { desc = "UI toggle relative number" })
+
 -- Movement
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection " })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection " })
@@ -74,9 +77,16 @@ vim.keymap.set(
   { desc = "Replace word under cursor" }
 )
 vim.keymap.set("v", "<leader>r/", 'y:%s/<C-r>"/<C-r>"/gI<Left><Left><Left>', { desc = "Replace selection" })
+-- Comment
+map("n", "<leader>'", "gcc", { desc = "toggle comment", remap = true })
+map("v", "<leader>'", "gc", { desc = "toggle comment", remap = true })
 
 -- Count
 vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Number Increase" })
 vim.keymap.set("v", "<leader>+", "g<C-a>", { desc = "Number Increase sequence" })
 vim.keymap.set({ "n", "v" }, "-", "<C-x>", { desc = "Number Decrease" })
 vim.keymap.set("v", "<leader>-", "g<C-x>", { desc = "Number Decrease sequence" })
+
+-- map("n", "<leader>cf", function()
+--   require("conform").format { lsp_fallback = false }
+-- end, { desc = "code format file" })

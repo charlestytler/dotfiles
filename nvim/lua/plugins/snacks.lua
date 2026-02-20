@@ -150,6 +150,7 @@ local snacks = {
     { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
     { "<leader>sB", function() Snacks.picker.grep_buffers({ layout = "dropdown" }) end, desc = "Grep Open Buffers" },
     { "<leader>sg", function() Snacks.picker.grep({ layout = "dropdown" }) end, desc = "Grep" },
+    { "<leader>sc", function() Snacks.picker.grep({ cwd = "~/dotfiles", layout = "dropdown" }) end, desc = "Search Config files" },
     { "<leader>sw", function() Snacks.picker.grep_word({ layout = "dropdown" }) end, desc = "Visual selection or word", mode = { "n", "x" } },
     -- search
     { '<leader>s"', function() Snacks.picker.registers({ layout = "dropdown" }) end, desc = "Registers" },

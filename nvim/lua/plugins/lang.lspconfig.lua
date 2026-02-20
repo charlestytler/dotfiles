@@ -1,33 +1,83 @@
 -- See https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 -- or :help lspconfig-all
-local servers_with_default_config = {
+local servers = {
   "lua_ls",
   "html",
   "cssls",
   "clangd",
   "ts_ls",
   "bashls",
-  "julials",
-}
-
-local servers_with_custom_config = {
   "basedpyright",
   "neocmake",
 }
 
-local all_servers = {}
-vim.list_extend(all_servers, servers_with_default_config)
-vim.list_extend(all_servers, servers_with_custom_config)
+--
+-- local map_on_attach = function(_, bufnr)
+--   local function opts(desc)
+--     return { buffer = bufnr, desc = "LSP " .. desc }
+--   end
+-- end
+--
+-- local lspconfig = {
+--   "neovim/nvim-lspconfig",
+--   event = "BufReadPost BufNewFile",
+--   config = function()
+--     require("configs.lspconfig").defaults()
+--
+--     local lspconfig = require "lspconfig"
+--     local nvlsp = require "nvchad.configs.lspconfig"
+--
+--     -- lsps with default config
+--     for _, lsp in ipairs(servers_with_default_config) do
+--       lspconfig[lsp].setup {
+--         -- on_attach = nvlsp.on_attach,
+--         on_attach = map_on_attach,
+--         on_init = nvlsp.on_init,
+--         capabilities = nvlsp.capabilities,
+--       }
+--     end
+--
+--     -- Language servers with custom config
+--     lspconfig["basedpyright"].setup {
+--       on_attach = map_on_attach,
+--       on_init = nvlsp.on_init,
+--       capabilities = nvlsp.capabilities,
+--       settings = {
+--         basedpyright = {
+--           typeCheckingMode = "standard",
+--         },
+--       },
+--     }
+--
+--     lspconfig["neocmake"].setup {
+--       on_attach = map_on_attach,
+--       on_init = nvlsp.on_init,
+--       capabilities = nvlsp.capabilities,
+--       cmd = { "neocmakelsp", "stdio" },
+--       filetypes = { "cmake" },
+--       single_file_support = true, -- suggested
+--       init_options = {
+--         format = { enable = true },
+--         lint = { enable = true },
+--         scan_cmake_in_package = true, -- default is true
+--       },
+--     }
+--   end,
+--   dependencies = {
+--     "antosha417/nvim-lsp-file-operations",
+--     "williamboman/mason-lspconfig.nvim",
+--   },
+-- }
+--
 
-local map_on_attach = function(_, bufnr)
+local on_attach = function(_, bufnr)
   local function opts(desc)
     return { buffer = bufnr, desc = "LSP " .. desc }
   end
 
-  local map = vim.keymap.set
-
   map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
-  -- map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
+  map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
+  map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
   -- map("n", "gI", vim.lsp.buf.implementation, opts "Go to implementation")
   -- map("n", "gt", vim.lsp.buf.type_definition, opts "Go to type definition")
   --
@@ -46,8 +96,6 @@ local map_on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, opts "List workspace folders")
 
-  map("n", "<leader>rs", require "nvchad.lsp.renamer", opts "Rename Symbol")
-
   -- map("n", "<leader>cD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts "Diagnostics for file")
   map("n", "<leader>cd", vim.diagnostic.open_float, opts "Diagnostics for current line")
   map("n", "[d", vim.diagnostic.goto_prev, opts "Goto previous diagnostic")
@@ -58,63 +106,36 @@ end
 
 local lspconfig = {
   "neovim/nvim-lspconfig",
+  event = "BufReadPost BufNewFile",
   config = function()
-    -- require "lsp_config.config"
+    -- This sets the 'template' for any server enabled hereafter
+    vim.lsp.config("*", {
+      on_attach = map_on_attach, -- Your custom function
+      -- on_init = nvlsp.on_init,
+      -- capabilities = nvlsp.capabilities,
+    })
 
-    -- load defaults i.e lua_lsp
-    require("nvchad.configs.lspconfig").defaults()
-
-    local lspconfig = require "lspconfig"
-    local nvlsp = require "nvchad.configs.lspconfig"
-
-    -- lsps with default config
-    for _, lsp in ipairs(servers_with_default_config) do
-      lspconfig[lsp].setup {
-        -- on_attach = nvlsp.on_attach,
-        on_attach = map_on_attach,
-        on_init = nvlsp.on_init,
-        capabilities = nvlsp.capabilities,
-      }
-    end
-
-    -- Language servers with custom config
-    lspconfig["basedpyright"].setup {
-      on_attach = map_on_attach,
-      on_init = nvlsp.on_init,
-      capabilities = nvlsp.capabilities,
+    -- Custom Configs
+    vim.lsp.config("basedpyright", {
       settings = {
         basedpyright = {
           typeCheckingMode = "standard",
         },
       },
-    }
+    })
 
-    lspconfig["neocmake"].setup {
-      on_attach = map_on_attach,
-      on_init = nvlsp.on_init,
-      capabilities = nvlsp.capabilities,
+    vim.lsp.config("neocmake", {
       cmd = { "neocmakelsp", "stdio" },
       filetypes = { "cmake" },
-      single_file_support = true, -- suggested
+      root_markers = { ".git", "CMakeLists.txt" }, -- 0.11 uses root_markers
       init_options = {
         format = { enable = true },
         lint = { enable = true },
-        scan_cmake_in_package = true, -- default is true
+        scan_cmake_in_package = true,
       },
-    }
+    })
 
-    -- lspconfig["julials"].setup {
-    --   on_attach = map_on_attach,
-    --   on_init = nvlsp.on_init,
-    --   capabilities = nvlsp.capabilities,
-    --   on_new_config = function(new_config, _)
-    --     local julia = vim.fn.expand "~/.julia/environments/nvim-lspconfig/bin/julia"
-    --     if require("lspconfig").util.path.is_file(julia) then
-    --       vim.notify("julia found", vim.log.levels.INFO)
-    --       new_config.cmd[1] = julia
-    --     end
-    --   end,
-    -- }
+    vim.lsp.enable(servers)
   end,
   dependencies = {
     "antosha417/nvim-lsp-file-operations",
@@ -122,21 +143,14 @@ local lspconfig = {
   },
 }
 
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
-
 local mason_lspconfig = {
   "williamboman/mason-lspconfig.nvim",
   -- Ensure plugins are loaded in order: mason, mason-lspconfig, nvim-lspconfig
   dependencies = {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
   },
   opts = {
-    ensure_installed = all_servers,
+    ensure_installed = servers,
   },
 }
 

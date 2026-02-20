@@ -1,40 +1,28 @@
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
+require "configs.lazy"
+
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
-
--- bootstrap lazy and all plugins
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-
-if not vim.uv.fs_stat(lazypath) then
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
-end
-
-vim.opt.rtp:prepend(lazypath)
-
-local lazy_config = require "configs.lazy"
-
--- load plugins
-require("lazy").setup({
-  {
-    "NvChad/NvChad",
-    lazy = false,
-    branch = "v2.5",
-    import = "nvchad.plugins",
-  },
-
-  { import = "plugins" },
-}, lazy_config)
-
--- load theme
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
+vim.g.maplocalleader = "\\"
 
 require "options"
-require "nvchad.autocmds"
 require "user_functions"
 require "filetype_associations"
 
+-- Setup lazy.nvim
+require("lazy").setup {
+  spec = {
+    { import = "plugins" },
+  },
+  -- Configure any other settings here. See the documentation for more details.
+  -- colorscheme that will be used when installing plugins.
+  install = { colorscheme = { "palenight" } },
+  -- automatically check for plugin updates
+  checker = { enabled = true },
+}
+
+-- Load user mappings after initializing core setup.
 vim.schedule(function()
-  require "nvchad_mappings"
   require "user_mappings"
 end)

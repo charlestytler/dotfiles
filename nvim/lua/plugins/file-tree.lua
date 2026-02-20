@@ -1,10 +1,3 @@
--- Disable NvChad's default tree
-local nvim_tree = {
-  "nvim-tree/nvim-tree",
-  opts = { disable_netrw = false },
-  enabled = false,
-}
-
 local neo_tree = {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
@@ -94,6 +87,5 @@ local neo_tree = {
 }
 
 return {
-  nvim_tree,
   neo_tree,
 }
