@@ -17,6 +17,7 @@ local codeium = {
   },
   keys = {
     { "<leader>a", "<cmd>Codeium Chat<CR>", desc = "Ask Codeium chat" },
+    { "<leader>ac", "<cmd>Codeium Toggle<CR>", desc = "Completion toggle" },
   },
   opts = {
     enable_cmp_source = true,
