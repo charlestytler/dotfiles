@@ -9,11 +9,13 @@ vim.g.maplocalleader = "\\"
 require "options"
 require "user_functions"
 require "filetype_associations"
+require "lsp_mappings"
 
 -- Setup lazy.nvim
 require("lazy").setup {
   spec = {
     { import = "plugins" },
+    { import = "plugins.lsp" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.

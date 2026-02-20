@@ -4,6 +4,21 @@ local minty_colorpicker = {
   opts = {},
 }
 
+-- Show colors for RGB/HEX codes
+local colorizer = {
+  "norcalli/nvim-colorizer.lua",
+  event = "BufReadPre",
+  cmd = { "ColorizerToggle" },
+  opts = {},
+  keys = {
+    {
+      "<leader>uc",
+      "<cmd>ColorizerToggle<cr>",
+      desc = "Color 🎨RGB/HEX: Toggle",
+    },
+  },
+}
+
 local ccc = {
   "uga-rosa/ccc.nvim",
   opts = {
@@ -24,5 +39,6 @@ local ccc = {
 
 return {
   -- minty_colorpicker,
+  colorizer,
   ccc,
 }

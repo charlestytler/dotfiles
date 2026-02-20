@@ -46,7 +46,7 @@ local mason_nvim_lint = {
   "rshkarin/mason-nvim-lint",
   -- Ensure plugin install order: mason, mason-nvim-lint, nvim-lint
   dependencies = {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
   },
   opts = {
     ensure_installed = linters,

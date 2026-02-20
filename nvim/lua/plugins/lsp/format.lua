@@ -40,7 +40,7 @@ local conform = {
 local mason_conform = {
   "zapling/mason-conform.nvim",
   dependencies = {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
   },
   opts = {
     formatters = formatters,
