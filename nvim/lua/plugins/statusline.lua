@@ -32,7 +32,7 @@ local lualine = {
   "nvim-lualine/lualine.nvim",
   opts = {
     options = {
-      theme = "tomorrow_night",
+      theme = "catppuccin",
       section_separators = { left = "", right = "" },
       component_separators = { left = "|", right = "|" },
     },
