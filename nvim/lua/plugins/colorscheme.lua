@@ -1,8 +1,32 @@
 local flavour_color_overrides = {
   latte = {
-    base = "#d4c8ca", -- this is the main background
-    mantle = "#bcab88", -- optional: slightly darker
-    crust = "#b5a481", -- optional: edges/borders
+    -- Toned-down Sepia (less "yellow", more "neutral paper")
+    base = "#f2ede3", -- Muted parchment base
+    mantle = "#e6dfd3", -- Softer sidebar
+    crust = "#dbd3c6", -- Muted borders
+
+    -- High Contrast Dark Text
+    text = "#1a1a1a", -- Sharp dark grey-black
+    subtext1 = "#333333",
+
+    -- Darker, "Ochre" Yellow for better legibility on light background
+    yellow = "#a0522d", -- Sienna/Clay brown
+    peach = "#bf6c22", -- Darker orange/tan for contrast
+
+    -- Optional: Desaturate other colors to match the "old book" feel
+    green = "#5b7a5b", -- Forest green
+    blue = "#45707a", -- Steel blue
+    mauve = "#88507a", -- Dusky plum (replaces bright purple)
+
+    -- UI elements
+    surface0 = "#dfd8cc",
+    surface1 = "#d3ccbf",
+  },
+  macchiato = {
+    -- Deep Blue-Grey Backgrounds (Palenight style)
+    base = "#292d3e", -- Main background (Palenight standard)
+    mantle = "#1b1e2b", -- Darker sidebar/UI
+    crust = "#141622", -- Darkest borders
   },
 }
 
@@ -95,7 +119,7 @@ return {
     priority = 1000,
     config = function()
       require("catppuccin").setup {
-        flavour = "frappe",
+        flavour = "macchiato",
         color_overrides = flavour_color_overrides,
         auto_integrations = true,
       }
