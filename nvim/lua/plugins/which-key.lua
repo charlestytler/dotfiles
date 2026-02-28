@@ -18,6 +18,7 @@ return {
       { "<leader>d", group = "[D]iff 🚧" },
       { "<leader>f", group = "[F]iles 📂" },
       { "<leader>l", group = "[L]og 🪵" },
+      { "<leader>n", group = "[N]otes 📝" },
       { "<leader>q", group = "[Q]uickfix 🔧" },
       { "<leader>r", group = "[R]eplace 🔁" },
       { "<leader>s", group = "[S]earch 🔍" },
