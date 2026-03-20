@@ -83,7 +83,7 @@ local snacks = {
     rename = { enabled = false },
     scroll = { enabled = true, animate = { easing = "outCubic" } },
     statuscolumn = { enabled = false },
-    terminal = { enabled = false },
+    terminal = { enabled = true },
     words = { enabled = true },
     -- Additional Options
     styles = {
@@ -103,7 +103,8 @@ local snacks = {
     { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>gl", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)" },
     { "<leader>ux", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-    -- { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
+    { "<c-/>",      function() Snacks.terminal(nil, { win = {position = "float"} }) end, mode = { "n", "t" }, desc = "Toggle Terminal (float)" },
+    -- { "<c-|>",      function() Snacks.terminal(nil, { win = {position = "bottom"} }) end, mode = { "n", "t" }, desc = "Toggle Terminal (bottom)" },
     -- { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
     { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },

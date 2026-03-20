@@ -1,19 +1,26 @@
+local flavour_color_overrides = {
+	macchiato = {
+		-- Deep Blue-Grey Backgrounds (Palenight style)
+		base = "#292d3e", -- Main background (Palenight standard)
+		mantle = "#1b1e2b", -- Darker sidebar/UI
+		crust = "#141622", -- Darkest borders
+	},
+}
+
 return {
 	{
-		"alexmozaidze/palenight.nvim",
+		"catppuccin/nvim",
+		name = "catppuccin",
 		lazy = false,
 		priority = 1000,
-		init = function()
-			local groups = require("palenight.groups")
-
-			-- Highlight overrides
-			groups["DiffAdd"] = { fg = "NONE", bg = "#405050" }
-			groups["DiffChange"] = { fg = "NONE", bg = "#555555" }
-			groups["DiffDelete"] = { fg = "NONE", bg = "#875c60" }
-			groups["DiffText"] = { bold = true, fg = "NONE", bg = "#1f1500" }
-		end,
 		config = function()
-			vim.cmd("colorscheme palenight")
+			require("catppuccin").setup({
+				flavour = "macchiato",
+				color_overrides = flavour_color_overrides,
+				auto_integrations = true,
+			})
+
+			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
 }
