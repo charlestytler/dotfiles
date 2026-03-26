@@ -10,7 +10,12 @@ function git --description 'Use git.exe on Windows mounts and linux git elsewher
 end
 
 
-alias vgit="nvim \`git sh | tail -n +2\`"
+function vshow
+  nvim $(git sh | tail -n +2)
+end
+function vdiff
+  nvim $(git diff --name-only)
+end
 alias gitlog="git lg1 --color=always | head -10"
 alias gitlg="git lg --color=always | head -15"
 alias gitclear="git reset --hard; git clean -i"
