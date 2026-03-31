@@ -22,6 +22,8 @@ alias gitclear="git reset --hard; git clean -i"
 alias gitcount="git diff --cached --numstat | wc -l"
 alias gitclidiff="export $GIT_EXTERNAL_DIFF=diffy"
 
+alias gs-="git switch -"
+
 # gco - git checkout branch
 function git_br_preview_win_width
   set screen_width $(tput cols)
