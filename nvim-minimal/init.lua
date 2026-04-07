@@ -18,7 +18,7 @@ require("lazy").setup({
 	-- colorscheme that will be used when installing plugins.
 	install = { colorscheme = { "palenight" } },
 	-- automatically check for plugin updates
-	checker = { enabled = true },
+	checker = { enabled = true, notify = false },
 })
 
 -- Load user mappings after initializing core setup.
