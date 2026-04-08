@@ -1,14 +1,15 @@
 # ghostty +show-config --default --docs
 # ghostty +list-themes
 
-font-family                    = 0xProto
+font-family                    = "0xProto Nerd Font"
 #font-family                    = PragmataPro Liga 
 #font-family-bold               = PragmataPro Liga 
 #font-family-italic             = PragmataPro Liga 
 #font-family-bold-italic        = PragmataPro Liga 
 
 font-thicken                   = true
-font-feature                   = ss01
+# Enable cursive italics (ss01)
+# font-feature                   = ss01
 
 # font-size                      = 13
 window-inherit-font-size       = true
