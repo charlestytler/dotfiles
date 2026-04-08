@@ -6,7 +6,7 @@ local minty_colorpicker = {
 
 -- Show colors for RGB/HEX codes
 local colorizer = {
-  "norcalli/nvim-colorizer.lua",
+  "catgoose/nvim-colorizer.lua",
   event = "BufReadPre",
   cmd = { "ColorizerToggle" },
   opts = {},

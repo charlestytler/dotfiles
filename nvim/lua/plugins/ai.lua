@@ -76,6 +76,6 @@ local neocodeium = {
 return {
   -- copilot,
   codeium,
-  codecompanion,
+  -- codecompanion, neovim 0.12 warnings
   -- neocodeium
 }
