@@ -86,6 +86,28 @@ local haunt = {
   end,
 }
 
+local obsidian = {
+  "obsidian-nvim/obsidian.nvim",
+  version = "*", -- use latest release, remove to use latest commit
+  ---@module 'obsidian'
+  ---@type obsidian.config
+  opts = {
+    legacy_commands = false, -- this will be removed in the next major release
+    workspaces = {
+      {
+        name = "notes",
+        path = "~/notes",
+      },
+      -- {
+      --   name = "personal",
+      --   path = "~/vaults/personal",
+      -- },
+    },
+    ui = { enable = false },
+  },
+}
+
 return {
   haunt,
+  obsidian,
 }
